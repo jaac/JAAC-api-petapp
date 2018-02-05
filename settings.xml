@@ -3,6 +3,7 @@
 	To check active profiles, in a project folder we run mvn help:active-profiles 
 	Now in our pom.xml we can add profiles with their own properties like database 
 	settings -->
+	<!-- second commit  -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
