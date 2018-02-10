@@ -20,12 +20,12 @@ public class UserResourceFunctionalTesting {
 //	}
 	
 	private void createUser() {
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(Dispatcher.USERS).body("jaac").build();
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(Dispatcher.USERS).body("1:jaac:1:lostpetinNY:images/img.jpg:5489496:5151558").build();
 		new HttpClientService().httpRequest(request);
 	}
 	
 	private void createUserCG() {
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(Dispatcher.USERS).body("jaac:1:lostpetinNY:images/img.jpg:5489496:5151558").build();
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(Dispatcher.USERS).body("1:jaac:1:lostpetinNY:images/img.jpg:5489496:5151558").build();
 		new HttpClientService().httpRequest(request);
 	}
 	
@@ -51,31 +51,31 @@ public class UserResourceFunctionalTesting {
 		this.createUser();
 		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.USERS).path(Dispatcher.ID).expandPath("1").build();
 		
-		assertEquals("{\"id\":1,\"name\":\"jaac\",\"captgeos\":null}",new HttpClientService().httpRequest(request).getBody());
+		assertEquals("{\"id\":1,\"name\":\"jaac\",\"captgeos\":[{\"id\":1,\"name\":\"lostpetinNY\",\"img\":\"images/img.jpg\",\"lat\":5489496,\"long\":5151558}]}",new HttpClientService().httpRequest(request).getBody());
 	}
 	
 	@Test 
 	public void testUserList() {
-//		this.createUser();
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.ALLUSERS).build();		
+	this.createUser();
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.USERS).build();		
 		assertEquals("[{\"id\":1,\"name\":\"jaac\",\"captgeos\":null}]",new HttpClientService().httpRequest(request).getBody());
 	}
 	
 	@Test 
 	public void testEmptyUserList() {
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.USERS).build();	
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.ALLUSERS).build();	
 		assertEquals("",new HttpClientService().httpRequest(request).getBody());
 	}
 	
 	@Test
 	public void testReadUserWhitCaptgeos() {
 		this.createUserCG();
-		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.USERS).path(Dispatcher.ID).expandPath("2").build();		
-		assertEquals("{\"id\":2,\"name\":\"jaac\",\"captgeos\":[{\"id\":1,\"name\":\"lostpetinNY\",\"img\":\"images/img.jpg\",\"lat\":5489496,\"long\":5151558}]}",new HttpClientService().httpRequest(request).getBody());
+		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path(Dispatcher.USERS).path(Dispatcher.ID).expandPath("1").build();		
+		assertEquals("{\"id\":1,\"name\":\"jaac\",\"captgeos\":[{\"id\":1,\"name\":\"lostpetinNY\",\"img\":\"images/img.jpg\",\"lat\":5489496,\"long\":5151558}]}",new HttpClientService().httpRequest(request).getBody());
 	}
 	
 	@Test
-	public void testReadUserAddCaptgeos() {
+	public void testUserAddCaptgeos() {
 		this.createUser();
 		
 		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(Dispatcher.USERS).path(Dispatcher.ID).expandPath("1").path(Dispatcher.ADDCAPTGEO).body("1:lostpetinNY:images/img.jpg:5489496:5151558").build();
