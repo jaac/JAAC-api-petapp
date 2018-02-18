@@ -16,8 +16,7 @@ public class CaptGeos {
 		
 	}
 	
-	public CaptGeos(int id, String name, String img, int lat, int longi) {
-		this.id = id;
+	public CaptGeos(String name, String img, int lat, int longi) {
 		this.name = name;
 		this.img = img;
 		this.lat = lat;
@@ -66,7 +65,7 @@ public class CaptGeos {
 	
 	@Override
 	public String toString(){
-		return "User[id="+ id + ", name=" + name + ", img = "+ img +", lat="+ lat +", longi = " + longi + "]";
+		return "CaptGeo[id="+ id + ", name=" + name + ", img = "+ img +", lat="+ lat +", longi = " + longi + "]";
 	}
 	
 }

@@ -1,17 +1,20 @@
 package es.jaac.petlost.api.entities;
 
+import java.util.List;
 
 public class User {
 
 	private int id;
 	private String name;
+	private List<CaptGeos> captgeos;
 	
 	public User() {
 		
 	}
 	
-	public User(String name) {
+	public User(String name, List<CaptGeos> captgeos) {
 		this.name = name;
+		this.captgeos = captgeos;
 	}
 	
     public int getId() {
@@ -29,10 +32,24 @@ public class User {
     public void setName(String name) {
     	this.name = name;
     }
+
+	public List<CaptGeos> getCaptgeos() {
+		return captgeos;
+	}
+
+	public void setCaptgeos(List<CaptGeos> captgeos) {
+		this.captgeos = captgeos;
+	}
     
     @Override
     public String toString(){
     	
-    	return "User[id="+ id + ", name=" + name + "]";
+    	return "User[id="+ id + ", name=" + name + ", captgeos="+ captgeos +"]";
     }
+
+	public void addCaptgeos(CaptGeos userCaptGeos) {
+		System.out.println(userCaptGeos);
+		//this.captgeos.add(userCaptGeos);
+	}
+
 }

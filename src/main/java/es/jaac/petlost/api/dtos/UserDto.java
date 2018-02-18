@@ -1,51 +1,61 @@
 package es.jaac.petlost.api.dtos;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import es.jaac.petlost.api.entities.CaptGeos;
 import es.jaac.petlost.api.entities.User;
+
 public class UserDto {
-	
+
 	private int id;
 	private String name;
-	private List<CaptGeosDto> userCaptGeos;
-	
-	public UserDto(){
-		
+	private List<CaptGeos> userCaptGeos;
+	private List<CaptGeosDto> userCaptGeosDto = new ArrayList<>(); 
+
+	public UserDto() {
+
 	}
-	
-	public UserDto(User user){
+
+	public UserDto(User user) {
 		this.id = user.getId();
 		this.name = user.getName();
+		this.userCaptGeos = user.getCaptgeos();
 	}
-	
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public List<CaptGeosDto> getUserCaptGeos() {
-		return userCaptGeos;
+		// capturar cg y convertirlos en cgdto
+		for (CaptGeos cg : this.userCaptGeos) {
+			this.userCaptGeosDto.add(new CaptGeosDto(cg));
+		}
+		return userCaptGeosDto;
 	}
 
-	public void setUserCaptGeos(List<CaptGeosDto> userCaptGeos) {
-		this.userCaptGeos = userCaptGeos;
+	public void addUserCaptGeos(CaptGeos userCaptGeos) {
+
+		this.userCaptGeos.add(userCaptGeos);
 	}
-	
-    @Override
-    public String toString() {
-    	
-        return "{\"id\":"+ id +",\"name\":\""+name+"\",\"captgeos\":"+userCaptGeos+"}";
-    }
-    
+
+	@Override
+	public String toString() {
+
+		return "{\"id\":" + id + ",\"name\":\"" + name + "\",\"captgeos\":" + userCaptGeosDto + "}";
+	}
+
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>es.jaac</groupId>
-  <artifactId>JAAC-api-petapp</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>${project.groupId}.${project.artifactId}</name>
-  	<properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>es.jaac</groupId>
+	<artifactId>JAAC-api-petapp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>${project.groupId}.${project.artifactId}</name>
+	<properties>
 		<!-- A las propiedades se accede mediante ${...}, Ej. ${log4j.version} -->
 		<!-- Java -->
 		<encoding>UTF-8</encoding>
@@ -24,7 +25,7 @@
 		<!-- Data Base -->
 		<integration.test.skip>false</integration.test.skip>
 	</properties>
-	
+
 	<profiles>
 		<!-- Maven will apply this by default as we set in $HOME/.m2/settings.xml -->
 		<!-- Default: -Denvironment.type=develop -->
@@ -84,6 +85,7 @@
 	</profiles>
 	<dependencies>
 		<!-- Logs -->
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -133,39 +135,39 @@
 						<include>**/*IT.java</include>
 					</includes>
 				</configuration>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>integration-test</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${integration.test.skip}</skip>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${integration.test.skip}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+					<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<skip>${integration.test.skip}</skip>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	    <developers>
-        <developer>
-            <name>José Armando</name>
-            <id>JAAC</id>
-            <email>info@jaaccorp.es</email>
-            <organization>JAAC CORP</organization>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<name>José Armando</name>
+			<id>JAAC</id>
+			<email>info@jaaccorp.es</email>
+			<organization>JAAC CORP</organization>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
 </project>

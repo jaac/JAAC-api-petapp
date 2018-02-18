@@ -1,5 +1,7 @@
 package es.jaac.petlost.api.dtos;
 
+import es.jaac.petlost.api.entities.CaptGeos;
+
 public class CaptGeosDto {
 	
 	private int id;
@@ -16,12 +18,12 @@ public class CaptGeosDto {
 	
 	}
 	
-	public CaptGeosDto(int id, String name, String img, int lat, int longi) {
-		this.id = id;
-		this.name = name;
-		this.img = img;
-		this.lat = lat;
-		this.longi = longi;
+	public CaptGeosDto(CaptGeos captGeos) {
+		this.id = captGeos.getId();
+		this.name = captGeos.getName();
+		this.img = captGeos.getImg();
+		this.lat = captGeos.getLat();
+		this.longi = captGeos.getLongi();
 	}
 
 	public int getId() {
