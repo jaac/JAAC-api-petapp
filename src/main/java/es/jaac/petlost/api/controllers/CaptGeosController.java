@@ -35,28 +35,22 @@ public class CaptGeosController {
 
 	public void addCaptGeo(int userId, String namecg, String imgcg, int lat, int longi)
 			throws UserIdNotFoundExeception {
-		DaoFactory.getFactory().getCaptGeosDao().create(new CaptGeos(namecg, imgcg, lat, longi));
-		DaoFactory.getFactory().getCaptGeosDao().findCaptGeosById(1);
+		DaoFactory.getFactory().getCaptGeosDao().create(new CaptGeos(userId, namecg, imgcg, lat, longi));
+		
 
 		if (userIdExist(userId)) {
 
-			List<CaptGeos> cg = DaoFactory.getFactory().getCaptGeosDao().findCaptGeosById(1);
+			List<CaptGeos> cgl = DaoFactory.getFactory().getCaptGeosDao().findCaptGeosByUserId(userId);
 
-			if (new UserDto(DaoFactory.getFactory().getUserDao().read(userId)).getUserCaptGeos().toString() == "[]") {
-				for (CaptGeos aa : cg) {
+			for (CaptGeos cg : cgl) {
 
-					if (aa.getId() == 1) {
+				if (cg.getUserId() == userId) {
 
-						CaptGeos bba = aa;
+					CaptGeos cgu = cg;
 
-						new UserDto(DaoFactory.getFactory().getUserDao().read(userId)).addUserCaptGeos(bba);
-					}
-
+					new UserDto(DaoFactory.getFactory().getUserDao().read(userId)).addUserCaptGeos(cgu);
 				}
 
-			} else {
-				// new
-				// UserDto(DaoFactory.getFactory().getUserDao().read(userId)).setUserCaptGeos(cg);
 			}
 
 		} else {

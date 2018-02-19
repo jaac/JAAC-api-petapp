@@ -35,5 +35,18 @@ public class CaptGeosDaoFirebase extends GenericDaoFirebase<CaptGeos> implements
 	protected void setId(CaptGeos entity, int id) {
 		entity.setId(id);
 	}
+	@Override
+	public List<CaptGeos> findCaptGeosByUserId(int userId) {
+		List<CaptGeos> cg = this.findAll(); 
+		List<CaptGeos> list = new ArrayList<>();
+		
+		for(CaptGeos cgx : cg) {
+			if(cgx.getUserId() == userId) {
+				list.add(cgx);
+			}
+			
+		}
+		return list;
+	}
 
 }

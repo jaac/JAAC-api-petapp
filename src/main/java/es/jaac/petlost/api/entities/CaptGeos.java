@@ -12,12 +12,15 @@ public class CaptGeos {
 	
 	private int longi;
 	
+	private int userId = 0;
+	
 	public CaptGeos() {
 		
 	}
 	
-	public CaptGeos(String name, String img, int lat, int longi) {
+	public CaptGeos(int userId, String name, String img, int lat, int longi) {
 		this.name = name;
+		this.userId = userId;
 		this.img = img;
 		this.lat = lat;
 		this.longi = longi;
@@ -66,6 +69,14 @@ public class CaptGeos {
 	@Override
 	public String toString(){
 		return "CaptGeo[id="+ id + ", name=" + name + ", img = "+ img +", lat="+ lat +", longi = " + longi + "]";
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 }

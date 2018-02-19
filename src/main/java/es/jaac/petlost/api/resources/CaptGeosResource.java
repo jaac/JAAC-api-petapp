@@ -11,6 +11,7 @@ public class CaptGeosResource {
 	public static final String USERCAPTGEO = "userpatgeos";
 	public static final String ADDCAPTGEO = "addcaptgeo";
 	public static final String ID = "/{id}";
+	public static final String DELTECAPTGEO = "deletecaptgeo";
 
 	public List<CaptGeosDto> getCaptGeosUser(int userId) throws UserIdNotFoundExeception {
 		Optional<List<CaptGeosDto>> optional = new CaptGeosController().getCaptGeosUser(userId);
