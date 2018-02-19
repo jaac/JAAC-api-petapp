@@ -1,7 +1,6 @@
 package es.jaac.petlost.api.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

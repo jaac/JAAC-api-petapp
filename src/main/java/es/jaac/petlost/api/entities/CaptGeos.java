@@ -12,7 +12,7 @@ public class CaptGeos {
 	
 	private int longi;
 	
-	private int userId = 0;
+	private int userId;
 	
 	public CaptGeos() {
 		

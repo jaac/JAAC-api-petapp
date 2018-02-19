@@ -6,6 +6,8 @@ public class CaptGeosDto {
 	
 	private int id;
 	
+	private int userId;
+	
 	private String name;
 	
 	private String img;
@@ -20,6 +22,7 @@ public class CaptGeosDto {
 	
 	public CaptGeosDto(CaptGeos captGeos) {
 		this.id = captGeos.getId();
+		this.userId = captGeos.getUserId();
 		this.name = captGeos.getName();
 		this.img = captGeos.getImg();
 		this.lat = captGeos.getLat();
@@ -69,6 +72,14 @@ public class CaptGeosDto {
 	@Override
 	public String toString(){
 		return "{\"id\":"+id+",\"name\":\""+name+"\",\"img\":\""+img+"\",\"lat\":"+lat+",\"long\":"+longi+"}";
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 }

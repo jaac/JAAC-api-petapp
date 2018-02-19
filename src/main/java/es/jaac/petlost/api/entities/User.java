@@ -48,8 +48,8 @@ public class User {
     }
 
 	public void addCaptgeos(CaptGeos userCaptGeos) {
-		System.out.println(userCaptGeos);
-		//this.captgeos.add(userCaptGeos);
+		
+		this.captgeos.add(userCaptGeos);
 	}
 
 }

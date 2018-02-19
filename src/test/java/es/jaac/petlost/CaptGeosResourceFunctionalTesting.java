@@ -35,17 +35,20 @@ public class CaptGeosResourceFunctionalTesting {
 		HttpRequest request = new HttpRequestBuilder().method(HttpMethod.POST).path(CaptGeosResource.ADDCAPTGEO)
 				.path(UsersResource.ID).expandPath("1").body("lostpetinNY:images/img.jpg:5489496:5151558").build();
 		new HttpClientService().httpRequest(request);
-//		// Add CaptGeos 2
-//		request = new HttpRequestBuilder().method(HttpMethod.POST).path(CaptGeosResource.ADDCAPTGEO)
-//				.path(UsersResource.ID).expandPath("1").body("lostpetinSanFrancisco:images/img.jpg:5489496:5151558")
-//				.build();
+		// // Add CaptGeos 2
+		// request = new
+		// HttpRequestBuilder().method(HttpMethod.POST).path(CaptGeosResource.ADDCAPTGEO)
+		// .path(UsersResource.ID).expandPath("1").body("lostpetinSanFrancisco:images/img.jpg:5489496:5151558")
+		// .build();
 		new HttpClientService().httpRequest(request);
 		// Delete CaptGeos
-//		request = new HttpRequestBuilder().method(HttpMethod.DELETE).path(CaptGeosResource.DELTECAPTGEO)
-//				.path(UsersResource.ID).expandPath("1").build();
-//		new HttpClientService().httpRequest(request);
+		// request = new
+		// HttpRequestBuilder().method(HttpMethod.DELETE).path(CaptGeosResource.DELTECAPTGEO)
+		// .path(UsersResource.ID).expandPath("1").build();
+		// new HttpClientService().httpRequest(request);
 		// Get CaptGeos
-		request = new HttpRequestBuilder().method(HttpMethod.GET).path(UsersResource.USERS).build();
+		request = new HttpRequestBuilder().method(HttpMethod.GET).path(UsersResource.USERS).path(UsersResource.ID)
+				.expandPath("1").build();
 		assertEquals(
 				"[{\"id\":1,\"name\":\"lostpetinNY\",\"img\":\"images/img.jpg\",\"lat\":5489496,\"long\":5151558}]",
 				new HttpClientService().httpRequest(request).getBody());

@@ -35,23 +35,9 @@ public class CaptGeosController {
 
 	public void addCaptGeo(int userId, String namecg, String imgcg, int lat, int longi)
 			throws UserIdNotFoundExeception {
-		DaoFactory.getFactory().getCaptGeosDao().create(new CaptGeos(userId, namecg, imgcg, lat, longi));
-		
 
 		if (userIdExist(userId)) {
-
-			List<CaptGeos> cgl = DaoFactory.getFactory().getCaptGeosDao().findCaptGeosByUserId(userId);
-
-			for (CaptGeos cg : cgl) {
-
-				if (cg.getUserId() == userId) {
-
-					CaptGeos cgu = cg;
-
-					new UserDto(DaoFactory.getFactory().getUserDao().read(userId)).addUserCaptGeos(cgu);
-				}
-
-			}
+			DaoFactory.getFactory().getCaptGeosDao().create(new CaptGeos(userId, namecg, imgcg, lat, longi));
 
 		} else {
 			throw new UserIdNotFoundExeception(Integer.valueOf(userId).toString());
