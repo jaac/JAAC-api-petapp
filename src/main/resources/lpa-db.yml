@@ -1,0 +1,166 @@
+# RECOMENDABLE SOLO AÑADIR 
+
+# Tokens
+tokenList:
+  - &to0
+    value: PaE8iPX3AekAaV945_ujcm7q1ik
+  - &to1
+    value: 3vZy-CGx0SZ86DjbwqvRfx45hHU
+  - &to2
+    value: 9wPhJxoFQvq4SND5ugNETxKwNKY
+  - &to3
+    value: 64jcnKajqit2bP_npC5-ddMfh6Y
+  - &to4
+    value: otRnEQ7DSaBGnS7C5T8zgs4d06g
+
+  # UserImage
+userImageList:
+  - &uimg0
+    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  - &uimg1
+    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
+    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
+    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
+  
+
+# Users
+# mobiles: 666666000 a 666666666 RESERVADOS AQUI
+userList:
+  - mobile: 666666000
+    username: u000
+    password: p000
+    email: u000@gmail.com
+    roles:
+      - ADMIN
+      - MANAGER
+      - OPERATOR
+    token: *to0
+    userImage: *uimg1
+  - mobile: 666666001
+    username: u001
+    password: p001
+    email: u001@gmail.com
+    roles:
+      - MANAGER
+      - OPERATOR
+    userImage: *uimg0
+  - mobile: 666666002
+    username: u002
+    password: p002
+    roles:
+      - AUTHENTICATED
+    token: *to1
+  - mobile: 666666003
+    username: u003
+    password: p003
+    roles:
+      - REGISTERED
+    token: *to2
+  - &us4
+    mobile: 666666004
+    username: u004
+    password: p004
+    email: u004@gmail.com
+    roles:
+      - REGISTERED
+  - &us5
+    mobile: 666666005
+    username: u005
+    password: p005
+    email: u005@gmail.com
+    roles:
+      - OPERATOR
+
+
+# PetLocationList
+petLocationList:
+  - &ploc0
+    latitude: 55656
+    longitude: 48484101
+    country: Germany
+    city: Berlin
+    state: VolmertState
+    locality: Lsefnaten
+    street: C/alemania
+    street_number: 5
+    formatted_address: C/alemania - Lsefnaten - VolmertState - Berlin - Germany
+    postalCode: 566880
+
+# HealthCondition
+healthConditionList:
+  - &hcond0
+    name: Healthty
+
+# BeedList
+breedList:
+  - &br0
+    name: Husky
+  - &br1
+    name: BullDog
+
+# PetTypeList
+petTypeList:
+  - &ptyp0
+    name: Dog
+    breed:
+      - *br0
+      - *br1
+
+# PetImageList
+petImageList:
+  - &petImg0
+    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  - &petImg1
+    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  - &petImg2
+    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  
+# ColorList
+colorList:
+  - &col0
+    name: Black
+  - &col1
+    name: Brown
+  - &col2
+    name: White  
+
+# PetList
+petList:
+  - &pet0
+    petType: *ptyp0
+    imgs:
+      - *petImg0
+      - *petImg1
+      - *petImg2
+    gender: Female
+    name: Naluda Hey
+    age: 2
+    breed: *br0
+    hairColor: *col0
+    eyesColor: *col1
+
+# LostWayList
+lostWayList:
+  - &lw0
+    name: Stolen
+
+# LostPet
+lostPetList:
+  - &lostp0
+    registrationDate: 2018-06-14 05:57:30.560
+    found: true
+    petLocation: *ploc0
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us5

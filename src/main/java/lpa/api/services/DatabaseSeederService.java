@@ -1,0 +1,126 @@
+package lpa.api.services;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
+
+import lpa.api.documents.core.Role;
+import lpa.api.documents.core.User;
+import lpa.api.repositories.core.BreedRepository;
+import lpa.api.repositories.core.ColorRepository;
+import lpa.api.repositories.core.HealthConditionRepository;
+import lpa.api.repositories.core.LostPetRepository;
+import lpa.api.repositories.core.LostWayRepository;
+import lpa.api.repositories.core.PetCommentsRepository;
+import lpa.api.repositories.core.PetTypeRepository;
+import lpa.api.repositories.core.UserRepository;
+import lpa.api.services.DatabaseGraph;
+
+@Service
+public class DatabaseSeederService {
+
+	@Value("${lpa.admin.mobile}")
+	private String mobile;
+
+	@Value("${lpa.admin.username}")
+	private String username;
+
+	@Value("${lpa.admin.password}")
+	private String password;
+
+	@Value("${lpa.databaseSeeder.ymlFileName:#{null}}")
+	private Optional<String> ymlFileName;
+
+	@Autowired
+	private HealthConditionRepository healthConditionRepository;
+
+	@Autowired
+	private BreedRepository breedRepository;
+
+	@Autowired
+	private ColorRepository colorRepository;
+
+	@Autowired
+	private LostWayRepository lostWayRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private LostPetRepository lostPetRepository;
+
+	@Autowired
+	private PetTypeRepository petTypeRepository;
+
+	@Autowired
+	private PetCommentsRepository petCommentsRepository;
+
+	@PostConstruct
+	public void seedDatabase() {
+		if (ymlFileName.isPresent()) {
+			this.deleteAllAndCreateAdmin();
+			try {
+				this.seedDatabase(ymlFileName.get());
+			} catch (IOException e) {
+				Logger.getLogger(this.getClass()).error("File " + ymlFileName + " doesn't exist or can't be opened");
+			}
+		} else {
+			this.createAdminIfNotExist();
+		}
+	}
+
+	public void seedDatabase(String ymlFileName) throws IOException {
+		assert ymlFileName != null && !ymlFileName.isEmpty();
+		Yaml yamlParser = new Yaml(new Constructor(DatabaseGraph.class));
+		InputStream input = new ClassPathResource(ymlFileName).getInputStream();
+		DatabaseGraph lpaGraph = (DatabaseGraph) yamlParser.load(input);
+
+		// Save Repositories -----------------------------------------------------
+
+		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
+		this.lostWayRepository.save(lpaGraph.getLostWayList());
+		this.breedRepository.save(lpaGraph.getBreedList());
+		this.colorRepository.save(lpaGraph.getColorList());
+		this.petTypeRepository.save(lpaGraph.getPetTypeList());
+		this.userRepository.save(lpaGraph.getUserList());
+		this.lostPetRepository.save(lpaGraph.getLostPetList());
+		this.petCommentsRepository.save(lpaGraph.getPetCommentsList());
+		// -----------------------------------------------------------------------
+
+		Logger.getLogger(this.getClass()).warn("------------------------- Seed: " + ymlFileName + "-----------");
+	}
+
+	public void deleteAllAndCreateAdmin() {
+		Logger.getLogger(this.getClass()).warn("------------------------- delete All And Create Admin-----------");
+		// Delete Repositories -----------------------------------------------------
+		this.healthConditionRepository.deleteAll();
+		this.lostWayRepository.deleteAll();
+		this.breedRepository.deleteAll();
+		this.colorRepository.deleteAll();
+		this.petTypeRepository.deleteAll();
+		this.lostPetRepository.deleteAll();
+		this.petCommentsRepository.deleteAll();
+		this.userRepository.deleteAll();
+
+		this.createAdminIfNotExist();
+		// -----------------------------------------------------------------------
+	}
+
+	public void createAdminIfNotExist() {
+		if (this.userRepository.findByMobile(this.mobile) == null) {
+			User user = new User(this.mobile, this.username, this.password);
+			user.setRoles(new Role[] { Role.ADMIN });
+			this.userRepository.save(user);
+		}
+	}
+}
