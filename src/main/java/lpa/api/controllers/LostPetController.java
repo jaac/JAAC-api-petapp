@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import lpa.api.documents.core.LostPet;
-import lpa.api.dtos.LostPetDto;
+import lpa.api.dtos.LostPetInputDto;
+import lpa.api.dtos.LostPetFrontDto;
 import lpa.api.dtos.LostPetMinimumDto;
+import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.repositories.core.LostPetRepository;
 
 @Controller
@@ -17,11 +19,11 @@ public class LostPetController {
 	@Autowired
 	private LostPetRepository lostPetRepository;
 
-	public void createLostPet(LostPetDto lostPetDto) {
-		LostPet lostPet = new LostPet(lostPetDto.isFound(), lostPetDto.getPetLocation(), lostPetDto.getDescription(),
-				lostPetDto.getHealthCondition(), lostPetDto.getPet(), lostPetDto.getUser(), lostPetDto.getLostWay(),
-				lostPetDto.isGratification());
-
+	public void createLostPet(LostPetInputDto lostPetInputDto) {
+		LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(), lostPetInputDto.getDescription(),
+				lostPetInputDto.getHealthCondition(), lostPetInputDto.getPet(), lostPetInputDto.getUser(), lostPetInputDto.getLostWay(),
+				lostPetInputDto.isGratification());
+				
 		this.lostPetRepository.save(lostPet);
 
 	}
@@ -31,16 +33,25 @@ public class LostPetController {
 		return this.lostPetRepository.findLostPetAll();
 	}
 
-	public Optional<LostPetDto> readLostPetDto(String id) {
+	public Optional<LostPetOutputDto> readLostPetOutputDto(String id) {
 		LostPet lostPetdb = this.lostPetRepository.findOne(id);
 
 		if (lostPetdb == null) {
 			return Optional.empty();
 		} else {
-			return Optional.of(new LostPetDto(lostPetdb));
+			return Optional.of(new LostPetOutputDto(lostPetdb));
 		}
 
 	}
-	
+
+	public Optional<LostPetFrontDto> readLostPetFrontDto(String id) {
+		LostPet lostPetdb = this.lostPetRepository.findOne(id);
+
+		if (lostPetdb == null) {
+			return Optional.empty();
+		} else {
+			return Optional.of(new LostPetFrontDto(lostPetdb));
+		}
+	}
 
 }

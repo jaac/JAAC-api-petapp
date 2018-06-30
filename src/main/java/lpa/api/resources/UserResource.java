@@ -46,7 +46,7 @@ public class UserResource {
         if (this.userController.emailRepeated(userDto)) {
             throw new UserFieldAlreadyExistException("Existing email");
         }
-        this.userController.createUser(userDto, new Role[] {Role.AUTHENTICATED});
+        this.userController.createUser(userDto, new Role[] {Role.REGISTERED});
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -59,14 +59,14 @@ public class UserResource {
             throw new UserFieldAlreadyExistException("Existing email");
         }
 
-        if (!this.userController.putUser(userDto, new Role[] {Role.AUTHENTICATED})) {
+        if (!this.userController.putUser(userDto, new Role[] {Role.REGISTERED})) {
             throw new ForbiddenException();
         }
     }
 
     @RequestMapping(value = MOBILE_ID, method = RequestMethod.DELETE)
     public void deleteCustomer(@PathVariable String mobile) throws ForbiddenException {
-        if (!this.userController.deleteUser(mobile, new Role[] {Role.AUTHENTICATED})) {
+        if (!this.userController.deleteUser(mobile, new Role[] {Role.REGISTERED})) {
             throw new ForbiddenException();
         }
     }

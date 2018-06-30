@@ -49,7 +49,7 @@ userList:
     username: u002
     password: p002
     roles:
-      - AUTHENTICATED
+      - REGISTERED
     token: *to1
   - mobile: 666666003
     username: u003
@@ -92,7 +92,7 @@ petLocationList:
 # HealthCondition
 healthConditionList:
   - &hcond0
-    name: Healthty
+    name: Healthy
 
 # BeedList
 breedList:

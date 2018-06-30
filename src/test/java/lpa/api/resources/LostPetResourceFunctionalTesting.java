@@ -1,9 +1,11 @@
 package lpa.api.resources;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,12 +13,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.resources.RestBuilder;
-import lpa.api.dtos.LostPetDto;
+import lpa.api.dtos.LostPetFrontDto;
 import lpa.api.dtos.LostPetMinimumDto;
+import lpa.api.dtos.LostPetOutputDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -30,26 +34,35 @@ public class LostPetResourceFunctionalTesting {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	private String id;
+	private String lostPetId;
 
-	public void setId(String id) {
-		this.id = id;
+	private LostPetMinimumDto[] lostPetList;
+
+	@Before
+	public void createLostPetList() {
+		this.lostPetList = restService.loginAdmin().restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).get().build();
+		this.lostPetId = this.lostPetList[0].getId();
 	}
 
 	@Test
 	public void testReadPetLostAll() {
-		LostPetMinimumDto[] lostPet = restService.loginAdmin().restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).get().build();
-		this.id = lostPet[0].getId();
-		assertEquals(2, Arrays.asList(lostPet).size());
+		assertEquals(2, Arrays.asList(lostPetList).size());
 	}
 
 	@Test
-	public void testReadLostPetAsADamin() {
-		LostPetDto lostPetDto = restService.loginAdmin().restBuilder(new RestBuilder<LostPetDto>())
-				.clazz(LostPetDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.id)
-				.get().build();
-		assertEquals("Healthy", lostPetDto.getHealthCondition());
+	public void testReadLostPetAsAdmin() {
+		LostPetOutputDto lostPetOutputDto = restService.loginAdmin().restBuilder(new RestBuilder<LostPetOutputDto>())
+				.clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
+				.expand(this.lostPetId).get().build();
+		assertTrue(lostPetOutputDto.isActive());
 	}
 
+	@Test
+	public void testReadLostPetAsRegistered() {
+		LostPetFrontDto lostPetFrontDto = restService.loginRegistered().restBuilder(new RestBuilder<LostPetFrontDto>())
+				.clazz(LostPetFrontDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPETFRONT_ID)
+				.expand(this.lostPetId).get().build();
+		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
+	}
 }

@@ -68,7 +68,7 @@ public class RestService {
         return this;
     }
 
-    public RestService loginCustomer() {
+    public RestService loginRegistered() {
         this.tokenDto = new RestBuilder<TokenOutputDto>(this.port()).path(contextPath).path(TokenResource.TOKENS).basicAuth("666666002", "p002")
                 .clazz(TokenOutputDto.class).post().build();
         return this;
