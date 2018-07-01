@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 
 import lpa.api.documents.core.LostPet;
 import lpa.api.dtos.LostPetInputDto;
-import lpa.api.dtos.LostPetFrontDto;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.repositories.core.LostPetRepository;
@@ -44,13 +43,13 @@ public class LostPetController {
 
 	}
 
-	public Optional<LostPetFrontDto> readLostPetFrontDto(String id) {
+	public Optional<LostPetOutputDto> readLostPetFrontDto(String id) {
 		LostPet lostPetdb = this.lostPetRepository.findOne(id);
 
 		if (lostPetdb == null) {
 			return Optional.empty();
 		} else {
-			return Optional.of(new LostPetFrontDto(lostPetdb));
+			return Optional.of(new LostPetOutputDto(lostPetdb));
 		}
 	}
 

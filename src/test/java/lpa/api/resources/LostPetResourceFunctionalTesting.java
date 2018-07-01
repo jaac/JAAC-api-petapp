@@ -18,7 +18,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.resources.RestBuilder;
-import lpa.api.dtos.LostPetFrontDto;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 
@@ -60,9 +59,25 @@ public class LostPetResourceFunctionalTesting {
 
 	@Test
 	public void testReadLostPetAsRegistered() {
-		LostPetFrontDto lostPetFrontDto = restService.loginRegistered().restBuilder(new RestBuilder<LostPetFrontDto>())
-				.clazz(LostPetFrontDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPETFRONT_ID)
+		LostPetOutputDto lostPetFrontDto = restService.loginRegistered()
+				.restBuilder(new RestBuilder<LostPetOutputDto>()).clazz(LostPetOutputDto.class)
+				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.lostPetId).get().build();
+		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
+	}
+
+	@Test
+	public void testReadLostPetAsOperator() {
+		LostPetOutputDto lostPetOutputDto = restService.loginOperator().restBuilder(new RestBuilder<LostPetOutputDto>())
+				.clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
 				.expand(this.lostPetId).get().build();
+		assertTrue(lostPetOutputDto.isActive());
+	}
+
+	@Test
+	public void testReadLostPetAsRegisteredNoPetLost() {
+		LostPetOutputDto lostPetFrontDto = restService.loginRegisteredNoPetLost()
+				.restBuilder(new RestBuilder<LostPetOutputDto>()).clazz(LostPetOutputDto.class)
+				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.lostPetId).get().build();
 		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
 	}
 }

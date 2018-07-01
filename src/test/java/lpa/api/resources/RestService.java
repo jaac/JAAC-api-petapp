@@ -73,6 +73,12 @@ public class RestService {
                 .clazz(TokenOutputDto.class).post().build();
         return this;
     }
+    
+    public RestService loginRegisteredNoPetLost() {
+        this.tokenDto = new RestBuilder<TokenOutputDto>(this.port()).path(contextPath).path(TokenResource.TOKENS).basicAuth("666666007", "p007")
+                .clazz(TokenOutputDto.class).post().build();
+        return this;
+    }
 
     public RestService logout() {
         this.tokenDto = null;

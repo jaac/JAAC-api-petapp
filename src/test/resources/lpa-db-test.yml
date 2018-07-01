@@ -74,6 +74,22 @@ userList:
     userImage: *uimg1
     roles:
       - OPERATOR
+  - &us6
+    mobile: 666666006
+    username: u006
+    password: p006
+    email: u006@gmail.com
+    userImage: *uimg1
+    roles:
+      - REGISTERED
+  - &us7
+    mobile: 666666007
+    username: u007
+    password: p007
+    email: u007@gmail.com
+    userImage: *uimg1
+    roles:
+      - REGISTERED
 
 # PetLocationList
 petLocationList:
@@ -170,7 +186,7 @@ lostPetList:
     gratification: true
     pet: *pet0
     lostWay: *lw0
-    user: *us5
+    user: *us6
 
   - &lostp1
     registrationDate: 2018-06-14
