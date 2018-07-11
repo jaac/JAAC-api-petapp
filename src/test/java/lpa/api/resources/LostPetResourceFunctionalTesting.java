@@ -58,28 +58,20 @@ public class LostPetResourceFunctionalTesting {
 	}
 
 	@Test
-	public void testReadLostPetAsRegistered() {
-		LostPetOutputDto lostPetFrontDto = restService.loginRegistered()
-				.restBuilder(new RestBuilder<LostPetOutputDto>()).clazz(LostPetOutputDto.class)
-				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.lostPetId).get().build();
-		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
-	}
-
-	@Test
-	public void testReadLostPetAsOperator() {
-		LostPetOutputDto lostPetOutputDto = restService.loginOperator().restBuilder(new RestBuilder<LostPetOutputDto>())
-				.clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
-				.expand(this.lostPetId).get().build();
-		assertTrue(lostPetOutputDto.isActive());
-	}
-
-	@Test
 	public void testReadLostPetAsRegisteredNoPetLost() {
-		LostPetOutputDto lostPetFrontDto = restService.loginRegisteredNoPetLost()
+		LostPetOutputDto lostPetOutputDto = restService.loginRegisteredNoPetLost()
 				.restBuilder(new RestBuilder<LostPetOutputDto>()).clazz(LostPetOutputDto.class)
 				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.lostPetId).get().build();
-		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
+		assertEquals("Healthy", lostPetOutputDto.getHealthCondition());
 	}
-	
+
+	@Test
+	public void testReadLostPetMinimumFromCurrentPosition() {
+		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR)
+				.path(LostPetResource.LOSTPET_LONG).expand(-1.195401).path(LostPetResource.LOSTPET_LAT).expand(38.049283)
+				.path(LostPetResource.LOSTPET_DISTANCE).expand(5).get().build();
+		assertEquals(1, lostPetMinimumListDto.length);
+	}
 
 }

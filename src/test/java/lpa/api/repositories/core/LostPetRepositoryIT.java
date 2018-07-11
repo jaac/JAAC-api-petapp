@@ -25,9 +25,9 @@ public class LostPetRepositoryIT {
 
 	@Test
 	public void testFindLostPetNear3_7KM() {
-		//AnimalApp coordinates = -1.2304894, 38.0462415
-		
-		//User Location 38.049283, -1.195401 = from pet 3.7KM
+		// AnimalApp coordinates = -1.2304894, 38.0462415
+
+		// User Location 38.049283, -1.195401 = from pet 3.7KM
 		Point userLocation = new Point(-1.195401, 38.049283);
 
 		Distance dmax = new Distance(3.70, Metrics.KILOMETERS);

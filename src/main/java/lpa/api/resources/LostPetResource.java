@@ -26,6 +26,14 @@ public class LostPetResource {
 
 	public static final String LOSTPET_ID = "/{id}";
 
+	public static final String LOSTPET_NEAR = "/near";
+
+	public static final String LOSTPET_DISTANCE = "/{distance}";
+	
+	public static final String LOSTPET_LONG = "/{longi}";
+	
+	public static final String LOSTPET_LAT = "/{lat}";
+
 	@Autowired
 	private LostPetController lostPetController;
 
@@ -44,5 +52,11 @@ public class LostPetResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<LostPetMinimumDto> readLostPetAll() {
 		return this.lostPetController.readLostPetAll();
+	}
+
+	@RequestMapping(value = LOSTPET_NEAR + LOSTPET_LONG + LOSTPET_LAT + LOSTPET_DISTANCE, method = RequestMethod.GET)
+	public List<LostPetMinimumDto> readLostPetNear(@PathVariable double distance, @PathVariable double longi,
+			@PathVariable double lat) {
+		return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat);
 	}
 }
