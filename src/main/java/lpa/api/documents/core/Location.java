@@ -1,26 +1,10 @@
 package lpa.api.documents.core;
 
-public class PetLocation {
-
-	private double latitude;
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	private double longitude;
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
+public class Location {
+	
+	private String type;
+	
+	private double[] coordinates;
 
 	private String country;
 
@@ -38,14 +22,14 @@ public class PetLocation {
 
 	private String formatted_address;
 
-	public PetLocation() {
-
+	public Location() {
+		this.setType("Point");
 	}
 
-	public PetLocation(double latitude, double longitude, String country, String city, String state, String locality,
+	public Location(double[] coordinates, String country, String city, String state, String locality,
 			String street, Number street_number, String formatted_address, int postalCode) {
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this();
+		this.coordinates = coordinates;
 		this.country = country;
 		this.city = city;
 		this.state = state;
@@ -56,8 +40,25 @@ public class PetLocation {
 		this.postalCode = postalCode;
 	}
 
-	public PetLocation(double latitude, double longitude) {
-		this(latitude, longitude, null, null, null, null, null, 0, null, 0);
+	public Location(double[] coordinates) {
+		this(coordinates, null, null, null, null, null, 0, null, 0);
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public double[] getcoordinates() {
+		return coordinates;
+	}
+
+	public void setcoordinates(double[] coordinates) {
+		this.coordinates = coordinates;
 	}
 
 
@@ -125,15 +126,13 @@ public class PetLocation {
 		this.formatted_address = formatted_address;
 	}
 
-
-
 	@Override
 	public String toString() {
 
-		return "PetLocation [latitude=" + this.latitude + ", longitude=" + this.longitude
-				+ ", country=" + this.country + ", city=" + this.city + ", state=" + this.state + ", locality="
-				+ this.locality + ", street=" + this.street + ", street_number=" + this.street_number
-				+ ", formatted_address=" + this.formatted_address + ", postalCode=" + this.postalCode + "]";
+		return "Location [coordinates=" + this.coordinates + ", country=" + this.country
+				+ ", city=" + this.city + ", state=" + this.state + ", locality=" + this.locality + ", street="
+				+ this.street + ", street_number=" + this.street_number + ", formatted_address="
+				+ this.formatted_address + ", postalCode=" + this.postalCode + "]";
 	}
 
 }

@@ -46,7 +46,7 @@ public class LostPetResourceFunctionalTesting {
 
 	@Test
 	public void testReadPetLostAll() {
-		assertEquals(2, Arrays.asList(lostPetList).size());
+		assertEquals(3, Arrays.asList(lostPetList).size());
 	}
 
 	@Test
@@ -80,4 +80,6 @@ public class LostPetResourceFunctionalTesting {
 				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID).expand(this.lostPetId).get().build();
 		assertEquals("Healthy", lostPetFrontDto.getHealthCondition());
 	}
+	
+
 }

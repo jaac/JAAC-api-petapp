@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import lpa.api.documents.core.Image;
 import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.PetComments;
-import lpa.api.documents.core.PetLocation;
+import lpa.api.documents.core.Location;
 import lpa.api.documents.core.Report;
 import lpa.api.documents.core.User;
 
@@ -31,7 +31,7 @@ public class PetCommentsDto {
 
 	private Report[] reportList;
 
-	private PetLocation petLocation;
+	private Location location;
 
 	public PetCommentsDto() {
 
@@ -45,18 +45,18 @@ public class PetCommentsDto {
 		this.petImage = petComments.getPetImage();
 		this.lostPet = petComments.getLostPet();
 		this.reportList = petComments.getReportList();
-		this.petLocation = petComments.getPetLocation();
+		this.location = petComments.getLocation();
 	}
 
 	public PetCommentsDto(User user, boolean iSaw, String comment, Date date, Image petImage, LostPet lostPet,
-			PetLocation petLocation) {
+			Location location) {
 		this.user = user;
 		this.iSaw = iSaw;
 		this.comment = comment;
 		this.date = date;
 		this.petImage = petImage;
 		this.lostPet = lostPet;
-		this.petLocation = petLocation;
+		this.location = location;
 	}
 
 	public String getId() {
@@ -123,19 +123,19 @@ public class PetCommentsDto {
 		this.reportList = reportList;
 	}
 
-	public PetLocation getPetLocation() {
-		return petLocation;
+	public Location getPetLocation() {
+		return location;
 	}
 
-	public void setPetLocation(PetLocation petLocation) {
-		this.petLocation = petLocation;
+	public void setPetLocation(Location location) {
+		this.location = location;
 	}
 	
 	@Override
 	public String toString() {
 		return "PetCommentsDto [id=" + id + ", user=" + user + ", iSaw=" + iSaw + ", comment=" + comment + ", date="
 				+ date + ", petImage=" + petImage + ", lostPet=" + lostPet + ", reportList=" + Arrays.toString(reportList)
-				+ ", petLocation=" + petLocation + "]";
+				+ ", location=" + location + "]";
 	}
 
 }

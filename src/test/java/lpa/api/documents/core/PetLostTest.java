@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.Image;
-import lpa.api.documents.core.PetLocation;
+import lpa.api.documents.core.Location;
 import lpa.api.documents.core.Breed;
 import lpa.api.documents.core.HealthCondition;
 import lpa.api.documents.core.LostPet;
@@ -35,7 +35,10 @@ public class PetLostTest {
 		df.setTimeZone(tz);
 		String nowDate = df.format(new Date());
 		User user = new User("629842", "jaac", "5644", "info@jaaccorp.es");
-		PetLocation dogLocation = new PetLocation(0255, 5655);
+		double coordinantes[] = new double[2];
+		coordinantes[0] = 222;
+		coordinantes[1] = 332;
+		Location dogLocation = new Location(coordinantes);
 		PetType petType = new PetType("Dog");
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
@@ -43,14 +46,17 @@ public class PetLostTest {
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		assertEquals("LostPet[ null ,active=true, found=false, date=" + nowDate
-				+ ", petLocation=PetLocation [null, latitude=173, longitude=5655, country=null, city=null, state=null, locality=null, street=null, street_number=0, formatted_address=null, postalCode=0], description=Dog found in Central Park, lostWay=null, pet=Pet[null, petType=PetType[ id= null, name= Dog, breeds=null ], imgs=[Lapi.documents.core.Image;@2b80d80f, name=Doggy, gender=Male, age=null, breed=null, hairColor=null, eyesColor=null], healthCondition=HealthCondition[ id= null, name= Healthy], gratification=false, report=null]",
+				+ ", petLocation=Location [null, latitude=173, longitude=5655, country=null, city=null, state=null, locality=null, street=null, street_number=0, formatted_address=null, postalCode=0], description=Dog found in Central Park, lostWay=null, pet=Pet[null, petType=PetType[ id= null, name= Dog, breeds=null ], imgs=[Lapi.documents.core.Image;@2b80d80f, name=Doggy, gender=Male, age=null, breed=null, hairColor=null, eyesColor=null], healthCondition=HealthCondition[ id= null, name= Healthy], gratification=false, report=null]",
 				dogLost.toString());
 	}
 
 	@Test
 	public void createLostPetReport() {
 		User user = new User("629842", "jaac", "5644", "info@jaaccorp.es");
-		PetLocation dogLocation = new PetLocation(0255, 5655);
+		double coordinantes[] = new double[2];
+		coordinantes[0] = 222;
+		coordinantes[1] = 332;
+		Location dogLocation = new Location(coordinantes);
 		PetType petType = new PetType("Dog");
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");
@@ -75,7 +81,10 @@ public class PetLostTest {
 	@Test
 	public void createLostPetLostWay() {
 		User user = new User("629842", "jaac", "5644", "info@jaaccorp.es");
-		PetLocation dogLocation = new PetLocation(0255, 5655);
+		double coordinantes[] = new double[2];
+		coordinantes[0] = 222;
+		coordinantes[1] = 332;
+		Location dogLocation = new Location(coordinantes);
 		PetType petType = new PetType("Dog");
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");

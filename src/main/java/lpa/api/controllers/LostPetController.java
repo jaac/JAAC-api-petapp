@@ -1,5 +1,6 @@
 package lpa.api.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,17 +20,22 @@ public class LostPetController {
 	private LostPetRepository lostPetRepository;
 
 	public void createLostPet(LostPetInputDto lostPetInputDto) {
-		LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(), lostPetInputDto.getDescription(),
-				lostPetInputDto.getHealthCondition(), lostPetInputDto.getPet(), lostPetInputDto.getUser(), lostPetInputDto.getLostWay(),
-				lostPetInputDto.isGratification());
-				
+		LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(),
+				lostPetInputDto.getDescription(), lostPetInputDto.getHealthCondition(), lostPetInputDto.getPet(),
+				lostPetInputDto.getUser(), lostPetInputDto.getLostWay(), lostPetInputDto.isGratification());
+
 		this.lostPetRepository.save(lostPet);
 
 	}
 
 	public List<LostPetMinimumDto> readLostPetAll() {
-
-		return this.lostPetRepository.findLostPetAll();
+		List<LostPetMinimumDto> LostPetMinimumDtoList = new ArrayList<>();
+		List<LostPet> lostPetList = this.lostPetRepository.findLostPetAll();
+		for (LostPet lostPet : lostPetList) {
+			LostPetMinimumDto lostPetMinimumDto = new LostPetMinimumDto(lostPet);
+			LostPetMinimumDtoList.add(lostPetMinimumDto);
+		}
+		return LostPetMinimumDtoList;
 	}
 
 	public Optional<LostPetOutputDto> readLostPetOutputDto(String id) {

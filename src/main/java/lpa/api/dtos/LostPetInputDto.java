@@ -13,7 +13,7 @@ import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.PetComments;
-import lpa.api.documents.core.PetLocation;
+import lpa.api.documents.core.Location;
 import lpa.api.documents.core.Report;
 import lpa.api.documents.core.User;
 
@@ -29,7 +29,7 @@ public class LostPetInputDto {
 
 	private boolean active;
 
-	private PetLocation petLocation;
+	private Location location;
 
 	private LostWay lostWay;
 
@@ -51,10 +51,10 @@ public class LostPetInputDto {
 		// Empty for framework
 	}
 
-	public LostPetInputDto(boolean found, PetLocation petLocation, String description, HealthCondition healthCondition,
+	public LostPetInputDto(boolean found, Location location, String description, HealthCondition healthCondition,
 			Pet pet, User user, LostWay lost_way, boolean gratification, Report[] report) {
 		this.found = found;
-		this.petLocation = petLocation;
+		this.location = location;
 		this.description = description;
 		this.healthCondition = healthCondition;
 		this.pet = pet;
@@ -65,15 +65,15 @@ public class LostPetInputDto {
 
 	}
 
-	public LostPetInputDto(boolean found, PetLocation petLocation, String description, HealthCondition healthCondition,
+	public LostPetInputDto(boolean found, Location location, String description, HealthCondition healthCondition,
 			Pet pet, User user) {
-		this(found, petLocation, description, healthCondition, pet, user, null, false, null);
+		this(found, location, description, healthCondition, pet, user, null, false, null);
 	}
 
 	public LostPetInputDto(LostPet lostPet) {
 		this.active = lostPet.isActive();
 		this.found = lostPet.isFound();
-		this.petLocation = lostPet.getPetLocation();
+		this.location = lostPet.getLocation();
 		this.description = lostPet.getDescription();
 		this.healthCondition = lostPet.getHealthCondition();
 		this.pet = lostPet.getPet();
@@ -116,12 +116,12 @@ public class LostPetInputDto {
 		this.active = active;
 	}
 
-	public PetLocation getPetLocation() {
-		return petLocation;
+	public Location getPetLocation() {
+		return location;
 	}
 
-	public void setPetLocation(PetLocation petLocation) {
-		this.petLocation = petLocation;
+	public void setPetLocation(Location location) {
+		this.location = location;
 	}
 
 	public LostWay getLostWay() {
@@ -195,7 +195,7 @@ public class LostPetInputDto {
 			date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
 		}
 		return "LostPetInputDto[ " + this.id + " ,active=" + this.active + ", found=" + this.found + ", date=" + date
-				+ ", petLocation=" + this.petLocation + ", description=" + this.description + ", lostWay="
+				+ ", location=" + this.location + ", description=" + this.description + ", lostWay="
 				+ this.lostWay + ", pet=" + this.pet + ", healthCondition=" + this.healthCondition + ", gratification="
 				+ this.gratification + ", reportList=" + this.reportList + "]";
 	}

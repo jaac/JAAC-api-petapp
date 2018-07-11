@@ -91,11 +91,13 @@ userList:
     roles:
       - REGISTERED
 
-# PetLocationList
-petLocationList:
+# LocationList
+locationList:
   - &ploc0
-    latitude: -34.71317519999999
-    longitude: -58.60995809999997
+    type: Point
+    coordinates:
+      - -58.60995809999997
+      - -34.71317519999999
     country: Germany
     city: Berlin
     state: VolmertState
@@ -104,7 +106,32 @@ petLocationList:
     street_number: 5
     formatted_address: C/alemania - Lsefnaten - VolmertState - Berlin - Germany
     postalCode: 566880
-
+  - &ploc1
+    type: Point
+    coordinates:
+      - -1.2304894
+      - 38.0462415
+    country: Spain
+    city: Molina de segura
+    state: Murcia
+    locality: Molina de segura
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Molina de segura - Molina de segura - Murcia - Spain
+    postalCode: 30500
+  - &ploc2
+    type: Point
+    coordinates:
+      - 8.5154248
+      - 47.4030398
+    country: Suiza
+    city: Zurich
+    state: Zurich
+    locality: Hongg
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Hongg - Zurich - Zurich - Suiza
+    postalCode: 8037
 # HealthCondition
 healthConditionList:
   - &hcond0
@@ -180,7 +207,7 @@ lostPetList:
   - &lostp0
     registrationDate: 2018-06-14
     found: true
-    petLocation: *ploc0
+    location: *ploc0
     description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
@@ -189,10 +216,20 @@ lostPetList:
     user: *us6
 
   - &lostp1
-    registrationDate: 2018-06-14
+    registrationDate: 2012-06-12
     found: false
-    petLocation: *ploc0
-    description: Desc from yml seeder
+    location: *ploc1
+    description: Desc from yml seeder2
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us4
+  - &lostp2
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc2
+    description: Desc from yml seeder2
     healthCondition: *hcond0
     gratification: true
     pet: *pet0
@@ -208,7 +245,7 @@ petCommentsList:
     comment: Comment from yamel seeder
     date: 2018-06-14
     petImage: *petImg2
-    petLocation: *ploc0
+    location: *ploc0
     reportList: 
       - *rep0
   - &lpc1
@@ -218,6 +255,6 @@ petCommentsList:
     comment: Comment from yamel seeder 2222
     date: 2018-06-14
     petImage: *petImg2
-    petLocation: *ploc0
+    location: *ploc0
     reportList: 
       - *rep0

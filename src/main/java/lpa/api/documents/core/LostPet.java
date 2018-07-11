@@ -22,7 +22,7 @@ public class LostPet {
 
 	private boolean active;
 
-	private PetLocation petLocation;
+	private Location location;
 
 	@DBRef
 	private LostWay lostWay;
@@ -47,11 +47,11 @@ public class LostPet {
 	}
 
 	// Construct for pets lost by users
-	public LostPet(boolean found, PetLocation petLocation, String description, HealthCondition healthCondition, Pet pet,
+	public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
 			User user, LostWay lost_way, boolean gratification) {
 		this();
 		this.found = found;
-		this.petLocation = petLocation;
+		this.location = location;
 		this.description = description;
 		this.healthCondition = healthCondition;
 		this.gratification = gratification;
@@ -60,9 +60,9 @@ public class LostPet {
 		this.user = user;
 	}
 
-	public LostPet(boolean found, PetLocation petLocation, String description, HealthCondition healthCondition, Pet pet,
+	public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
 			User user) {
-		this(found, petLocation, description, healthCondition, pet, user, null, false);
+		this(found, location, description, healthCondition, pet, user, null, false);
 
 	}
 
@@ -150,6 +150,14 @@ public class LostPet {
 		this.user = user;
 	}
 
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
 	@Override
 	public int hashCode() {
 		return this.id.hashCode();
@@ -176,17 +184,9 @@ public class LostPet {
 			date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
 		}
 		return "LostPet[ " + this.id + " ,active=" + this.active + ", found=" + this.found + ", date=" + date
-				+ ", petLocation=" + this.petLocation + ", description=" + this.description + ", lostWay="
-				+ this.lostWay + ", pet=" + this.pet + ", healthCondition=" + this.healthCondition + ", gratification="
+				+ ", location=" + this.location + ", description=" + this.description + ", lostWay=" + this.lostWay
+				+ ", pet=" + this.pet + ", healthCondition=" + this.healthCondition + ", gratification="
 				+ this.gratification + ", report=" + this.report + "]";
-	}
-
-	public PetLocation getPetLocation() {
-		return petLocation;
-	}
-
-	public void setPetLocation(PetLocation petLocation) {
-		this.petLocation = petLocation;
 	}
 
 }
