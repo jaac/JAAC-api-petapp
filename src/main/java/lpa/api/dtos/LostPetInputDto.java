@@ -19,16 +19,14 @@ import lpa.api.documents.core.User;
 
 public class LostPetInputDto {
 
-	@NotNull
-	private String id;
-
 	@DateTimeFormat(iso = ISO.DATE)
+
 	private Date registrationDate;
 
 	private boolean found;
-
+	@NotNull
 	private boolean active;
-
+	@NotNull
 	private Location location;
 
 	private LostWay lostWay;
@@ -41,18 +39,21 @@ public class LostPetInputDto {
 
 	private Report[] reportList;
 
+	@NotNull
 	private User user;
 
+	@NotNull
 	private Pet pet;
 
 	private PetComments[] petComments;
 
 	public LostPetInputDto() {
-		// Empty for framework
+		this.active = true;
 	}
 
 	public LostPetInputDto(boolean found, Location location, String description, HealthCondition healthCondition,
 			Pet pet, User user, LostWay lost_way, boolean gratification, Report[] report) {
+		this();
 		this.found = found;
 		this.location = location;
 		this.description = description;
@@ -90,14 +91,6 @@ public class LostPetInputDto {
 
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public boolean isFound() {
@@ -194,10 +187,10 @@ public class LostPetInputDto {
 		if (registrationDate != null) {
 			date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
 		}
-		return "LostPetInputDto[ " + this.id + " ,active=" + this.active + ", found=" + this.found + ", date=" + date
-				+ ", location=" + this.location + ", description=" + this.description + ", lostWay="
-				+ this.lostWay + ", pet=" + this.pet + ", healthCondition=" + this.healthCondition + ", gratification="
-				+ this.gratification + ", reportList=" + this.reportList + "]";
+		return "LostPetInputDto[ active=" + this.active + ", found=" + this.found + ", date=" + date + ", location="
+				+ this.location + ", description=" + this.description + ", lostWay=" + this.lostWay + ", pet="
+				+ this.pet + ", healthCondition=" + this.healthCondition + ", gratification=" + this.gratification
+				+ ", reportList=" + this.reportList + "]";
 	}
 
 }

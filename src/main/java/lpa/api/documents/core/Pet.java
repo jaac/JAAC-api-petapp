@@ -13,7 +13,7 @@ public class Pet {
 
 	private String gender;
 
-	private String age;
+	private int age;
 
 	@DBRef
 	private Breed breed;
@@ -27,7 +27,7 @@ public class Pet {
 	public Pet() {
 	}
 
-	public Pet(PetType petType, Image[] petImages, String name, String gender, String age, Breed breed, Color hairColor,
+	public Pet(PetType petType, Image[] petImages, String name, String gender, int age, Breed breed, Color hairColor,
 			Color eyesColor) {
 		this.petType = petType;
 		this.petImages = petImages;
@@ -40,7 +40,7 @@ public class Pet {
 	}
 
 	public Pet(PetType petType, Image[] petImages, String name, String gender) {
-		this(petType, petImages, name, gender, null, null, null, null);
+		this(petType, petImages, name, gender, 0, null, null, null);
 	}
 
 	public PetType getPetType() {
@@ -75,11 +75,11 @@ public class Pet {
 		this.gender = gender;
 	}
 
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
@@ -106,7 +106,6 @@ public class Pet {
 	public void setEyesColor(Color eyesColor) {
 		this.eyesColor = eyesColor;
 	}
-
 
 	@Override
 	public String toString() {

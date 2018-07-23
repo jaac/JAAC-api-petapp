@@ -51,7 +51,8 @@ userList:
     roles:
       - REGISTERED
     token: *to1
-  - mobile: 666666003
+  - &us2
+    mobile: 666666003
     username: u003
     password: p003
     userImage: *uimg1
@@ -132,6 +133,19 @@ locationList:
     street_number: 1
     formatted_address: C/sanJuan - Hongg - Zurich - Zurich - Suiza
     postalCode: 8037
+  - &ploc3
+    type: Point
+    coordinates:
+      - -1.212119
+      - 38.062649
+    country: Spain
+    city: Molina de segura
+    state: Murcia
+    locality: Molina de segura
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Molina de segura - Molina de segura - Murcia - Spain
+    postalCode: 30500
 # HealthCondition
 healthConditionList:
   - &hcond0
@@ -219,17 +233,27 @@ lostPetList:
     registrationDate: 2012-06-12
     found: false
     location: *ploc1
-    description: Desc from yml seeder2
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us2
+  - &lostp2
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc2
+    description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
     pet: *pet0
     lostWay: *lw0
     user: *us4
-  - &lostp2
+  - &lostp3
     registrationDate: 2012-06-12
     found: false
-    location: *ploc2
-    description: Desc from yml seeder2
+    location: *ploc3
+    description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
     pet: *pet0

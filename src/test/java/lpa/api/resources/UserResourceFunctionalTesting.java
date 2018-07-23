@@ -35,7 +35,6 @@ public class UserResourceFunctionalTesting {
 
 	@Test
 	public void testCreateCustomer() {
-		System.out.println(this.userDto);
 		restService.loginAdmin().restBuilder().path(UserResource.USERS).body(this.userDto).post().build();
 	}
 
@@ -91,29 +90,29 @@ public class UserResourceFunctionalTesting {
 
 	@Test
 	public void testReadUser() {
-		restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USER_ID).expand(666666002)
-				.get().build();
+		restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USERMOBILE)
+				.path(UserResource.MOBILE_ID).expand(666666002).get().build();
 	}
 
 	@Test
 	public void testReadUserNotRol() {
 		thrown.expect(new HttpMatcher(HttpStatus.NOT_FOUND));
-		restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USER_ID).expand(666666001)
-				.get().build();
+		restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USERMOBILE)
+				.path(UserResource.MOBILE_ID).expand(666666001).get().build();
 	}
 
 	@Test
 	public void testReadUserUnauthorized() {
 		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-		restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USER_ID).expand(666666001).get()
-				.build();
+		restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USERMOBILE)
+				.path(UserResource.MOBILE_ID).expand(666666001).get().build();
 	}
 
 	@After
 	public void delete() {
 		this.restService.loginAdmin();
-		restService.restBuilder().path(UserResource.USERS).path(UserResource.USER_ID).expand(this.userDto.getMobile())
-				.delete().build();
+		restService.restBuilder().path(UserResource.USERS).path(UserResource.MOBILE_ID)
+				.expand(this.userDto.getMobile()).delete().build();
 	}
 
 }

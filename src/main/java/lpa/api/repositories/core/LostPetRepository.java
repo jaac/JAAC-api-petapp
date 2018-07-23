@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import lpa.api.documents.core.LostPet;
+import lpa.api.documents.core.Pet;
 //import lpa.api.documents.core.Location;
 
 public interface LostPetRepository extends MongoRepository<LostPet, String> {
@@ -23,4 +24,7 @@ public interface LostPetRepository extends MongoRepository<LostPet, String> {
 	// }", fields = "{ '_id' : 1}")
 	public List<LostPet> findByLocationNear(Point location, Distance distance);
 
+	public LostPet findByPet(Pet pet);
+
+	public List<LostPet> findByDescription(String description);
 }

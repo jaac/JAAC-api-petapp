@@ -7,7 +7,7 @@ public class Image {
 	private String big;
 
 	public Image() {
-		
+
 	}
 
 	public Image(String small, String medium, String big) {
@@ -15,8 +15,6 @@ public class Image {
 		this.medium = medium;
 		this.big = big;
 	}
-
-
 
 	public String getSmall() {
 		return small;
@@ -41,9 +39,6 @@ public class Image {
 	public void setBig(String big) {
 		this.big = big;
 	}
-	
-
-
 
 	@Override
 	public String toString() {

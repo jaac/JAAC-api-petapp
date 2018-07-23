@@ -1,9 +1,7 @@
 package lpa.api.documents.core;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
 public class Breed {
 	@Id
 	private String id;
