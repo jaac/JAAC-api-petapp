@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
@@ -39,9 +40,9 @@ public class LostPetController {
 		this.lostPetRepository.save(lostPet);
 	}
 
-	public List<LostPetMinimumDto> readLostPetAll() {
+	public List<LostPetMinimumDto> readLostPetAll(Pageable pageable) {
 		List<LostPetMinimumDto> LostPetMinimumDtoList = new ArrayList<>();
-		List<LostPet> lostPetList = this.lostPetRepository.findLostPetAll();
+		List<LostPet> lostPetList = this.lostPetRepository.findLostPetAll(pageable);
 		for (LostPet lostPet : lostPetList) {
 			LostPetMinimumDto lostPetMinimumDto = new LostPetMinimumDto(lostPet);
 			LostPetMinimumDtoList.add(lostPetMinimumDto);
@@ -68,11 +69,11 @@ public class LostPetController {
 		}
 	}
 
-	public List<LostPetMinimumDto> readLostPetNearMinimumDto(double distancekm, double longi, double lat) {
+	public List<LostPetMinimumDto> readLostPetNearMinimumDto(double distancekm, double longi, double lat, Pageable pageable) {
 		Point location = new Point(longi, lat);
 		Distance distance = new Distance(distancekm, Metrics.KILOMETERS);
 		List<LostPetMinimumDto> lostPetNearList = new ArrayList<>();
-		List<LostPet> LostPetList = this.lostPetRepository.findByLocationNear(location, distance);
+		List<LostPet> LostPetList = this.lostPetRepository.findByLocationNear(location, distance, pageable);
 		for (LostPet lostpet : LostPetList) {
 			LostPetMinimumDto lostPetMinimumDto = new LostPetMinimumDto(lostpet);
 			lostPetNearList.add(lostPetMinimumDto);

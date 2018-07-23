@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -301,8 +302,13 @@ public class LostPetResourceFunctionalTesting {
 	}
 
 	@Test
-	public void testReadPetLostAll() {
-		assertEquals(3, lostPetList.size());
+	public void testReadAsAdminPetLostAll() {
+		LostPetMinimumDto[] lostPetMinimumListDto = restService.loginAdmin()
+				.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
+				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_PAGE)
+				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
+				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(3).get().build();
+		assertEquals(3, Arrays.asList(lostPetMinimumListDto).size());
 	}
 
 	@Test
@@ -318,7 +324,9 @@ public class LostPetResourceFunctionalTesting {
 		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
 				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR)
 				.path(LostPetResource.LOSTPET_LONG).expand(-1.195401).path(LostPetResource.LOSTPET_LAT)
-				.expand(38.049283).path(LostPetResource.LOSTPET_DISTANCE).expand(5).get().build();
+				.expand(38.049283).path(LostPetResource.LOSTPET_DISTANCE).expand(5).path(LostPetResource.LOSTPET_PAGE)
+				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
+				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
 		assertEquals(2, lostPetMinimumListDto.length);
 	}
 
@@ -329,7 +337,9 @@ public class LostPetResourceFunctionalTesting {
 		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
 				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR)
 				.path(LostPetResource.LOSTPET_LONG).expand(-7.098994).path(LostPetResource.LOSTPET_LAT)
-				.expand(43.297184).path(LostPetResource.LOSTPET_DISTANCE).expand(5).get().build();
+				.expand(43.297184).path(LostPetResource.LOSTPET_DISTANCE).expand(5).path(LostPetResource.LOSTPET_PAGE)
+				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
+				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
 		assertEquals(0, lostPetMinimumListDto.length);
 	}
 
@@ -340,13 +350,15 @@ public class LostPetResourceFunctionalTesting {
 		restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
 				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR).path(LostPetResource.LOSTPET_LONG)
 				.expand(-7.098994).path(LostPetResource.LOSTPET_LAT).expand(43.297184)
-				.path(LostPetResource.LOSTPET_DISTANCE).expand(25).get().build();
+				.path(LostPetResource.LOSTPET_DISTANCE).expand(25).path(LostPetResource.LOSTPET_PAGE)
+				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
+				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
 	}
 
 	@Test
 	public void testDeleteAsRegisteredException() {
 		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-		
+
 		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
 				.expand(65656).delete().build();
 	}

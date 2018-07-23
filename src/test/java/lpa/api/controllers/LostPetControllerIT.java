@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -40,7 +42,8 @@ public class LostPetControllerIT {
 
 	@Test
 	public void testFindLostPetAll() {
-		List<LostPetMinimumDto> lostPetList = lostPetController.readLostPetAll();
+		Pageable pageable = new PageRequest(0, 3);
+		List<LostPetMinimumDto> lostPetList = lostPetController.readLostPetAll(pageable);
 		assertNotNull(lostPetList);
 	}
 

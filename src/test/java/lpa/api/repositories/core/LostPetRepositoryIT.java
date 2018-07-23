@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
@@ -34,7 +36,8 @@ public class LostPetRepositoryIT {
 		// User Location 38.049283, -1.195401 = from pet 3.7KM
 		Point userLocation = new Point(-1.195401, 38.049283);
 		Distance dmax = new Distance(3.70, Metrics.KILOMETERS);
-		assertEquals(2, this.lostPetRepository.findByLocationNear(userLocation, dmax).size());
+		Pageable pageable = new PageRequest(0, 3);
+		assertEquals(2, this.lostPetRepository.findByLocationNear(userLocation, dmax, pageable).size());
 	}
 
 	@Before
@@ -42,7 +45,7 @@ public class LostPetRepositoryIT {
 		this.lostpet = new LostPet();
 		this.lostPetRepository.save(this.lostpet);
 	}
-	
+
 	@After
 	public void delete() {
 		this.lostPetRepository.delete(lostpet);

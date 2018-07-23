@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +43,14 @@ public class LostPetResource {
 	public static final String LOSTPET_LAT = "/{lat}";
 
 	public static final String LOSTPET_DEACTIVE = "/deactive";
+
+	public static final String LOSTPET_PAGE = "/page";
+
+	public static final String LOSTPET_PAGE_NUMBER = "/{page}";
+
+	public static final String LOSTPET_PAGE_LIMIT = "/limit";
+
+	public static final String LOSTPET_PAGE_LIMIT_NUMBER = "/{limit}";
 
 	@Autowired
 	private LostPetController lostPetController;
@@ -105,19 +115,23 @@ public class LostPetResource {
 	}
 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
-	@RequestMapping(method = RequestMethod.GET)
-	public List<LostPetMinimumDto> readLostPetAll() {
-		return this.lostPetController.readLostPetAll();
+	@RequestMapping(value = LOSTPET_PAGE + LOSTPET_PAGE_NUMBER + LOSTPET_PAGE_LIMIT
+			+ LOSTPET_PAGE_LIMIT_NUMBER, method = RequestMethod.GET)
+	public List<LostPetMinimumDto> readLostPetAll(@PathVariable int page, @PathVariable int limit) {
+		Pageable pageable = new PageRequest(page, limit);
+		return this.lostPetController.readLostPetAll(pageable);
 	}
 
-	@RequestMapping(value = LOSTPET_NEAR + LOSTPET_LONG + LOSTPET_LAT + LOSTPET_DISTANCE, method = RequestMethod.GET)
+	@RequestMapping(value = LOSTPET_NEAR + LOSTPET_LONG + LOSTPET_LAT + LOSTPET_DISTANCE + LOSTPET_PAGE
+			+ LOSTPET_PAGE_NUMBER + LOSTPET_PAGE_LIMIT + LOSTPET_PAGE_LIMIT_NUMBER, method = RequestMethod.GET)
 	public List<LostPetMinimumDto> readLostPetNear(@PathVariable double distance, @PathVariable double longi,
-			@PathVariable double lat) throws LotPetDistanceNotAllowedExecption {
-
+			@PathVariable double lat, @PathVariable int page, @PathVariable int limit)
+			throws LotPetDistanceNotAllowedExecption {
+		Pageable pageable = new PageRequest(page, limit);
 		if (distance >= 21) {
 			throw new LotPetDistanceNotAllowedExecption();
 		} else {
-			return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat);
+			return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat, pageable);
 		}
 
 	}
