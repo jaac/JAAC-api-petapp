@@ -35,7 +35,7 @@ import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.PetType;
 import lpa.api.documents.core.User;
-import lpa.api.dtos.LostPetDeactivateInputDto;
+
 import lpa.api.dtos.LostPetInputDto;
 import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
@@ -272,11 +272,8 @@ public class LostPetResourceFunctionalTesting {
 	@Test
 	public void testDeleteLostPetAsRegistered() {
 		// thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-		User userOwner = this.UserRepository.findByMobile("666666004");
-		LostPetDeactivateInputDto lostPetDeactivateInputDto = new LostPetDeactivateInputDto(userOwner.getId(),
-				this.lostPetId);
 		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
-				.body(lostPetDeactivateInputDto).patch().build();
+				.expand(this.lostPetId).patch().build();
 		assertFalse(this.lostPetRepository.findOne(lostPetId).isActive());
 	}
 
@@ -305,9 +302,9 @@ public class LostPetResourceFunctionalTesting {
 	public void testReadAsAdminPetLostAll() {
 		LostPetMinimumDto[] lostPetMinimumListDto = restService.loginAdmin()
 				.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
-				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_PAGE)
-				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
-				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(3).get().build();
+				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).param("page", "0").param("size", "3")
+				.get().build();
+
 		assertEquals(3, Arrays.asList(lostPetMinimumListDto).size());
 	}
 
@@ -322,11 +319,9 @@ public class LostPetResourceFunctionalTesting {
 	@Test
 	public void testReadLostPetMinimumFromCurrentPosition() {
 		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR)
-				.path(LostPetResource.LOSTPET_LONG).expand(-1.195401).path(LostPetResource.LOSTPET_LAT)
-				.expand(38.049283).path(LostPetResource.LOSTPET_DISTANCE).expand(5).path(LostPetResource.LOSTPET_PAGE)
-				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
-				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
+				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
+				.param("distance", "5").param("page", "0").param("size", "5").get().build();
 		assertEquals(2, lostPetMinimumListDto.length);
 	}
 
@@ -335,11 +330,9 @@ public class LostPetResourceFunctionalTesting {
 		// La Miraña Oriental - Lugo 43.297184, -7.098994 - Current Position Molina de
 		// segura - Murcia
 		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR)
-				.path(LostPetResource.LOSTPET_LONG).expand(-7.098994).path(LostPetResource.LOSTPET_LAT)
-				.expand(43.297184).path(LostPetResource.LOSTPET_DISTANCE).expand(5).path(LostPetResource.LOSTPET_PAGE)
-				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
-				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
+				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-7.098994").param("lat", "43.297184")
+				.param("distance", "5").param("page", "0").param("size", "5").get().build();
 		assertEquals(0, lostPetMinimumListDto.length);
 	}
 
@@ -348,11 +341,10 @@ public class LostPetResourceFunctionalTesting {
 		// Distance allowed 5 - 10 - 15 - 20
 		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
 		restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
-				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_NEAR).path(LostPetResource.LOSTPET_LONG)
-				.expand(-7.098994).path(LostPetResource.LOSTPET_LAT).expand(43.297184)
-				.path(LostPetResource.LOSTPET_DISTANCE).expand(25).path(LostPetResource.LOSTPET_PAGE)
-				.path(LostPetResource.LOSTPET_PAGE_NUMBER).expand(0).path(LostPetResource.LOSTPET_PAGE_LIMIT)
-				.path(LostPetResource.LOSTPET_PAGE_LIMIT_NUMBER).expand(5).get().build();
+				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).path(LostPetResource.LOSTPET_NEAR)
+				.param("longi", "-7.098994").param("lat", "43.297184").param("distance", "21").param("page", "0")
+				.param("size", "5").get().build();
+
 	}
 
 	@Test

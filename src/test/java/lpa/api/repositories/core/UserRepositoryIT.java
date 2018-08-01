@@ -4,17 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import lpa.api.documents.core.Role;
 import lpa.api.documents.core.Token;
 import lpa.api.documents.core.User;
 import lpa.api.dtos.UserMinimumDto;
@@ -37,10 +39,10 @@ public class UserRepositoryIT {
 	}
 
 	@Test
-	public void testFindByMobile() {
-		User userBd = userRepository.findByMobile("666001000");
+	public void testfindByusername() {
+		User userBd = userRepository.findByusername("666001000");
 		assertNotNull(userBd);
-		assertEquals("666001000", userBd.getUsername());
+		assertEquals("666001000", userBd.getName());
 	}
 
 	@Test
@@ -52,11 +54,19 @@ public class UserRepositoryIT {
 	}
 
 	@Test
-	public void testFindCustomerAll() {
-		List<UserMinimumDto> userList = userRepository.findCustomerAll();
+	public void testFindRegisteredAll() {
+		Pageable pageable = new PageRequest(0, 20);
+		Page<UserMinimumDto> userList = userRepository.findRegisteredAll(pageable);
 		for (UserMinimumDto userMinimumDto : userList) {
-			assertFalse(userMinimumDto.getMobile().equals("666666000"));
+			assertFalse(userMinimumDto.getUsername().equals("666666000"));
 		}
+	}
+
+	@Test
+	public void testFindByRoleAll() {
+		Pageable pageable = new PageRequest(0, 20);
+		Page<UserMinimumDto> userList = userRepository.findByRoles(new Role[] { Role.REGISTERED }, pageable);
+		assertNotNull(userList.getContent().get(0));
 	}
 
 	@After

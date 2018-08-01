@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lpa.api.controllers.LostPetController;
 import lpa.api.documents.core.Role;
-import lpa.api.dtos.LostPetDeactivateInputDto;
 import lpa.api.dtos.LostPetInputDto;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
@@ -36,21 +36,9 @@ public class LostPetResource {
 
 	public static final String LOSTPET_NEAR = "/near";
 
-	public static final String LOSTPET_DISTANCE = "/{distance}";
+	public static final String LOSTPET_DEACTIVE = "/deactive/{id}";
 
-	public static final String LOSTPET_LONG = "/{longi}";
-
-	public static final String LOSTPET_LAT = "/{lat}";
-
-	public static final String LOSTPET_DEACTIVE = "/deactive";
-
-	public static final String LOSTPET_PAGE = "/page";
-
-	public static final String LOSTPET_PAGE_NUMBER = "/{page}";
-
-	public static final String LOSTPET_PAGE_LIMIT = "/limit";
-
-	public static final String LOSTPET_PAGE_LIMIT_NUMBER = "/{limit}";
+	public static final String LOSTPET_GET = "/get";
 
 	@Autowired
 	private LostPetController lostPetController;
@@ -102,9 +90,8 @@ public class LostPetResource {
 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
 	@RequestMapping(value = LOSTPET_DEACTIVE, method = RequestMethod.PATCH)
-	public void deactiveLostPet(@Valid @RequestBody LostPetDeactivateInputDto lostPetDeactivateInputDto)
-			throws ForbiddenException {
-		if (this.lostPetController.deactiveLostPet(lostPetDeactivateInputDto)) {
+	public void deactiveLostPet(@PathVariable String id) throws ForbiddenException {
+		if (this.lostPetController.deactiveLostPet(id)) {
 			throw new ForbiddenException();
 		}
 	}
@@ -115,19 +102,19 @@ public class LostPetResource {
 	}
 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
-	@RequestMapping(value = LOSTPET_PAGE + LOSTPET_PAGE_NUMBER + LOSTPET_PAGE_LIMIT
-			+ LOSTPET_PAGE_LIMIT_NUMBER, method = RequestMethod.GET)
-	public List<LostPetMinimumDto> readLostPetAll(@PathVariable int page, @PathVariable int limit) {
-		Pageable pageable = new PageRequest(page, limit);
+	@RequestMapping(value = LOSTPET_GET, params = { "page", "size" }, method = RequestMethod.GET)
+	public List<LostPetMinimumDto> readLostPetAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+		Pageable pageable = new PageRequest(page, size);
 		return this.lostPetController.readLostPetAll(pageable);
 	}
 
-	@RequestMapping(value = LOSTPET_NEAR + LOSTPET_LONG + LOSTPET_LAT + LOSTPET_DISTANCE + LOSTPET_PAGE
-			+ LOSTPET_PAGE_NUMBER + LOSTPET_PAGE_LIMIT + LOSTPET_PAGE_LIMIT_NUMBER, method = RequestMethod.GET)
-	public List<LostPetMinimumDto> readLostPetNear(@PathVariable double distance, @PathVariable double longi,
-			@PathVariable double lat, @PathVariable int page, @PathVariable int limit)
-			throws LotPetDistanceNotAllowedExecption {
-		Pageable pageable = new PageRequest(page, limit);
+	@RequestMapping(value = LOSTPET_GET + LOSTPET_NEAR, params = { "longi", "lat", "distance", "page",
+			"size" }, method = RequestMethod.GET)
+	public List<LostPetMinimumDto> readLostPetNear(@RequestParam("distance") double distance,
+			@RequestParam("longi") double longi, @RequestParam("lat") double lat, @RequestParam("page") int page,
+			@RequestParam("size") int size) throws LotPetDistanceNotAllowedExecption {
+		Pageable pageable = new PageRequest(page, size);
+
 		if (distance >= 21) {
 			throw new LotPetDistanceNotAllowedExecption();
 		} else {

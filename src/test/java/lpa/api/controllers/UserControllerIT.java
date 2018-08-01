@@ -7,10 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.controllers.UserController;
+
 import lpa.api.dtos.UserDto;
 
 @RunWith(SpringRunner.class)
@@ -31,4 +33,5 @@ public class UserControllerIT {
 		UserDto userDto = new UserDto("666666001", null, null, "u004@gmail.com", null, null, null);
 		assertTrue(userController.emailRepeated(userDto));
 	}
+
 }

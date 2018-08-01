@@ -36,7 +36,7 @@ public class TokenResourceFunctionalTesting {
     @Test
     public void testLoginAdminUnauthorized() {
         thrown.expect(new HttpMatcher(HttpStatus.UNAUTHORIZED));
-        restService.restBuilder().path(TokenResource.TOKENS).basicAuth(this.restService.getAdminMobile(), "kk").post().build();
+        restService.restBuilder().path(TokenResource.TOKENS).basicAuth(this.restService.getAdminusername(), "kk").post().build();
     }
 
     @Test

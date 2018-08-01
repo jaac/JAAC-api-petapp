@@ -15,13 +15,14 @@ import org.springframework.stereotype.Controller;
 import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.Role;
 import lpa.api.documents.core.User;
-import lpa.api.dtos.LostPetDeactivateInputDto;
+
 import lpa.api.dtos.LostPetInputDto;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
 import lpa.api.repositories.core.LostPetRepository;
 import lpa.api.repositories.core.UserRepository;
+import lpa.api.services.AuthenticationFacade;
 
 @Controller
 public class LostPetController {
@@ -31,6 +32,9 @@ public class LostPetController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private AuthenticationFacade authenticationFacade;
 
 	public void createLostPet(LostPetInputDto lostPetInputDto) {
 		LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(),
@@ -69,7 +73,8 @@ public class LostPetController {
 		}
 	}
 
-	public List<LostPetMinimumDto> readLostPetNearMinimumDto(double distancekm, double longi, double lat, Pageable pageable) {
+	public List<LostPetMinimumDto> readLostPetNearMinimumDto(double distancekm, double longi, double lat,
+			Pageable pageable) {
 		Point location = new Point(longi, lat);
 		Distance distance = new Distance(distancekm, Metrics.KILOMETERS);
 		List<LostPetMinimumDto> lostPetNearList = new ArrayList<>();
@@ -93,18 +98,12 @@ public class LostPetController {
 		assert user != null;
 		assert lostPet != null;
 		if (Arrays.asList(roles).containsAll(Arrays.asList(user.getRoles()))) {
-			lostPet.setDescription(lostPetPutInputDto.getDescription());
-			lostPet.setFound(lostPetPutInputDto.isFound());
-			lostPet.setGratification(lostPetPutInputDto.isGratification());
-			lostPet.setHealthCondition(lostPetPutInputDto.getHealthCondition());
-			lostPet.setLocation(lostPetPutInputDto.getPetLocation());
-			lostPet.setLostWay(lostPetPutInputDto.getLostWay());
-			lostPet.setPet(lostPetPutInputDto.getPet());
-
+			this.setdata(lostPetPutInputDto, lostPet);
 			this.lostPetRepository.save(lostPet);
 		} else if (Arrays.asList(new Role[] { Role.REGISTERED })
 				.containsAll(Arrays.asList(lostPetPutInputDto.getUser().getRoles()))) {
 			if (lostPetPutInputDto.getUser().equals(user)) {
+				this.setdata(lostPetPutInputDto, lostPet);
 				this.lostPetRepository.save(lostPet);
 			} else {
 				return false;
@@ -116,6 +115,17 @@ public class LostPetController {
 		return true;
 	}
 
+	private void setdata(LostPetUpdateInputDto lostPetPutInputDto, LostPet lostPet) {
+		lostPet.setDescription(lostPetPutInputDto.getDescription());
+		lostPet.setFound(lostPetPutInputDto.isFound());
+		lostPet.setGratification(lostPetPutInputDto.isGratification());
+		lostPet.setHealthCondition(lostPetPutInputDto.getHealthCondition());
+		lostPet.setLocation(lostPetPutInputDto.getPetLocation());
+		lostPet.setLostWay(lostPetPutInputDto.getLostWay());
+		lostPet.setPet(lostPetPutInputDto.getPet());
+
+	}
+
 	public boolean notOwner(LostPetUpdateInputDto lostPetPutInputDto) {
 		if (lostPetPutInputDto.getUser().getId() != lostPetPutInputDto.getUserId()) {
 			return true;
@@ -123,12 +133,12 @@ public class LostPetController {
 		return false;
 	}
 
-	public boolean deactiveLostPet(LostPetDeactivateInputDto lostPetDeactivateInputDto) {
+	public boolean deactiveLostPet(String id) {
 
-		LostPet lostpet = this.lostPetRepository.findOne(lostPetDeactivateInputDto.getLostpeId());
+		LostPet lostpet = this.lostPetRepository.findOne(id);
 		User userIdOwner = lostpet.getUser();
-		User user = this.userRepository.findOne(lostPetDeactivateInputDto.getUserId());
-
+		User currentUser = this.authenticationFacade.getCurrentUser();
+		User user = this.userRepository.findOne(currentUser.getId());
 		if (userIdOwner.equals(user) || Arrays.asList(new Role[] { Role.ADMIN, Role.OPERATOR })
 				.containsAll(Arrays.asList(user.getRoles()))) {
 			lostpet.setActive(false);

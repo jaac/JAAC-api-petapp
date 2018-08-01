@@ -15,7 +15,6 @@ public class Pet {
 
 	private int age;
 
-	@DBRef
 	private Breed breed;
 
 	@DBRef

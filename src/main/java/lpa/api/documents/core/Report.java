@@ -55,7 +55,7 @@ public class Report {
 
 	@Override
 	public String toString() {
-		return "Report[" + this.id + ", detail=" + this.reportDetail + ", userID=" + this.user.getMobile() + "]";
+		return "Report[" + this.id + ", detail=" + this.reportDetail + ", userID=" + this.user.getUsername() + "]";
 	}
 
 	public User getUser() {

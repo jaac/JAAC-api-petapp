@@ -31,6 +31,14 @@ public class PetType {
 		this.name = name;
 	}
 
+	public Breed[] getBreed() {
+		return breed;
+	}
+
+	public void setBreed(Breed[] breed) {
+		this.breed = breed;
+	}
+
 	@Override
 	public int hashCode() {
 		return this.id.hashCode();
@@ -57,11 +65,4 @@ public class PetType {
 
 	}
 
-	public Breed[] getBreed() {
-		return breed;
-	}
-
-	public void setBreed(Breed[] breed) {
-		this.breed = breed;
-	}
 }

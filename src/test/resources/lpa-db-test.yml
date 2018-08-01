@@ -25,10 +25,10 @@ userImageList:
   
 
 # Users
-# mobiles: 666666000 a 666666666 RESERVADOS AQUI
+# usernames: 666666000 a 666666666 RESERVADOS AQUI
 userList:
-  - mobile: 666666000
-    username: u000
+  - username: 666666000
+    name: u000
     password: p000
     email: u000@gmail.com
     roles:
@@ -37,55 +37,57 @@ userList:
       - OPERATOR
     token: *to0
     userImage: *uimg1
-  - mobile: 666666001
-    username: u001
+  - username: 666666001
+    name: u001
     password: p001
     email: u001@gmail.com
     roles:
       - MANAGER
       - OPERATOR
     userImage: *uimg0
-  - mobile: 666666002
-    username: u002
+  - &us02
+    username: 666666002
+    name: u002
     password: p002
+    email: u002@gmail.com
     roles:
       - REGISTERED
     token: *to1
   - &us2
-    mobile: 666666003
-    username: u003
+    username: 666666003
+    name: u003
     password: p003
     userImage: *uimg1
     roles:
       - REGISTERED
     token: *to2
   - &us4
-    mobile: 666666004
-    username: u004
+    username: 666666004
+    name: u004
     password: p004
     email: u004@gmail.com
     userImage: *uimg1
     roles:
       - REGISTERED
   - &us5
-    mobile: 666666005
-    username: u005
+    username: 666666005
+    name: u005
     password: p005
     email: u005@gmail.com
     userImage: *uimg1
     roles:
       - OPERATOR
   - &us6
-    mobile: 666666006
-    username: u006
+    username: 666666006
+    name: u006
     password: p006
     email: u006@gmail.com
     userImage: *uimg1
     roles:
       - REGISTERED
   - &us7
-    mobile: 666666007
-    username: u007
+    username: 666666007
+    name: u007
     password: p007
     email: u007@gmail.com
     userImage: *uimg1
@@ -161,7 +163,7 @@ breedList:
 # PetTypeList
 petTypeList:
   - &ptyp0
-    name: Dog
+    name: Dog Test
     breed:
       - *br0
       - *br1
@@ -248,7 +250,7 @@ lostPetList:
     gratification: true
     pet: *pet0
     lostWay: *lw0
-    user: *us4
+    user: *us2
   - &lostp3
     registrationDate: 2012-06-12
     found: false
@@ -258,7 +260,7 @@ lostPetList:
     gratification: true
     pet: *pet0
     lostWay: *lw0
-    user: *us4
+    user: *us02
 
 # PetCommentsList
 petCommentsList:

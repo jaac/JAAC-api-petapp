@@ -10,14 +10,14 @@ import lpa.api.documents.core.Image;
 
 public class UserDto {
 
-	private static final String NINE_DIGITS = "\\d{9}";
+	private static final String USERNAME_PATTERN = "^[a-z0-9_-]{3,15}$";
 
 	@NotNull
-	@Pattern(regexp = NINE_DIGITS)
-	private String mobile;
-
-	@NotNull
+	@Pattern(regexp = USERNAME_PATTERN)
 	private String username;
+
+	@NotNull
+	private String name;
 
 	private String password;
 
@@ -35,10 +35,10 @@ public class UserDto {
 		// Empty for framework
 	}
 
-	public UserDto(String mobile, String username, String password, String email, String address, Boolean active,
+	public UserDto(String username, String name, String password, String email, String address, Boolean active,
 			Image image) {
-		this.mobile = mobile;
 		this.username = username;
+		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.address = address;
@@ -46,25 +46,17 @@ public class UserDto {
 		this.image = image;
 	}
 
-	public UserDto(String mobile) {
-		this(mobile, "name" + mobile, "pass" + mobile, null, null, null, null);
+	public UserDto(String username) {
+		this(username, "name" + username, "pass" + username, null, null, null, null);
 	}
 
 	public UserDto(User user) {
-		this.mobile = String.valueOf(user.getMobile());
-		this.username = user.getUsername();
+		this.username = String.valueOf(user.getUsername());
+		this.name = user.getName();
 		this.email = user.getEmail();
 		this.active = user.isActive();
 		this.image = user.getUserImage();
 		this.registrationDate = user.getRegistrationDate();
-	}
-
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
 	}
 
 	public String getUsername() {
@@ -73,6 +65,14 @@ public class UserDto {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String username) {
+		this.name = username;
 	}
 
 	public String getPassword() {
@@ -129,7 +129,7 @@ public class UserDto {
 
 	@Override
 	public String toString() {
-		return "UserDto [mobile=" + mobile + ", username=" + username + ", password=" + password + ", email=" + email
+		return "UserDto [username=" + username + ", name=" + name + ", password=" + password + ", email=" + email
 				+ ", address=" + address + ", active=" + active + ", registrationDate=" + registrationDate + "]";
 	}
 

@@ -17,8 +17,8 @@ public class RestService {
     @Value("${server.contextPath}")
     private String contextPath;
 
-    @Value("${lpa.admin.mobile}")
-    private String adminMobile;
+    @Value("${lpa.admin.username}")
+    private String adminUsername;
 
     @Value("${lpa.admin.password}")
     private String adminPassword;
@@ -52,7 +52,7 @@ public class RestService {
 
     public RestService loginAdmin() {
         this.tokenDto = new RestBuilder<TokenOutputDto>(this.port()).path(contextPath).path(TokenResource.TOKENS)
-                .basicAuth(this.adminMobile, this.adminPassword).clazz(TokenOutputDto.class).post().build();
+                .basicAuth(this.adminUsername, this.adminPassword).clazz(TokenOutputDto.class).post().build();
         return this;
     }
 
@@ -98,8 +98,8 @@ public class RestService {
         this.tokenDto = tokenDto;
     }
 
-    public String getAdminMobile() {
-        return adminMobile;
+    public String getAdminusername() {
+        return adminUsername;
     }
 
     public String getAdminPassword() {

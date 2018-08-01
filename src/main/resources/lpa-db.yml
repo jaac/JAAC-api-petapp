@@ -26,9 +26,9 @@ userImageList:
   
 
 # Users
-# mobiles: 666666000 a 666666666 RESERVADOS AQUI
+# usernames: 666666000 a 666666666 RESERVADOS AQUI
 userList:
-  - mobile: 666666000
+  - username: 666666000
     username: u000
     password: p000
     email: u000@gmail.com
@@ -38,7 +38,7 @@ userList:
       - OPERATOR
     token: *to0
     userImage: *uimg1
-  - mobile: 666666001
+  - username: 666666001
     username: u001
     password: p001
     email: u001@gmail.com
@@ -46,27 +46,27 @@ userList:
       - MANAGER
       - OPERATOR
     userImage: *uimg0
-  - mobile: 666666002
+  - username: 666666002
     username: u002
     password: p002
     roles:
       - AUTHENTICATED
     token: *to1
-  - mobile: 666666003
+  - username: 666666003
     username: u003
     password: p003
     roles:
       - REGISTERED
     token: *to2
   - &us4
-    mobile: 666666004
+    username: 666666004
     username: u004
     password: p004
     email: u004@gmail.com
     roles:
       - REGISTERED
   - &us5
-    mobile: 666666005
+    username: 666666005
     username: u005
     password: p005
     email: u005@gmail.com
