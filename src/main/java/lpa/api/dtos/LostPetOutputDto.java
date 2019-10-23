@@ -4,18 +4,17 @@ import java.util.Arrays;
 import java.util.Date;
 
 import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.Location;
 import lpa.api.documents.core.Report;
 
 public class LostPetOutputDto {
-
+	private String id;
 	private boolean active;
 	private boolean found;
 	private Location location;
 	private String description;
 	private String healthCondition;
-	private Pet pet;
+	private PetOutPutDto pet;
 	private String userId;
 	private String lostWay;
 	private boolean gratification;
@@ -27,17 +26,26 @@ public class LostPetOutputDto {
 	}
 
 	public LostPetOutputDto(LostPet lostPet) {
+		this.setId(lostPet.getId());
 		this.active = lostPet.isActive();
 		this.found = lostPet.isFound();
 		this.location = lostPet.getLocation();
 		this.description = lostPet.getDescription();
 		this.healthCondition = lostPet.getHealthCondition().getName();
-		this.pet = lostPet.getPet();
+		this.pet = new PetOutPutDto(lostPet.getPet());
 		this.userId = lostPet.getUser().getId();
 		this.lostWay = lostPet.getLostWay().getName();
 		this.gratification = lostPet.isGratification();
 		this.reportList = lostPet.getPetReportList();
 		this.registrationDate = lostPet.getRegistrationDate();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public boolean isActive() {
@@ -80,11 +88,11 @@ public class LostPetOutputDto {
 		this.healthCondition = healthCondition;
 	}
 
-	public Pet getPet() {
+	public PetOutPutDto getPet() {
 		return pet;
 	}
 
-	public void setPet(Pet pet) {
+	public void setPet(PetOutPutDto pet) {
 		this.pet = pet;
 	}
 
@@ -130,9 +138,9 @@ public class LostPetOutputDto {
 
 	@Override
 	public String toString() {
-		return "LostPetOutputDto [active=" + active + ", found=" + found + ", location=" + location
-				+ ", description=" + description + ", healthCondition=" + healthCondition + ", pet=" + pet + ", userId="
-				+ userId + ", lostWay=" + lostWay + ", gratification=" + gratification + ", reportList="
+		return "LostPetOutputDto [active=" + active + ", found=" + found + ", location=" + location + ", description="
+				+ description + ", healthCondition=" + healthCondition + ", pet=" + pet + ", userId=" + userId
+				+ ", lostWay=" + lostWay + ", gratification=" + gratification + ", reportList="
 				+ Arrays.toString(reportList) + ", registrationDate=" + registrationDate + "]";
 	}
 

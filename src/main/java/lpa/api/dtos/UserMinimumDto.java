@@ -1,13 +1,26 @@
 package lpa.api.dtos;
 
 import lpa.api.documents.core.Image;
+import lpa.api.documents.core.User;
 
 public class UserMinimumDto {
+	
 	private String username;
 
 	private String name;
 
 	private Image image;
+
+	private String id;
+	
+	public UserMinimumDto() {}
+
+	public UserMinimumDto(User userBd) {
+		this.setId(userBd.getId());
+		this.username = userBd.getUsername();
+		this.name = userBd.getName();
+		this.image = userBd.getUserImage();
+	}
 
 	public String getUsername() {
 		return username;
@@ -31,6 +44,14 @@ public class UserMinimumDto {
 
 	public void setUserImage(Image image) {
 		this.image = image;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

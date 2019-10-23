@@ -2,15 +2,13 @@ package lpa.api.dtos;
 
 import java.util.Arrays;
 
-import javax.validation.constraints.NotNull;
-
 import lpa.api.documents.core.Breed;
 import lpa.api.documents.core.PetType;
 
 public class PetTypeDto {
 
 	private String id;
-	@NotNull
+
 	private String name;
 
 	private Breed[] breed;

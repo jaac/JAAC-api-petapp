@@ -35,11 +35,9 @@ public class PetComments {
 		this.date = new Date();
 	}
 
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location,
-			Image petImage) {
+	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location, Image petImage) {
 		this();
 		this.user = user;
-		this.user.setPassword("");
 		this.iSaw = iSaw;
 		this.comment = comment;
 		this.setLocation(location);
@@ -55,6 +53,11 @@ public class PetComments {
 	// With no Image
 	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location) {
 		this(user, iSaw, lostPet, comment, location, null);
+	}
+
+	// With no Location
+	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Image image) {
+		this(user, iSaw, lostPet, comment, null, image);
 	}
 
 	public String getId() {
@@ -140,7 +143,6 @@ public class PetComments {
 	public void setLostPet(LostPet lostPet) {
 		this.lostPet = lostPet;
 	}
-	
 
 	@Override
 	public int hashCode() {

@@ -42,7 +42,7 @@ public class PetLostTest {
 		PetType petType = new PetType("Dog");
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
-		petImages[0] = new Image("image.jpg", "image.jpg", "image.jpg");
+		petImages[0] = new Image("image.jpg");
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		assertEquals("LostPet[ null ,active=true, found=false, date=" + nowDate
@@ -64,7 +64,7 @@ public class PetLostTest {
 		petType.setBreed(breeds);
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
-		petImages[0] = new Image("image.jpg", "image.jpg", "image.jpg");
+		petImages[0] = new Image("image.jpg");
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		// set Breed
 		dog.setBreed(breeds[0]);
@@ -92,7 +92,7 @@ public class PetLostTest {
 		petType.setBreed(breeds);
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
-		petImages[0] = new Image("image.jpg", "image.jpg", "image.jpg");
+		petImages[0] = new Image("image.jpg");
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		// set Breed
 		dog.setBreed(breeds[0]);

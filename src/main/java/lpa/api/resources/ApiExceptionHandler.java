@@ -14,7 +14,8 @@ import lpa.api.resources.exceptions.FileException;
 import lpa.api.resources.exceptions.ForbiddenException;
 import lpa.api.resources.exceptions.LostPetBadRequest;
 import lpa.api.resources.exceptions.LostPetIdNotFoundException;
-import lpa.api.resources.exceptions.LotPetDistanceNotAllowedExecption;
+import lpa.api.resources.exceptions.PetCommentsException;
+import lpa.api.resources.exceptions.LostPetDistanceNotAllowedException;
 import lpa.api.resources.exceptions.PetTypeAlreadyExistException;
 import lpa.api.resources.exceptions.UserIdNotFoundException;
 import lpa.api.resources.exceptions.UserFieldAlreadyExistException;
@@ -31,8 +32,9 @@ public class ApiExceptionHandler {
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler({ Exception.class, UserFieldAlreadyExistException.class, LotPetDistanceNotAllowedExecption.class,
-			FieldInvalidException.class, LostPetBadRequest.class, PetTypeAlreadyExistException.class })
+	@ExceptionHandler({ Exception.class, UserFieldAlreadyExistException.class, LostPetDistanceNotAllowedException.class,
+			FieldInvalidException.class, LostPetBadRequest.class, PetTypeAlreadyExistException.class,
+			PetCommentsException.class })
 	@ResponseBody
 	public ErrorMessage badRequest(Exception exception) {
 		return new ErrorMessage(exception, "");

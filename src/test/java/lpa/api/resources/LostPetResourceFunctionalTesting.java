@@ -139,7 +139,7 @@ public class LostPetResourceFunctionalTesting {
 		this.color2 = this.colorRepository.findAll().get(0);
 
 		// Set Images
-		Image image1 = new Image("samall.jpg", "medium.jpg", "big.jpg");
+		Image image1 = new Image("samall.jpg");
 
 		images = new Image[4];
 		images[0] = image1;
@@ -151,8 +151,9 @@ public class LostPetResourceFunctionalTesting {
 		this.lostWay = this.lostWayRepository.findAll().get(0);
 
 		// Set DTO
-		this.lostPetInputDto = new LostPetInputDto(false, this.location, "desc", this.healthCondition, this.pet,
-				this.user1, this.lostWay, false, null);
+		// this.lostPetInputDto = new LostPetInputDto(false, this.location, "desc",
+		// this.healthCondition, this.pet,
+		// this.user1.getId(), this.lostWay, false, null);
 	}
 
 	@Test
@@ -260,7 +261,6 @@ public class LostPetResourceFunctionalTesting {
 
 		lostPetEdit.setDescription("Put from test1");
 		User userRegNoOwner = this.UserRepository.findByEmail("u006@gmail.com");
-		// System.out.println(userRegNoOwner);
 		LostPetUpdateInputDto lostPetPutInputDto;
 		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userRegNoOwner.getId(), this.lostPetId);
 		lostPetPutInputDto.setLostPet(null);
@@ -271,7 +271,6 @@ public class LostPetResourceFunctionalTesting {
 
 	@Test
 	public void testDeleteLostPetAsRegistered() {
-		// thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
 		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
 				.expand(this.lostPetId).patch().build();
 		assertFalse(this.lostPetRepository.findOne(lostPetId).isActive());
@@ -280,7 +279,8 @@ public class LostPetResourceFunctionalTesting {
 	@Test
 	public void testCreateLostPetUserNullException() {
 		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		this.lostPetInputDto.setUser(null);
+		this.lostPetInputDto.setUserId(null);
+		this.lostPetInputDto.setDescription("Fortnite");
 		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
 	}
 
@@ -322,6 +322,17 @@ public class LostPetResourceFunctionalTesting {
 				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
 				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
 				.param("distance", "5").param("page", "0").param("size", "5").get().build();
+		System.out.println(lostPetMinimumListDto);
+		assertEquals(2, lostPetMinimumListDto.length);
+	}
+
+	@Test
+	public void testReadLostPetMinimumFromCurrentPositionSizeExededException() {
+		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
+				.param("distance", "5").param("page", "0").param("size", "101").get().build();
 		assertEquals(2, lostPetMinimumListDto.length);
 	}
 
@@ -351,8 +362,8 @@ public class LostPetResourceFunctionalTesting {
 	public void testDeleteAsRegisteredException() {
 		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
 
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
-				.expand(65656).delete().build();
+		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
+				.expand("6566546s").patch().build();
 	}
 
 	@After

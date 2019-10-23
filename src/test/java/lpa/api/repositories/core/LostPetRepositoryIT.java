@@ -30,6 +30,12 @@ public class LostPetRepositoryIT {
 
 	private LostPet lostpet;
 
+	@Before
+	public void testSeedDb() {
+		this.lostpet = new LostPet();
+		this.lostPetRepository.save(this.lostpet);
+	}
+
 	@Test
 	public void testFindLostPetNear3_7KM() {
 		// AnimalApp coordinates = -1.2304894, 38.0462415
@@ -37,13 +43,12 @@ public class LostPetRepositoryIT {
 		Point userLocation = new Point(-1.195401, 38.049283);
 		Distance dmax = new Distance(3.70, Metrics.KILOMETERS);
 		Pageable pageable = new PageRequest(0, 3);
-		assertEquals(2, this.lostPetRepository.findByLocationNear(userLocation, dmax, pageable).size());
+		assertEquals(2, this.lostPetRepository.findByLocationNear(userLocation, dmax, pageable).getContent().size());
 	}
 
-	@Before
-	public void testSeedDb() {
-		this.lostpet = new LostPet();
-		this.lostPetRepository.save(this.lostpet);
+	@Test
+	public void testFindbyPetName() {
+		assertEquals("Naluda Hey", this.lostPetRepository.findByPetName("Naluda Hey").getPet().getName());
 	}
 
 	@After

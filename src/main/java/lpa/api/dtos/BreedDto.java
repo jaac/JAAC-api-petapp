@@ -3,6 +3,7 @@ package lpa.api.dtos;
 import javax.validation.constraints.NotNull;
 
 public class BreedDto {
+
 	@NotNull
 	String name;
 

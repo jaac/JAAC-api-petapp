@@ -23,7 +23,6 @@ import lpa.api.resources.exceptions.ForbiddenException;
 import lpa.api.resources.exceptions.UserFieldAlreadyExistException;
 import lpa.api.resources.exceptions.UserIdNotFoundException;
 
-@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('OPERATOR')")
 @RestController
 @RequestMapping(UserResource.USERS)
 
@@ -40,6 +39,8 @@ public class UserResource {
 	public static final String USER_ID = "/{id}";
 
 	public static final String USER_GET = "/get";
+
+	public static final String CURRENT = "/current";
 
 	@Autowired
 	private UserController userController;
@@ -76,6 +77,7 @@ public class UserResource {
 		}
 	}
 
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('OPERATOR') or hasRole('REGISTERED')")
 	@RequestMapping(value = USERNAME_ID, method = RequestMethod.DELETE)
 	public void deleteRegistered(@PathVariable String username) throws ForbiddenException {
 		if (!this.userController.deleteUser(username, new Role[] { Role.REGISTERED })) {
@@ -83,15 +85,22 @@ public class UserResource {
 		}
 	}
 
+	@RequestMapping(value = CURRENT, method = RequestMethod.GET)
+	public UserMinimumDto readCurrentUser() throws UserIdNotFoundException {
+		return this.userController.readCurrentUser(new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
+				.orElseThrow(() -> new UserIdNotFoundException());
+	}
+
 	@RequestMapping(value = USERUSERNAME + USERNAME_ID, method = RequestMethod.GET)
 	public UserDto readRegistered(@PathVariable String username) throws UserIdNotFoundException {
-		return this.userController.readUser(username, new Role[] { Role.REGISTERED })
+		return this.userController.readUser(username, new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
 				.orElseThrow(() -> new UserIdNotFoundException(username));
 	}
 
+	// ?
 	@RequestMapping(value = USERID + USER_ID, method = RequestMethod.GET)
-	public UserDto readUserRegistered(@PathVariable String id) throws UserIdNotFoundException {
-		return this.userController.readUserbyId(id, new Role[] { Role.REGISTERED })
+	public UserMinimumDto readUserRegistered(@PathVariable String id) throws UserIdNotFoundException {
+		return this.userController.readUserbyId(id, new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
 				.orElseThrow(() -> new UserIdNotFoundException(id));
 	}
 

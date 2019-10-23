@@ -8,14 +8,11 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import lpa.api.documents.core.HealthCondition;
-import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.LostWay;
-import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.PetComments;
 import lpa.api.documents.core.Location;
+import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.Report;
-import lpa.api.documents.core.User;
+
 
 public class LostPetInputDto {
 
@@ -24,14 +21,16 @@ public class LostPetInputDto {
 	private Date registrationDate;
 
 	private boolean found;
+	
 	@NotNull
 	private boolean active;
+	
 	@NotNull
 	private Location location;
 
-	private LostWay lostWay;
+	private String lostWay;
 
-	private HealthCondition healthCondition;
+	private String healthConditionId;
 
 	private boolean gratification;
 
@@ -40,10 +39,10 @@ public class LostPetInputDto {
 	private Report[] reportList;
 
 	@NotNull
-	private User user;
+	private String userId;
 
 	@NotNull
-	private Pet pet;
+	private PetInputDto pet;
 
 	private PetComments[] petComments;
 
@@ -51,24 +50,24 @@ public class LostPetInputDto {
 		this.active = true;
 	}
 
-	public LostPetInputDto(boolean found, Location location, String description, HealthCondition healthCondition,
-			Pet pet, User user, LostWay lost_way, boolean gratification, Report[] report) {
+	public LostPetInputDto(boolean found, Location location, String description, String healthConditionId,
+			PetInputDto petInputDto, String userId, String lost_way, boolean gratification, Report[] report) {
 		this();
 		this.found = found;
 		this.location = location;
 		this.description = description;
-		this.healthCondition = healthCondition;
-		this.pet = pet;
-		this.user = user;
+		this.healthConditionId = healthConditionId;
+		this.pet = petInputDto;
+		this.userId = userId;
 		this.lostWay = lost_way;
 		this.gratification = gratification;
 		this.reportList = report;
 
 	}
 
-	public LostPetInputDto(boolean found, Location location, String description, HealthCondition healthCondition,
-			Pet pet, User user) {
-		this(found, location, description, healthCondition, pet, user, null, false, null);
+	public LostPetInputDto(boolean found, Location location, String description, String healthConditionId,
+			PetInputDto pet, String userId) {
+		this(found, location, description, healthConditionId, pet, userId, null, false, null);
 	}
 
 	public LostPetInputDto(LostPet lostPet) {
@@ -76,10 +75,10 @@ public class LostPetInputDto {
 		this.found = lostPet.isFound();
 		this.location = lostPet.getLocation();
 		this.description = lostPet.getDescription();
-		this.healthCondition = lostPet.getHealthCondition();
-		this.pet = lostPet.getPet();
-		this.user = lostPet.getUser();
-		this.lostWay = lostPet.getLostWay();
+		this.healthConditionId = lostPet.getHealthCondition().getId();
+		this.pet = new PetInputDto(lostPet.getPet());
+		this.userId = lostPet.getUser().getId();
+		this.lostWay = lostPet.getLostWay().getId();
 		this.gratification = lostPet.isGratification();
 		this.reportList = lostPet.getPetReportList();
 		this.registrationDate = lostPet.getRegistrationDate();
@@ -117,20 +116,20 @@ public class LostPetInputDto {
 		this.location = location;
 	}
 
-	public LostWay getLostWay() {
+	public String getLostWay() {
 		return lostWay;
 	}
 
-	public void setLostWay(LostWay lostWay) {
+	public void setLostWay(String lostWay) {
 		this.lostWay = lostWay;
 	}
 
-	public HealthCondition getHealthCondition() {
-		return healthCondition;
+	public String getHealthConditionId() {
+		return healthConditionId;
 	}
 
-	public void setHealthCondition(HealthCondition healthCondition) {
-		this.healthCondition = healthCondition;
+	public void setHealthCondition(String healthConditionId) {
+		this.healthConditionId = healthConditionId;
 	}
 
 	public boolean isGratification() {
@@ -157,20 +156,20 @@ public class LostPetInputDto {
 		this.reportList = reportList;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public Pet getPet() {
+	public PetInputDto getPet() {
 		return pet;
 	}
 
-	public void setPet(Pet pet) {
-		this.pet = pet;
+	public void setPet(PetInputDto petInputDto) {
+		this.pet = petInputDto;
 	}
 
 	public PetComments[] getPetComments() {
@@ -189,7 +188,7 @@ public class LostPetInputDto {
 		}
 		return "LostPetInputDto[ active=" + this.active + ", found=" + this.found + ", date=" + date + ", location="
 				+ this.location + ", description=" + this.description + ", lostWay=" + this.lostWay + ", pet="
-				+ this.pet + ", healthCondition=" + this.healthCondition + ", gratification=" + this.gratification
+				+ this.pet + ", healthConditionId=" + this.healthConditionId + ", gratification=" + this.gratification
 				+ ", reportList=" + this.reportList + "]";
 	}
 

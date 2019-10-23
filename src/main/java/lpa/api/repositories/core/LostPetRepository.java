@@ -2,6 +2,7 @@ package lpa.api.repositories.core;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
@@ -23,9 +24,12 @@ public interface LostPetRepository extends MongoRepository<LostPet, String> {
 
 	// @Query(value = "{ location: { $geoNear: { $centerSphere: [[ ?0, ?1 ], ?2 ]} }
 	// }", fields = "{ '_id' : 1}")
-	public List<LostPet> findByLocationNear(Point location, Distance distance, Pageable pageable);
+	public Page<LostPet> findByLocationNear(Point location, Distance distance, Pageable pageable);
 
 	public LostPet findByPet(Pet pet);
+
+	@Query(value = "{'active' : true, 'pet.name' : ?0 }", fields = "{'_id' : 1, 'pet': 1, 'location':1 }")
+	public LostPet findByPetName(String name);
 
 	public List<LostPet> findByDescription(String description);
 }

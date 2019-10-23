@@ -5,47 +5,49 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import lpa.api.documents.core.Image;
-import lpa.api.documents.core.PetComments;
+
 import lpa.api.documents.core.Location;
 
-public class PetCommentsOutputDto{
+public class PetCommentsInputDto {
 
 	@NotNull
-	private String id;
+	private String userId;
 
 	private boolean iSaw;
 
-	private String userId;
-
 	private String comment;
 
+	@NotNull
 	private Date date;
 
 	private Image petImage;
 
+	@NotNull
+	private String lostPetId;
+
 	private Location location;
 
-	public PetCommentsOutputDto() {
-		// Empty for framework
+	public PetCommentsInputDto() {
+
 	}
 
-	public PetCommentsOutputDto(PetComments petComments) {
-		this.id = petComments.getId();
-		this.iSaw = petComments.isiSaw();
-		this.userId = petComments.getUser().getId();
-		this.comment = petComments.getComment();
-		this.date = petComments.getDate();
-		this.petImage = petComments.getPetImage();
-		this.location = petComments.getLocation();
-		
+	public PetCommentsInputDto(String userId, boolean iSaw, String comment, Date date, Image petImage, String lostPetId,
+			Location location) {
+		this.userId = userId;
+		this.iSaw = iSaw;
+		this.comment = comment;
+		this.date = date;
+		this.petImage = petImage;
+		this.lostPetId = lostPetId;
+		this.location = location;
 	}
 
 	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String user) {
-		this.userId = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public boolean isiSaw() {
@@ -80,6 +82,14 @@ public class PetCommentsOutputDto{
 		this.petImage = petImage;
 	}
 
+	public String getLostPetId() {
+		return lostPetId;
+	}
+
+	public void setLostPetId(String lostPetId) {
+		this.lostPetId = lostPetId;
+	}
+
 	public Location getLocation() {
 		return location;
 	}
@@ -90,8 +100,8 @@ public class PetCommentsOutputDto{
 
 	@Override
 	public String toString() {
-		return "PetCommentsOutputDto [id=" + id + ", iSaw=" + iSaw + ", userId=" + userId + ", comment=" + comment
-				+ ", date=" + date + ", petImage=" + petImage + ", location=" + location + "]";
+		return "PetCommentsInputDto [userId=" + userId + ", iSaw=" + iSaw + ", comment=" + comment + ", date=" + date
+				+ ", petImage=" + petImage + ", lostPetId=" + lostPetId + ", location=" + location + "]";
 	}
 
 }

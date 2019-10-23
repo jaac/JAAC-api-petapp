@@ -81,12 +81,12 @@ public class UserController {
 		}
 	}
 
-	public Optional<UserDto> readUserbyId(String id, Role[] roles) {
+	public Optional<UserMinimumDto> readUserbyId(String id, Role[] roles) {
 		User userBd = this.userRepository.findById(id);
 		if (userBd == null) {
 			return Optional.empty();
 		} else if (Arrays.asList(roles).containsAll(Arrays.asList(userBd.getRoles()))) {
-			return Optional.of(new UserDto(userBd));
+			return Optional.of(new UserMinimumDto(userBd));
 		} else {
 			return Optional.empty();
 		}
@@ -105,6 +105,17 @@ public class UserController {
 		// Encontar manera de paginar usuarios en DTO
 		Page<User> users = this.userRepository.findAll(new PageRequest(page, size));
 		return users;
+	}
+
+	public Optional<UserMinimumDto> readCurrentUser(Role[] roles) {
+		if (this.authenticationFacade.getCurrentUser() != null) {
+			return Optional.of(new UserMinimumDto(this.authenticationFacade.getCurrentUser()));
+		} else {
+			UserMinimumDto guest = new UserMinimumDto();
+			guest.setName("guest");
+			return Optional.of(guest);
+		}
+
 	}
 
 }

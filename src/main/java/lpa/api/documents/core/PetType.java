@@ -8,7 +8,6 @@ public class PetType {
 	@Id
 	private String id;
 	private String name;
-
 	private Breed[] breed;
 
 	public PetType() {

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
@@ -29,6 +30,13 @@ public class LostPetControllerIT {
 		Pageable pageable = new PageRequest(0, 3);
 		List<LostPetMinimumDto> lostPetList = lostPetController.readLostPetAll(pageable);
 		assertNotNull(lostPetList);
+	}
+
+	@Test
+	public void testReadPetsNear() {
+		Page<LostPetMinimumDto> lostPetList = lostPetController.readLostPetNearMinimumDto(5, 38.0464065,-1.2024834000000055, 0, 25);
+		System.out.println(lostPetList.getContent());
+		assertNotNull(lostPetList.getContent());
 	}
 
 }

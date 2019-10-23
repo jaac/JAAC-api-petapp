@@ -15,14 +15,9 @@ tokenList:
   # UserImage
 userImageList:
   - &uimg0
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &uimg1
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-  
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab
 
 # Users
 # usernames: 666666000 a 666666666 RESERVADOS AQUI
@@ -171,18 +166,11 @@ petTypeList:
 # PetImageList
 petImageList:
   - &petImg0
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg1
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg2
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-  
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
 # ColorList
 colorList:
   - &col0
@@ -244,7 +232,7 @@ lostPetList:
   - &lostp2
     registrationDate: 2012-06-12
     found: false
-    location: *ploc2
+    location: *ploc1
     description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
@@ -254,14 +242,73 @@ lostPetList:
   - &lostp3
     registrationDate: 2012-06-12
     found: false
-    location: *ploc3
+    location: *ploc1
     description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
     pet: *pet0
     lostWay: *lw0
     user: *us02
-
+  - &lostp4
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp5
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp6
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp7
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp8
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp9
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
 # PetCommentsList
 petCommentsList:
   - &lpc0
@@ -275,6 +322,96 @@ petCommentsList:
     reportList: 
       - *rep0
   - &lpc1
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc2
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc3
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc4
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc5
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc6
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc7
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc8
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc9
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc10
     user: *us5
     iSaw: true
     lostPet: *lostp1

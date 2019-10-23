@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,8 @@ import lpa.api.dtos.LostPetUpdateInputDto;
 import lpa.api.resources.exceptions.ForbiddenException;
 import lpa.api.resources.exceptions.LostPetBadRequest;
 import lpa.api.resources.exceptions.LostPetIdNotFoundException;
-import lpa.api.resources.exceptions.LotPetDistanceNotAllowedExecption;
+import lpa.api.resources.exceptions.LostPetDistanceNotAllowedException;
+import lpa.api.resources.exceptions.LostPetException;
 
 @RestController
 @RequestMapping(LostPetResource.LOSTPET)
@@ -46,15 +48,7 @@ public class LostPetResource {
 	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
 	@RequestMapping(method = RequestMethod.POST)
 	public void createLostPet(@Valid @RequestBody LostPetInputDto lostPetInputDto) throws LostPetBadRequest {
-		if (lostPetInputDto.getUser() == null) {
-			throw new LostPetBadRequest("Usuario error");
-		}
-		if (lostPetInputDto.getPet() == null) {
-			throw new LostPetBadRequest("Pet error");
-		}
-		if (lostPetInputDto.getPetLocation() == null) {
-			throw new LostPetBadRequest("Location error");
-		}
+		System.out.println(lostPetInputDto);
 		this.lostPetController.createLostPet(lostPetInputDto);
 	}
 
@@ -66,19 +60,9 @@ public class LostPetResource {
 			if (lostPetPutInputDto.getLostPet() == null) {
 				throw new LostPetBadRequest("Not lost pet data");
 			}
-
-			if (lostPetPutInputDto.getLostPetId() == null) {
-				throw new LostPetBadRequest("Not Lost Pet id");
-			}
-
-			if (lostPetPutInputDto.getUserId() == null) {
-				throw new LostPetBadRequest("Not current user id");
-			}
-
 			if (this.lostPetController.notOwner(lostPetPutInputDto)) {
 				throw new ForbiddenException("Not user Owner");
 			}
-
 		}
 	}
 
@@ -91,7 +75,7 @@ public class LostPetResource {
 	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
 	@RequestMapping(value = LOSTPET_DEACTIVE, method = RequestMethod.PATCH)
 	public void deactiveLostPet(@PathVariable String id) throws ForbiddenException {
-		if (this.lostPetController.deactiveLostPet(id)) {
+		if (!this.lostPetController.deactiveLostPet(id)) {
 			throw new ForbiddenException();
 		}
 	}
@@ -108,17 +92,21 @@ public class LostPetResource {
 		return this.lostPetController.readLostPetAll(pageable);
 	}
 
+	// @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or
+	// hasRole('REGISTERED')")
 	@RequestMapping(value = LOSTPET_GET + LOSTPET_NEAR, params = { "longi", "lat", "distance", "page",
 			"size" }, method = RequestMethod.GET)
-	public List<LostPetMinimumDto> readLostPetNear(@RequestParam("distance") double distance,
+	public Page<LostPetMinimumDto> readLostPetNear(@RequestParam("distance") double distance,
 			@RequestParam("longi") double longi, @RequestParam("lat") double lat, @RequestParam("page") int page,
-			@RequestParam("size") int size) throws LotPetDistanceNotAllowedExecption {
-		Pageable pageable = new PageRequest(page, size);
-
+			@RequestParam("size") int size) throws LostPetDistanceNotAllowedException, LostPetException {
+		if (size > 100) {
+			throw new LostPetException("Size exeded");
+		}
 		if (distance >= 21) {
-			throw new LotPetDistanceNotAllowedExecption();
+			throw new LostPetDistanceNotAllowedException();
 		} else {
-			return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat, pageable);
+			
+			return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat, page, size);
 		}
 
 	}

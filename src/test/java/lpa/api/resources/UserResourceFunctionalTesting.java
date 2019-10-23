@@ -1,5 +1,7 @@
 package lpa.api.resources;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.documents.core.User;
 import lpa.api.dtos.UserDto;
+import lpa.api.dtos.UserMinimumDto;
 import lpa.api.repositories.core.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -138,6 +141,14 @@ public class UserResourceFunctionalTesting {
 		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
 		restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USERUSERNAME)
 				.path(UserResource.USERNAME_ID).expand(666666001).get().build();
+	}
+
+	@Test
+	public void testReadCurrentUser() {
+
+		UserMinimumDto userMinimumDto = restService.loginRegistered().restBuilder(new RestBuilder<UserMinimumDto>())
+				.clazz(UserMinimumDto.class).path(UserResource.USERS).path(UserResource.CURRENT).get().build();
+		assertEquals("u002", userMinimumDto.getName());
 	}
 
 	@After

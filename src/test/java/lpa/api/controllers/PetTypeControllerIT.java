@@ -37,12 +37,22 @@ public class PetTypeControllerIT {
 	}
 
 	@Test
+	public void testAddBreed() {
+		this.petTypeController.createPetType(petTypeDto);
+		PetType pettype = this.petTypeRepository.findByName("Cat test");
+		BreedDto breedDto = new BreedDto("Aad breed");
+		BreedDto breedDto2 = new BreedDto("lana");
+		petTypeController.addBreed(pettype.getId(), breedDto);
+		petTypeController.addBreed(pettype.getId(), breedDto2);
+	}
+
+	@Test
 	public void testUpdateBreed() {
 		this.petTypeController.createPetType(petTypeDto);
 		PetType pettype = this.petTypeRepository.findByName("Cat test");
 		this.createBreed(pettype, "Angora");
 		BreedDto breedDto = new BreedDto("Update breed");
-		petTypeController.updateBreed(pettype.getId(), breedDto);
+		petTypeController.updateBreed(pettype.getId(), breedDto, "Angora");
 	}
 
 	@Test
