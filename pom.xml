@@ -146,6 +146,7 @@
 				</dependencies>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
+					<useFile>false</useFile>
 				</configuration>
 			</plugin>
 			<plugin>
