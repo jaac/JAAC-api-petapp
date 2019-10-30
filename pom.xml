@@ -61,7 +61,7 @@
         <swagger.version>2.8.0</swagger.version>
         <!-- PDF -->
         <itextpdf.version>7.0.2</itextpdf.version>
-        <deploy>${project.artifactId}-${project.version}</deploy>
+
     </properties>
 
     <dependencies>
