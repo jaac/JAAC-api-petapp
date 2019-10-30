@@ -46,7 +46,7 @@ public class PetLostTest {
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		assertEquals("LostPet[ null ,active=true, found=false, date=" + nowDate
-				+ ", petLocation=Location [null, latitude=173, longitude=5655, country=null, city=null, state=null, locality=null, street=null, street_number=0, formatted_address=null, postalCode=0], description=Dog found in Central Park, lostWay=null, pet=Pet[null, petType=PetType[ id= null, name= Dog, breeds=null ], imgs=[Lapi.documents.core.Image;@2b80d80f, name=Doggy, gender=Male, age=null, breed=null, hairColor=null, eyesColor=null], healthCondition=HealthCondition[ id= null, name= Healthy], gratification=false, report=null]",
+				+ ", location=Location [null, latitude=173, longitude=5655, country=null, city=null, state=null, locality=null, street=null, street_number=0, formatted_address=null, postalCode=0], description=Dog found in Central Park, lostWay=null, pet=Pet[null, petType=PetType[ id= null, name= Dog, breeds=null ], imgs=[Lapi.documents.core.Image;@2b80d80f, name=Doggy, gender=Male, age=null, breed=null, hairColor=null, eyesColor=null], healthCondition=HealthCondition[ id= null, name= Healthy], gratification=false, report=null]",
 				dogLost.toString());
 	}
 

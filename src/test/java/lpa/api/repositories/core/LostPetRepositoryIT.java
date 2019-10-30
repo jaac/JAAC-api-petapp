@@ -43,7 +43,7 @@ public class LostPetRepositoryIT {
 		Point userLocation = new Point(-1.195401, 38.049283);
 		Distance dmax = new Distance(3.70, Metrics.KILOMETERS);
 		Pageable pageable = new PageRequest(0, 3);
-		assertEquals(2, this.lostPetRepository.findByLocationNear(userLocation, dmax, pageable).getContent().size());
+		assertEquals(3, this.lostPetRepository.findByLocationNear(userLocation, dmax, pageable).getContent().size());
 	}
 
 	@Test

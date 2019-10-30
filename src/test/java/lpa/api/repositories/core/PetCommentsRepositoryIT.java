@@ -25,7 +25,7 @@ public class PetCommentsRepositoryIT {
 	@Test
 	public void testReadPetCommentsAll() {
 		List<PetComments> petComments = this.petCommentsRepository.findPetCommentsAll();
-		assertEquals(2, petComments.size());
+		assertEquals(11, petComments.size());
 	}
 
 	@Test

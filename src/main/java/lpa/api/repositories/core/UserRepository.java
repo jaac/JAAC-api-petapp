@@ -12,9 +12,6 @@ import lpa.api.dtos.UserMinimumDto;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
-	// @Query("{ 'username' : ?0 }")
-	//public User findByusername(String username);
-
 	public User findByEmail(String email);
 
 	public User findById(String id);
