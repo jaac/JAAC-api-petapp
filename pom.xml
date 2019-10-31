@@ -175,10 +175,7 @@
                         <version>${junit.platform.version}</version>
                     </dependency>
                 </dependencies>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <useFile>false</useFile>
-                </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

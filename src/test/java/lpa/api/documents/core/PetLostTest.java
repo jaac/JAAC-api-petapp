@@ -96,12 +96,10 @@ public class PetLostTest {
 		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
 		// set Breed
 		dog.setBreed(breeds[0]);
-		//
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		LostWay lost_way = new LostWay("Lost in the Street");
 		dogLost.setLostWay(lost_way);
 		assertEquals("Lost in the Street", dogLost.getLostWay().getName());
-		System.out.println(dogLost.getPet().getBreed().getName());
 	}
 
 }
