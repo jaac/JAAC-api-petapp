@@ -175,7 +175,6 @@
                         <version>${junit.platform.version}</version>
                     </dependency>
                 </dependencies>
-
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
