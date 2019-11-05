@@ -1,7 +1,6 @@
 package lpa.api.documents.core;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -9,8 +8,6 @@ public class PetType {
 	@Id
 	private String id;
 	private String name;
-
-	@DBRef
 	private Breed[] breed;
 
 	public PetType() {
@@ -31,6 +28,14 @@ public class PetType {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Breed[] getBreed() {
+		return breed;
+	}
+
+	public void setBreed(Breed[] breed) {
+		this.breed = breed;
 	}
 
 	@Override
@@ -59,11 +64,4 @@ public class PetType {
 
 	}
 
-	public Breed[] getBreed() {
-		return breed;
-	}
-
-	public void setBreed(Breed[] breed) {
-		this.breed = breed;
-	}
 }

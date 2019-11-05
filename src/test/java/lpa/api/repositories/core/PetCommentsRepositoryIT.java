@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.dtos.PetCommentsDto;
+import lpa.api.documents.core.PetComments;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -21,10 +21,16 @@ public class PetCommentsRepositoryIT {
 
 	@Autowired
 	PetCommentsRepository petCommentsRepository;
-	
+
 	@Test
 	public void testReadPetCommentsAll() {
-		List<PetCommentsDto> petCommentsDto = this.petCommentsRepository.findPetCommentsAll();
-		assertEquals("s", petCommentsDto);
+		List<PetComments> petComments = this.petCommentsRepository.findPetCommentsAll();
+		assertEquals(11, petComments.size());
 	}
+
+	@Test
+	public void testFindByComment() {
+		this.petCommentsRepository.findByComment("as");
+	}
+
 }

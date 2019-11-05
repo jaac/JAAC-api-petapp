@@ -15,9 +15,9 @@ public class User {
 	private String id;
 
 	@Indexed(unique = true)
-	private String mobile;
-
 	private String username;
+
+	private String name;
 
 	private String password;
 
@@ -30,44 +30,34 @@ public class User {
 	private Role[] roles;
 
 	private Token token;
-	
+
 	private Image image;
 
 	public User() {
 		this.registrationDate = new Date();
 		this.active = true;
 	}
-	
-	
 
-	public User(String mobile, String username, String password, String email, Image image) {
+	public User(String username, String name, String password, String email, Image image) {
 		this();
-		this.mobile = mobile;
 		this.username = username;
+		this.name = name;
 		this.email = email;
 		this.setPassword(password);
 		this.setUserImage(image);
 		this.roles = new Role[] { Role.REGISTERED };
 	}
-	
-	public User(String mobile, String username, String password,String email) {
-		this(mobile, username, password, email, null);
+
+	public User(String username, String name, String password, String email) {
+		this(username, username, password, email, null);
 	}
 
-	public User(String mobile, String username, String password) {
-		this(mobile, username, password, null, null);
+	public User(String username, String name, String password) {
+		this(username, username, password, null, null);
 	}
 
 	public String getId() {
 		return id;
-	}
-
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
 	}
 
 	public String getUsername() {
@@ -76,6 +66,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {
@@ -132,7 +130,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return this.mobile.hashCode();
+		return this.username.hashCode();
 	}
 
 	@Override
@@ -146,7 +144,7 @@ public class User {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		return mobile.equals(((User) obj).mobile);
+		return username.equals(((User) obj).username);
 	}
 
 	@Override
@@ -155,7 +153,7 @@ public class User {
 		if (registrationDate != null) {
 			date = new SimpleDateFormat("dd-MMM-yyyy ").format(registrationDate.getTime());
 		}
-		return "User [mobile=" + mobile + ", username=" + username + ", password=" + password + ", active=" + active
+		return "User [username=" + username + ", name=" + name + ", password=" + password + ", active=" + active
 				+ ", email=" + email + ", image=" + image + ", registrationDate=" + date + ", roles="
 				+ java.util.Arrays.toString(roles) + ", token=" + token + "]";
 	}

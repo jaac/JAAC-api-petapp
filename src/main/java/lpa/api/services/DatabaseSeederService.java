@@ -16,7 +16,6 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import lpa.api.documents.core.Role;
 import lpa.api.documents.core.User;
-import lpa.api.repositories.core.BreedRepository;
 import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
@@ -29,11 +28,11 @@ import lpa.api.services.DatabaseGraph;
 @Service
 public class DatabaseSeederService {
 
-	@Value("${lpa.admin.mobile}")
-	private String mobile;
-
 	@Value("${lpa.admin.username}")
 	private String username;
+
+	@Value("${lpa.admin.name}")
+	private String name;
 
 	@Value("${lpa.admin.password}")
 	private String password;
@@ -43,9 +42,6 @@ public class DatabaseSeederService {
 
 	@Autowired
 	private HealthConditionRepository healthConditionRepository;
-
-	@Autowired
-	private BreedRepository breedRepository;
 
 	@Autowired
 	private ColorRepository colorRepository;
@@ -89,7 +85,6 @@ public class DatabaseSeederService {
 
 		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
 		this.lostWayRepository.save(lpaGraph.getLostWayList());
-		this.breedRepository.save(lpaGraph.getBreedList());
 		this.colorRepository.save(lpaGraph.getColorList());
 		this.petTypeRepository.save(lpaGraph.getPetTypeList());
 		this.userRepository.save(lpaGraph.getUserList());
@@ -105,7 +100,6 @@ public class DatabaseSeederService {
 		// Delete Repositories -----------------------------------------------------
 		this.healthConditionRepository.deleteAll();
 		this.lostWayRepository.deleteAll();
-		this.breedRepository.deleteAll();
 		this.colorRepository.deleteAll();
 		this.petTypeRepository.deleteAll();
 		this.lostPetRepository.deleteAll();
@@ -117,8 +111,8 @@ public class DatabaseSeederService {
 	}
 
 	public void createAdminIfNotExist() {
-		if (this.userRepository.findByMobile(this.mobile) == null) {
-			User user = new User(this.mobile, this.username, this.password);
+		if (this.userRepository.findByusername(this.username) == null) {
+			User user = new User(this.username, this.username, this.password);
 			user.setRoles(new Role[] { Role.ADMIN });
 			this.userRepository.save(user);
 		}

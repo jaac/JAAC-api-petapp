@@ -1,0 +1,11 @@
+package lpa.api.repositories.core;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+@RunWith(Suite.class)
+@SuiteClasses({ LostPetRepositoryIT.class, PetCommentsRepositoryIT.class, UserRepositoryIT.class })
+public class AllLostPetRepositoiesTests {
+
+}

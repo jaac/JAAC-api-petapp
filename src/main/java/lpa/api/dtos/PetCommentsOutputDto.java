@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import lpa.api.documents.core.Image;
 import lpa.api.documents.core.PetComments;
-import lpa.api.documents.core.PetLocation;
+import lpa.api.documents.core.Location;
 
-public class PetCommentsOutputDto {
+public class PetCommentsOutputDto{
 
 	@NotNull
 	private String id;
@@ -23,10 +23,10 @@ public class PetCommentsOutputDto {
 
 	private Image petImage;
 
-	private PetLocation petLocation;
+	private Location location;
 
 	public PetCommentsOutputDto() {
-
+		// Empty for framework
 	}
 
 	public PetCommentsOutputDto(PetComments petComments) {
@@ -36,7 +36,8 @@ public class PetCommentsOutputDto {
 		this.comment = petComments.getComment();
 		this.date = petComments.getDate();
 		this.petImage = petComments.getPetImage();
-		this.petLocation = petComments.getPetLocation();
+		this.location = petComments.getLocation();
+		
 	}
 
 	public String getUserId() {
@@ -79,12 +80,18 @@ public class PetCommentsOutputDto {
 		this.petImage = petImage;
 	}
 
-	public PetLocation getPetLocation() {
-		return petLocation;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setPetLocation(PetLocation petLocation) {
-		this.petLocation = petLocation;
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	@Override
+	public String toString() {
+		return "PetCommentsOutputDto [id=" + id + ", iSaw=" + iSaw + ", userId=" + userId + ", comment=" + comment
+				+ ", date=" + date + ", petImage=" + petImage + ", location=" + location + "]";
 	}
 
 }

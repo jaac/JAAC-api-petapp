@@ -27,7 +27,7 @@ public class PetComments {
 
 	private Report[] reportList;
 
-	private PetLocation petLocation;
+	private Location location;
 
 	public PetComments() {
 		this.active = true;
@@ -35,14 +35,12 @@ public class PetComments {
 		this.date = new Date();
 	}
 
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, PetLocation petLocation,
-			Image petImage) {
+	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location, Image petImage) {
 		this();
 		this.user = user;
-		this.user.setPassword("");
 		this.iSaw = iSaw;
 		this.comment = comment;
-		this.setPetLocation(petLocation);
+		this.setLocation(location);
 		this.petImage = petImage;
 		this.lostPet = lostPet;
 	}
@@ -53,8 +51,13 @@ public class PetComments {
 	}
 
 	// With no Image
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, PetLocation petLocation) {
-		this(user, iSaw, lostPet, comment, petLocation, null);
+	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location) {
+		this(user, iSaw, lostPet, comment, location, null);
+	}
+
+	// With no Location
+	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Image image) {
+		this(user, iSaw, lostPet, comment, null, image);
 	}
 
 	public String getId() {
@@ -117,12 +120,12 @@ public class PetComments {
 		this.reportList = repotList;
 	}
 
-	public PetLocation getPetLocation() {
-		return petLocation;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setPetLocation(PetLocation petLocation) {
-		this.petLocation = petLocation;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public User getUser() {
@@ -140,7 +143,6 @@ public class PetComments {
 	public void setLostPet(LostPet lostPet) {
 		this.lostPet = lostPet;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -164,7 +166,7 @@ public class PetComments {
 	@Override
 	public String toString() {
 		return "PetComment[ id=" + this.id + ", date=" + this.date + ", iSaw=" + this.iSaw + ", lostPet=" + this.lostPet
-				+ ", comment=" + this.comment + ", petLocation=" + this.petLocation + ", petImage=" + this.petImage
+				+ ", comment=" + this.comment + ", location=" + this.location + ", petImage=" + this.petImage
 				+ ", reportList=" + this.reportList + "]";
 	}
 

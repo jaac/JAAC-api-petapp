@@ -15,20 +15,15 @@ tokenList:
   # UserImage
 userImageList:
   - &uimg0
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &uimg1
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab  
-  
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab
 
 # Users
-# mobiles: 666666000 a 666666666 RESERVADOS AQUI
+# usernames: 666666000 a 666666666 RESERVADOS AQUI
 userList:
-  - mobile: 666666000
-    username: u000
+  - username: 666666000
+    name: u000
     password: p000
     email: u000@gmail.com
     roles:
@@ -37,49 +32,70 @@ userList:
       - OPERATOR
     token: *to0
     userImage: *uimg1
-  - mobile: 666666001
-    username: u001
+  - username: 666666001
+    name: u001
     password: p001
     email: u001@gmail.com
     roles:
       - MANAGER
       - OPERATOR
     userImage: *uimg0
-  - mobile: 666666002
-    username: u002
+  - &us02
+    username: 666666002
+    name: u002
     password: p002
+    email: u002@gmail.com
     roles:
-      - AUTHENTICATED
+      - REGISTERED
     token: *to1
-  - mobile: 666666003
-    username: u003
+  - &us2
+    username: 666666003
+    name: u003
     password: p003
     userImage: *uimg1
     roles:
       - REGISTERED
     token: *to2
   - &us4
-    mobile: 666666004
-    username: u004
+    username: 666666004
+    name: u004
     password: p004
     email: u004@gmail.com
     userImage: *uimg1
     roles:
       - REGISTERED
   - &us5
-    mobile: 666666005
-    username: u005
+    username: 666666005
+    name: u005
     password: p005
     email: u005@gmail.com
     userImage: *uimg1
     roles:
       - OPERATOR
+  - &us6
+    username: 666666006
+    name: u006
+    password: p006
+    email: u006@gmail.com
+    userImage: *uimg1
+    roles:
+      - REGISTERED
+  - &us7
+    username: 666666007
+    name: u007
+    password: p007
+    email: u007@gmail.com
+    userImage: *uimg1
+    roles:
+      - REGISTERED
 
-# PetLocationList
-petLocationList:
+# LocationList
+locationList:
   - &ploc0
-    latitude: -34.71317519999999
-    longitude: -58.60995809999997
+    type: Point
+    coordinates:
+      - -58.60995809999997
+      - -34.71317519999999
     country: Germany
     city: Berlin
     state: VolmertState
@@ -88,11 +104,49 @@ petLocationList:
     street_number: 5
     formatted_address: C/alemania - Lsefnaten - VolmertState - Berlin - Germany
     postalCode: 566880
-
+  - &ploc1
+    type: Point
+    coordinates:
+      - -1.2304894
+      - 38.0462415
+    country: Spain
+    city: Molina de segura
+    state: Murcia
+    locality: Molina de segura
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Molina de segura - Molina de segura - Murcia - Spain
+    postalCode: 30500
+  - &ploc2
+    type: Point
+    coordinates:
+      - 8.5154248
+      - 47.4030398
+    country: Suiza
+    city: Zurich
+    state: Zurich
+    locality: Hongg
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Hongg - Zurich - Zurich - Suiza
+    postalCode: 8037
+  - &ploc3
+    type: Point
+    coordinates:
+      - -1.212119
+      - 38.062649
+    country: Spain
+    city: Molina de segura
+    state: Murcia
+    locality: Molina de segura
+    street: C/sanJuan
+    street_number: 1
+    formatted_address: C/sanJuan - Molina de segura - Molina de segura - Murcia - Spain
+    postalCode: 30500
 # HealthCondition
 healthConditionList:
   - &hcond0
-    name: Healthty
+    name: Healthy
 
 # BeedList
 breedList:
@@ -104,7 +158,7 @@ breedList:
 # PetTypeList
 petTypeList:
   - &ptyp0
-    name: Dog
+    name: Dog Test
     breed:
       - *br0
       - *br1
@@ -112,18 +166,11 @@ petTypeList:
 # PetImageList
 petImageList:
   - &petImg0
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg1
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg2
-    small: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    medium: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-    big: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-  
+    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
 # ColorList
 colorList:
   - &col0
@@ -164,25 +211,104 @@ lostPetList:
   - &lostp0
     registrationDate: 2018-06-14
     found: true
-    petLocation: *ploc0
+    location: *ploc0
     description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
     pet: *pet0
     lostWay: *lw0
-    user: *us5
+    user: *us6
 
   - &lostp1
-    registrationDate: 2018-06-14
+    registrationDate: 2012-06-12
     found: false
-    petLocation: *ploc0
+    location: *ploc1
     description: Desc from yml seeder
     healthCondition: *hcond0
     gratification: true
     pet: *pet0
     lostWay: *lw0
-    user: *us4
-
+    user: *us2
+  - &lostp2
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us2
+  - &lostp3
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp4
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp5
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp6
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp7
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp8
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
+  - &lostp9
+    registrationDate: 2012-06-12
+    found: false
+    location: *ploc1
+    description: Desc from yml seeder
+    healthCondition: *hcond0
+    gratification: true
+    pet: *pet0
+    lostWay: *lw0
+    user: *us02
 # PetCommentsList
 petCommentsList:
   - &lpc0
@@ -192,7 +318,7 @@ petCommentsList:
     comment: Comment from yamel seeder
     date: 2018-06-14
     petImage: *petImg2
-    petLocation: *ploc0
+    location: *ploc0
     reportList: 
       - *rep0
   - &lpc1
@@ -202,6 +328,96 @@ petCommentsList:
     comment: Comment from yamel seeder 2222
     date: 2018-06-14
     petImage: *petImg2
-    petLocation: *ploc0
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc2
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc3
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc4
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc5
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc6
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc7
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc8
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc9
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
+    reportList: 
+      - *rep0
+  - &lpc10
+    user: *us5
+    iSaw: true
+    lostPet: *lostp1
+    comment: Comment from yamel seeder 2222
+    date: 2018-06-14
+    petImage: *petImg2
+    location: *ploc0
     reportList: 
       - *rep0

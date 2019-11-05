@@ -1,0 +1,29 @@
+language: java
+branches:
+  only:
+    - develop
+    - /^release-[0-999].[0-999]$/
+    - master
+notifications:
+  email:
+    recipients:
+      - jaac@jaaccorp.com
+# services:
+# - mysql
+# - mongodb
+# before_install:
+# - mysql -e 'CREATE DATABASE IF NOT EXISTS forge;'
+script:
+  #Test unitario y de integracion con cobertura (jacoco)
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
+  #SONARCLOUD lOSTPER
+  - mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=jaac-github -Dsonar.login=$SONAR
+
+  #Deploy https://lostpet-app.herokuapp.com/api
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU
+  on:
+    branch: master
+  app: lostpet-app
