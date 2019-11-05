@@ -117,9 +117,7 @@ public class LostPetController {
 
 	public boolean putLostPet(LostPetUpdateInputDto lostPetUpdateInputDto, Role[] roles) {
 		User user = this.userRepository.findOne(lostPetUpdateInputDto.getUserId());
-
 		LostPet lostPet = this.lostPetRepository.findOne(lostPetUpdateInputDto.getLostPetId());
-
 		assert user != null;
 		assert lostPet != null;
 		if (Arrays.asList(roles).containsAll(Arrays.asList(user.getRoles()))) {

@@ -18,6 +18,11 @@ public class AdminController {
         this.databaseSeederService.deleteAllAndCreateAdmin();
     }
 
+    /**
+     6
+     * @param ymlFileName
+     * @return
+     **/
     public Optional<String> seedDatabase(String ymlFileName) {
         try {
             this.databaseSeederService.seedDatabase(ymlFileName);
