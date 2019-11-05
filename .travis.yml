@@ -17,5 +17,5 @@ script:
   #Test unitario y de integracion con cobertura (jacoco)
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
   - mvn install
-  #SONARCLOUD
+  #SONARCLOUD lOSTPER
   - mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=jaac-github -Dsonar.login=$SONAR
