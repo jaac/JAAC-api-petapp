@@ -166,12 +166,12 @@ public class LostPetController {
 		return pet;
 	}
 
-	public boolean notOwner(LostPetUpdateInputDto lostPetPutInputDto) {
-		if (lostPetPutInputDto.getUserId() != lostPetPutInputDto.getUserId()) {
-			return true;
-		}
-		return false;
-	}
+    public boolean notOwner(LostPetUpdateInputDto lostPetPutInputDto) {
+        if (lostPetPutInputDto.getUserId().equals(this.authenticationFacade.getCurrentUser().getId())) {
+            return true;
+        }
+        return false;
+    }
 
 	public boolean deactiveLostPet(String id) {
 
