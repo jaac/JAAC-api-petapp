@@ -20,8 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.resources.HttpMatcher;
-import lpa.api.resources.RestBuilder;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
@@ -33,7 +31,7 @@ import lpa.api.documents.core.Location;
 import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.PetType;
+import lpa.api.documents.core.Type;
 import lpa.api.documents.core.User;
 
 import lpa.api.dtos.LostPetInputDto;
@@ -81,7 +79,7 @@ public class LostPetResourceFunctionalTesting {
 
 	private Pet pet;
 
-	private PetType pettype;
+	private Type pettype;
 
 	private Image[] images;
 
@@ -128,7 +126,7 @@ public class LostPetResourceFunctionalTesting {
 		this.healthCondition = healthConditionList.get(0);
 
 		// Set Pet Type
-		List<PetType> pettypeList = this.pettypeRepository.findAll();
+		List<Type> pettypeList = this.pettypeRepository.findAll();
 		this.pettype = pettypeList.get(0);
 
 		Breed[] blist = pettype.getBreed();

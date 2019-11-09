@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.documents.core.PetType;
+import lpa.api.documents.core.Type;
 import lpa.api.dtos.BreedDto;
 import lpa.api.dtos.PetTypeDto;
 import lpa.api.repositories.core.PetTypeRepository;
@@ -39,7 +39,7 @@ public class PetTypeControllerIT {
 	@Test
 	public void testAddBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		PetType pettype = this.petTypeRepository.findByName("Cat test");
+		Type pettype = this.petTypeRepository.findByName("Cat test");
 		BreedDto breedDto = new BreedDto("Aad breed");
 		BreedDto breedDto2 = new BreedDto("lana");
 		petTypeController.addBreed(pettype.getId(), breedDto);
@@ -49,7 +49,7 @@ public class PetTypeControllerIT {
 	@Test
 	public void testUpdateBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		PetType pettype = this.petTypeRepository.findByName("Cat test");
+		Type pettype = this.petTypeRepository.findByName("Cat test");
 		this.createBreed(pettype, "Angora");
 		BreedDto breedDto = new BreedDto("Update breed");
 		petTypeController.updateBreed(pettype.getId(), breedDto, "Angora");
@@ -58,12 +58,12 @@ public class PetTypeControllerIT {
 	@Test
 	public void testDeleteBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		PetType pettype = this.petTypeRepository.findByName("Cat test");
+		Type pettype = this.petTypeRepository.findByName("Cat test");
 		this.createBreed(pettype, "Angora");
 		assertTrue(this.petTypeController.deleteBreed(pettype.getId(), "Angora"));
 	}
 
-	private void createBreed(PetType pettype, String name) {
+	private void createBreed(Type pettype, String name) {
 		BreedDto breed = new BreedDto(name);
 		petTypeController.addBreed(pettype.getId(), breed);
 	}

@@ -4,16 +4,16 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class PetType {
+public class Type {
 	@Id
 	private String id;
 	private String name;
 
-	public PetType() {
+	public Type() {
 
 	}
 
-	public PetType(String name) {
+	public Type(String name) {
 		this.name = name;
 	}
 
@@ -45,7 +45,7 @@ public class PetType {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		return (id.equals(((PetType) obj).id));
+		return (id.equals(((Type) obj).id));
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.PetType;
+import lpa.api.documents.core.Type;
 import lpa.api.dtos.BreedDto;
 import lpa.api.dtos.PetTypeDto;
 import lpa.api.repositories.core.PetTypeRepository;
@@ -40,7 +40,7 @@ public class PetTypeResourceFunctionalTesting {
 	@Autowired
 	private PetTypeRepository petTypeRepository;
 
-	private PetType pettype;
+	private Type pettype;
 
 	@Before
 	public void Before() {
@@ -48,7 +48,7 @@ public class PetTypeResourceFunctionalTesting {
 		this.breedDto = new BreedDto("Husky");
 	}
 
-	public void createPetTypeBreed(PetType pettype, BreedDto breedDto) {
+	public void createPetTypeBreed(Type pettype, BreedDto breedDto) {
 		this.pettype = pettype;
 		restService.loginAdmin().restBuilder().path(PetTypeResource.PETTYPE).path(PetTypeResource.PETTYPE_BREED)
 				.param("petType_id", pettype.getId()).body(breedDto).patch().build();
@@ -62,7 +62,7 @@ public class PetTypeResourceFunctionalTesting {
 
 	@Test
 	public void testReadPetType() {
-		PetType pettype = this.petTypeRepository.findByName("Dog Test");
+		Type pettype = this.petTypeRepository.findByName("Dog Test");
 		PetTypeDto petTypeDto = restService.loginAdmin().restBuilder(new RestBuilder<PetTypeDto>())
 				.clazz(PetTypeDto.class).path(PetTypeResource.PETTYPE).path(PetTypeResource.PETTYPE_ID)
 				.expand(pettype.getId()).get().build();
@@ -113,7 +113,7 @@ public class PetTypeResourceFunctionalTesting {
 	private void createBreedList() {
 		Breed[] breedList = new Breed[1];
 		breedList[0] = new Breed(this.breedDto.getName());
-		PetType pettype = this.petTypeRepository.findByName(petTypeDto.getName());
+		Type pettype = this.petTypeRepository.findByName(petTypeDto.getName());
 		pettype.setBreed(breedList);
 		this.petTypeRepository.save(pettype);
 	}
@@ -138,7 +138,7 @@ public class PetTypeResourceFunctionalTesting {
 
 		this.createPetType(this.petTypeDto);
 
-		PetType pettype = this.petTypeRepository.findByName(this.petTypeDto.getName());
+		Type pettype = this.petTypeRepository.findByName(this.petTypeDto.getName());
 
 		this.breedDto.setName("Hober");
 
@@ -159,7 +159,7 @@ public class PetTypeResourceFunctionalTesting {
 	public void testAddBreedEmptyNameException() {
 		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
 		restService.loginAdmin().restBuilder().path(PetTypeResource.PETTYPE).body(this.petTypeDto).post().build();
-		PetType pettype = this.petTypeRepository.findByName("Dog Test");
+		Type pettype = this.petTypeRepository.findByName("Dog Test");
 
 		this.breedDto = new BreedDto(null);
 		restService.loginAdmin().restBuilder().path(PetTypeResource.PETTYPE).path(PetTypeResource.PETTYPE_BREED)
@@ -178,7 +178,7 @@ public class PetTypeResourceFunctionalTesting {
 
 	@Test
 	public void testDeleteBreed() {
-		PetType pettype = this.petTypeRepository.findByName("Dog Test");
+		Type pettype = this.petTypeRepository.findByName("Dog Test");
 		restService.loginAdmin().restBuilder().path(PetTypeResource.PETTYPE).path(PetTypeResource.PETTYPE_BREED)
 				.path(PetTypeResource.PETTYPE_DELETEBREED).param("petType_id", pettype.getId()).param("breed", "Husky")
 				.patch().build();

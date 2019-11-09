@@ -9,17 +9,6 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 
-import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.Image;
-import lpa.api.documents.core.Location;
-import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.HealthCondition;
-import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.LostWay;
-import lpa.api.documents.core.Report;
-import lpa.api.documents.core.PetType;
-import lpa.api.documents.core.User;
-
 public class PetLostTest {
 
 	@Test
@@ -39,7 +28,7 @@ public class PetLostTest {
 		coordinantes[0] = 222;
 		coordinantes[1] = 332;
 		Location dogLocation = new Location(coordinantes);
-		PetType petType = new PetType("Dog");
+		Type petType = new Type("Dog");
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
@@ -57,7 +46,7 @@ public class PetLostTest {
 		coordinantes[0] = 222;
 		coordinantes[1] = 332;
 		Location dogLocation = new Location(coordinantes);
-		PetType petType = new PetType("Dog");
+		Type petType = new Type("Dog");
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");
 		breeds[1] = new Breed("German Sheperd");
@@ -85,7 +74,7 @@ public class PetLostTest {
 		coordinantes[0] = 222;
 		coordinantes[1] = 332;
 		Location dogLocation = new Location(coordinantes);
-		PetType petType = new PetType("Dog");
+		Type petType = new Type("Dog");
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");
 		breeds[1] = new Breed("German Sheperd");

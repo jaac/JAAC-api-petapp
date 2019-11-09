@@ -22,7 +22,7 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(boolean active, String name, Gender gender, int age, TypeBreed typeBreed, Breed breed) {
+    public Pet(boolean active, String name, Gender gender, int age, TypeBreed typeBreed) {
         this.active = active;
         this.typeBreed = typeBreed;
         this.name = name;
@@ -32,7 +32,7 @@ public class Pet {
 
     public Pet(boolean active, TypeBreed typeBreed) {
         // Si la mascota introducida es desconocida
-        this(active, typeBreed.getBreed().getName() + " without name", Gender.UNKNOWN, 0, typeBreed, null);
+        this(active, typeBreed.getPetType().getName() + " without name", Gender.UNKNOWN, 0, typeBreed);
     }
 
     public String getId() {

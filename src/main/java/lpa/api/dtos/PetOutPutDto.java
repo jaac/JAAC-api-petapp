@@ -21,12 +21,12 @@ public class PetOutPutDto {
 	}
 
 	public PetOutPutDto(Pet pet) {
-		this.petType = pet.getPetType().getName();
+		this.petType = pet.getTypeBreed().getPetType().getName();
 		//this.petImages = pet.getPetImages();
 		this.name = pet.getName();
 		//this.gender = pet.getGender();
 		this.age = pet.getAge();
-		this.breed = pet.getBreed().getName();
+		this.breed = pet.getTypeBreed().getBreed().getName();
 		//this.hairColor = pet.getHairColor().getName();
 		//this.eyesColor = pet.getEyesColor().getName();
 	}

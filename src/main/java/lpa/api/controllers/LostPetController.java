@@ -15,13 +15,12 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Controller;
 
-import lpa.api.documents.core.Breed;
 import lpa.api.documents.core.Color;
 import lpa.api.documents.core.HealthCondition;
 import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.PetType;
+import lpa.api.documents.core.Type;
 import lpa.api.documents.core.Role;
 import lpa.api.documents.core.User;
 
@@ -152,7 +151,7 @@ public class LostPetController {
         Pet pet = new Pet();
         Color eyesColor = this.colorRepository.findOne(petInputDto.getEyesColor());
         Color hairColor = this.colorRepository.findOne(petInputDto.getHairColor());
-        PetType petType = this.petTypeRepository.findOne(petInputDto.getPetType());
+        Type petType = this.petTypeRepository.findOne(petInputDto.getPetType());
         //Breed breed = petType.getBreed()[petInputDto.getBreed()];
 
         pet.setAge(petInputDto.getAge());
@@ -162,7 +161,7 @@ public class LostPetController {
         //pet.setHairColor(hairColor);
         pet.setName(petInputDto.getName());
         //pet.setPetImages(petInputDto.getPetImages());
-        pet.setPetType(petType);
+       // pet.setPetType(petType);
         return pet;
     }
 

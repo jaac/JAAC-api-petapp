@@ -10,7 +10,7 @@ import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.PetComments;
 import lpa.api.documents.core.Location;
-import lpa.api.documents.core.PetType;
+import lpa.api.documents.core.Type;
 import lpa.api.documents.core.Report;
 import lpa.api.documents.core.Token;
 import lpa.api.documents.core.User;
@@ -25,7 +25,7 @@ public class DatabaseGraph {
 	private List<Location> locationList;
 	private List<HealthCondition> healthConditionList;
 	private List<Breed> breed;
-	private List<PetType> petTypeList;
+	private List<Type> petTypeList;
 	private List<Pet> petList;
 	private List<LostWay> lostWayList;
 	private List<Image> petImageList;
@@ -87,11 +87,11 @@ public class DatabaseGraph {
 		this.breed = breed;
 	}
 
-	public List<PetType> getPetTypeList() {
+	public List<Type> getPetTypeList() {
 		return petTypeList;
 	}
 
-	public void setPetTypeList(List<PetType> petTypeList) {
+	public void setPetTypeList(List<Type> petTypeList) {
 		this.petTypeList = petTypeList;
 	}
 
