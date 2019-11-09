@@ -22,13 +22,13 @@ public class PetOutPutDto {
 
 	public PetOutPutDto(Pet pet) {
 		this.petType = pet.getPetType().getName();
-		this.petImages = pet.getPetImages();
+		//this.petImages = pet.getPetImages();
 		this.name = pet.getName();
-		this.gender = pet.getGender();
+		//this.gender = pet.getGender();
 		this.age = pet.getAge();
 		this.breed = pet.getBreed().getName();
-		this.hairColor = pet.getHairColor().getName();
-		this.eyesColor = pet.getEyesColor().getName();
+		//this.hairColor = pet.getHairColor().getName();
+		//this.eyesColor = pet.getEyesColor().getName();
 	}
 
 	public String getPetType() {

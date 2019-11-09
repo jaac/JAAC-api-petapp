@@ -145,7 +145,7 @@ public class LostPetResourceFunctionalTesting {
 		images[0] = image1;
 
 		// Set Pet
-		this.pet = new Pet(pettype, images, "female", "TeslaNala", 3, breed, color, color2);
+		//this.pet = new Pet(pettype, images, "female", "TeslaNala", 3, breed, color, color2);
 
 		// Set Lost Way
 		this.lostWay = this.lostWayRepository.findAll().get(0);

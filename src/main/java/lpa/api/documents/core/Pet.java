@@ -1,115 +1,93 @@
 package lpa.api.documents.core;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class Pet {
 
-	@DBRef
-	private PetType petType;
+    @Id
+    private String id;
 
-	private Image[] petImages;
+    @DBRef
+    private TypeBreed typeBreed;
 
-	private String name;
+    private boolean active;
 
-	private String gender;
+    private String name;
 
-	private int age;
+    private Gender gender;
 
-	private Breed breed;
+    private int age;
 
-	@DBRef
-	private Color hairColor;
+    public Pet() {
+    }
 
-	@DBRef
-	private Color eyesColor;
+    public Pet(boolean active, String name, Gender gender, int age, TypeBreed typeBreed, Breed breed) {
+        this.active = active;
+        this.typeBreed = typeBreed;
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
 
-	public Pet() {
-	}
+    public Pet(boolean active, TypeBreed typeBreed) {
+        // Si la mascota introducida es desconocida
+        this(active, typeBreed.getBreed().getName() + " without name", Gender.UNKNOWN, 0, typeBreed, null);
+    }
 
-	public Pet(PetType petType, Image[] petImages, String name, String gender, int age, Breed breed, Color hairColor,
-			Color eyesColor) {
-		this.petType = petType;
-		this.petImages = petImages;
-		this.name = name;
-		this.gender = gender;
-		this.age = age;
-		this.breed = breed;
-		this.hairColor = hairColor;
-		this.eyesColor = eyesColor;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public Pet(PetType petType, Image[] petImages, String name, String gender) {
-		this(petType, petImages, name, gender, 0, null, null, null);
-	}
+    public TypeBreed getTypeBreed() {
+        return typeBreed;
+    }
 
-	public PetType getPetType() {
-		return petType;
-	}
+    public void setTypeBreed(TypeBreed typeBreed) {
+        this.typeBreed = typeBreed;
+    }
 
-	public void setPetType(PetType petType) {
-		this.petType = petType;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Image[] getPetImages() {
-		return petImages;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPetImages(Image[] petImages) {
-		this.petImages = petImages;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getAge() {
+        return age;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public Breed getBreed() {
-		return breed;
-	}
-
-	public void setBreed(Breed breed) {
-		this.breed = breed;
-	}
-
-	public Color getHairColor() {
-		return hairColor;
-	}
-
-	public void setHairColor(Color hairColor) {
-		this.hairColor = hairColor;
-	}
-
-	public Color getEyesColor() {
-		return eyesColor;
-	}
-
-	public void setEyesColor(Color eyesColor) {
-		this.eyesColor = eyesColor;
-	}
-
-	@Override
-	public String toString() {
-		return "Pet[petType=" + this.petType + ", petImages=" + this.petImages + ", name=" + this.name + ", gender="
-				+ this.gender + ", age=" + this.age + ", breed=" + this.breed + ", hairColor=" + this.hairColor
-				+ ", eyesColor=" + this.eyesColor + "]";
-	}
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id='" + id + '\'' +
+                ", typeBreed=" + typeBreed +
+                ", active=" + active +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                '}';
+    }
 }

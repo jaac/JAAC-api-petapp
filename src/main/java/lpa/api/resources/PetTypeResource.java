@@ -73,11 +73,11 @@ public class PetTypeResource {
 		this.pettypecontroller.deletePetType(name);
 	}
 
-	@RequestMapping(value = PETTYPE_BREED, params = { "petType_id" }, method = RequestMethod.PATCH)
+/*	@RequestMapping(value = PETTYPE_BREED, params = { "petType_id" }, method = RequestMethod.PATCH)
 	public void addBreed(@RequestParam("petType_id") String petType_id, @Valid @RequestBody BreedDto breedDto)
 			throws PetTypeException {
 
-		if (this.pettypecontroller.isBreedAlreadyExist(petType_id, breedDto)) {
+		if (this.pettypecontroller.isBreedAlreadyExist(breedDto)) {
 
 			throw new PetTypeException("Breed already exist");
 
@@ -88,9 +88,9 @@ public class PetTypeResource {
 			throw new PetTypeException();
 		}
 
-	}
+	}*/
 
-	@RequestMapping(value = PETTYPE_BREED, params = { "petType_id", "breed" }, method = RequestMethod.PATCH)
+/*	@RequestMapping(value = PETTYPE_BREED, params = { "petType_id", "breed" }, method = RequestMethod.PATCH)
 	public void updateBreed(@RequestParam("petType_id") String petType_id, @RequestParam("breed") String breed,
 			@Valid @RequestBody BreedDto breedDto) throws PetTypeException {
 
@@ -98,9 +98,9 @@ public class PetTypeResource {
 
 			throw new PetTypeException("Breed no exsist");
 		}
-	}
+	}*/
 
-	@RequestMapping(value = PETTYPE_BREED + PETTYPE_DELETEBREED, params = { "petType_id",
+/*	@RequestMapping(value = PETTYPE_BREED + PETTYPE_DELETEBREED, params = { "petType_id",
 			"breed" }, method = RequestMethod.PATCH)
 	public void deleteBreed(@RequestParam("petType_id") String petType_id, @RequestParam("breed") String breed)
 			throws PetTypeException {
@@ -109,5 +109,5 @@ public class PetTypeResource {
 			throw new PetTypeException();
 		}
 
-	}
+	}*/
 }

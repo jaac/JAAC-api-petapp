@@ -20,7 +20,7 @@ public class PetTypeDto {
 	public PetTypeDto(PetType petType) {
 		this.id = petType.getId();
 		this.name = petType.getName();
-		this.breed = petType.getBreed();
+		//this.breed = petType.getBreed();
 	}
 
 	public PetTypeDto(String name) {

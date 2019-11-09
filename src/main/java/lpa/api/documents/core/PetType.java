@@ -8,7 +8,6 @@ public class PetType {
 	@Id
 	private String id;
 	private String name;
-	private Breed[] breed;
 
 	public PetType() {
 
@@ -28,14 +27,6 @@ public class PetType {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Breed[] getBreed() {
-		return breed;
-	}
-
-	public void setBreed(Breed[] breed) {
-		this.breed = breed;
 	}
 
 	@Override
@@ -60,7 +51,7 @@ public class PetType {
 	@Override
 	public String toString() {
 
-		return "PetType[ id= " + this.id + ", name= " + this.name + ", breeds=" + this.breed + " ]";
+		return "PetType[ id= " + this.id + ", name= " + this.name + ", breeds=" + " ]";
 
 	}
 

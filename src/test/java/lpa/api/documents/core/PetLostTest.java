@@ -43,7 +43,7 @@ public class PetLostTest {
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
-		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
+		Pet dog = new Pet();
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		assertEquals("LostPet[ null ,active=true, found=false, date=" + nowDate
 				+ ", location=Location [null, latitude=173, longitude=5655, country=null, city=null, state=null, locality=null, street=null, street_number=0, formatted_address=null, postalCode=0], description=Dog found in Central Park, lostWay=null, pet=Pet[null, petType=PetType[ id= null, name= Dog, breeds=null ], imgs=[Lapi.documents.core.Image;@2b80d80f, name=Doggy, gender=Male, age=null, breed=null, hairColor=null, eyesColor=null], healthCondition=HealthCondition[ id= null, name= Healthy], gratification=false, report=null]",
@@ -65,7 +65,7 @@ public class PetLostTest {
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
-		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
+		Pet dog = new Pet();
 		// set Breed
 		dog.setBreed(breeds[0]);
 		//
@@ -93,7 +93,7 @@ public class PetLostTest {
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
-		Pet dog = new Pet(petType, petImages, "Doggy", "Male");
+		Pet dog = new Pet();
 		// set Breed
 		dog.setBreed(breeds[0]);
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
