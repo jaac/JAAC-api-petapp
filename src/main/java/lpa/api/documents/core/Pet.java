@@ -2,7 +2,9 @@ package lpa.api.documents.core;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Pet {
 
     @Id
@@ -32,7 +34,7 @@ public class Pet {
 
     public Pet(boolean active, TypeBreed typeBreed) {
         // Si la mascota introducida es desconocida
-        this(active, typeBreed.getPetType().getName() + " without name", Gender.UNKNOWN, 0, typeBreed);
+        this(active, typeBreed.getType().getName() + " without name", Gender.UNKNOWN, 0, typeBreed);
     }
 
     public String getId() {

@@ -4,16 +4,16 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Type {
+public class AttributesCategory {
     @Id
     private String id;
     private String name;
 
-    public Type() {
-
+    public AttributesCategory() {
+        //for the Framework
     }
 
-    public Type(String name) {
+    public AttributesCategory(String name) {
         this.name = name;
     }
 
@@ -30,10 +30,17 @@ public class Type {
     }
 
     @Override
+    public String toString() {
+        return "AttributesCategory{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return this.id.hashCode();
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -46,14 +53,6 @@ public class Type {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return (id.equals(((Type) obj).id));
+        return (id.equals(((AttributesCategory) obj).id));
     }
-
-    @Override
-    public String toString() {
-
-        return "Type{id= " + this.id + ", name= " + this.name + "}";
-
-    }
-
 }

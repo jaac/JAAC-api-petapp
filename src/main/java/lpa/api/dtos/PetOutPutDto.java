@@ -21,7 +21,7 @@ public class PetOutPutDto {
 	}
 
 	public PetOutPutDto(Pet pet) {
-		this.petType = pet.getTypeBreed().getPetType().getName();
+		this.petType = pet.getTypeBreed().getType().getName();
 		//this.petImages = pet.getPetImages();
 		this.name = pet.getName();
 		//this.gender = pet.getGender();

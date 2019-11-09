@@ -1,46 +1,31 @@
 package lpa.api.documents.core;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class TypeBreed {
-
+public class Attribute {
     @Id
     private String id;
-    @DBRef
-    private Type type;
-    @DBRef
-    private Breed breed;
+    private String name;
 
-    public TypeBreed() {
-        //For the framework
+    public Attribute() {
     }
 
-    public TypeBreed(Type type, Breed breed) {
-        this.breed = breed;
-        this.type = type;
+    public Attribute(String name) {
+        this.name = name;
     }
 
     public String getId() {
         return id;
     }
 
-    public Type getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Breed getBreed() {
-        return breed;
-    }
-
-    public void setBreed(Breed breed) {
-        this.breed = breed;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -59,15 +44,14 @@ public class TypeBreed {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return (id.equals(((TypeBreed) obj).id));
+        return (id.equals(((Attribute) obj).id));
     }
 
     @Override
     public String toString() {
-        return "TypeBreed{" +
+        return "Attribute{" +
                 "id='" + id + '\'' +
-                ", type=" + type +
-                ", breed=" + breed +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

@@ -50,13 +50,13 @@ public class PetLostTest {
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");
 		breeds[1] = new Breed("German Sheperd");
-		petType.setBreed(breeds);
+		//petType.setBreed(breeds);
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
 		Pet dog = new Pet();
 		// set Breed
-		dog.setBreed(breeds[0]);
+		//dog.setBreed(breeds[0]);
 		//
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		Report[] petReportList = new Report[2];
@@ -64,7 +64,7 @@ public class PetLostTest {
 		dogLost.setPetReport(petReportList);
 		assertEquals("Report[null, detail=This is a Fake alert!, that is my dog!, userID=629842]",
 				dogLost.getPetReportList()[0].toString());
-		System.out.println(dogLost.getPet().getBreed().getName());
+		System.out.println(dogLost.getPet().getName());
 	}
 
 	@Test
@@ -78,13 +78,13 @@ public class PetLostTest {
 		Breed[] breeds = new Breed[2];
 		breeds[0] = new Breed("Pibull");
 		breeds[1] = new Breed("German Sheperd");
-		petType.setBreed(breeds);
+		//petType.setBreed(breeds);
 		HealthCondition healthCondition = new HealthCondition("Healthy");
 		Image[] petImages = new Image[2];
 		petImages[0] = new Image("image.jpg");
 		Pet dog = new Pet();
 		// set Breed
-		dog.setBreed(breeds[0]);
+		//dog.setBreed(breeds[0]);
 		LostPet dogLost = new LostPet(false, dogLocation, "Dog found in Central Park", healthCondition, dog, user);
 		LostWay lost_way = new LostWay("Lost in the Street");
 		dogLost.setLostWay(lost_way);

@@ -129,8 +129,8 @@ public class LostPetResourceFunctionalTesting {
 		List<Type> pettypeList = this.pettypeRepository.findAll();
 		this.pettype = pettypeList.get(0);
 
-		Breed[] blist = pettype.getBreed();
-		this.breed = blist[0];
+		//Breed[] blist = pettype.getBreed();
+		//this.breed = blist[0];
 
 		// Set Colors
 		this.color = this.colorRepository.findAll().get(0);
