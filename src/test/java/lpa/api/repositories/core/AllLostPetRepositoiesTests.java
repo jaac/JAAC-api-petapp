@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LostPetRepositoryIT.class, PetCommentsRepositoryIT.class, UserRepositoryIT.class })
+@SuiteClasses({ LostPetRepositoryIT.class, CommentsRepositoryIT.class, UserRepositoryIT.class })
 public class AllLostPetRepositoiesTests {
 
 }

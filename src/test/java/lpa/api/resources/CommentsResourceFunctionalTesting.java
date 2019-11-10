@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import lpa.api.documents.core.Image;
 import lpa.api.documents.core.Location;
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 import lpa.api.dtos.PetCommentsInputDto;
 import lpa.api.dtos.PetCommentsOutputDto;
 import lpa.api.repositories.core.LostPetRepository;
@@ -23,7 +23,7 @@ import lpa.api.repositories.core.PetCommentsRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-public class PetCommentsResourceFunctionalTesting {
+public class CommentsResourceFunctionalTesting {
 	@Autowired
 	private RestService restService;
 
@@ -92,7 +92,7 @@ public class PetCommentsResourceFunctionalTesting {
 
 	@After
 	public void deleteComment() {
-		PetComments com = this.petCommentsRepository.findByComment("comment from test");
+		Comments com = this.petCommentsRepository.findByComment("comment from test");
 		if (com != null) {
 			this.petCommentsRepository.delete(com);
 		}

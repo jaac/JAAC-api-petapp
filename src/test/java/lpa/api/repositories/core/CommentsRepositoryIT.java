@@ -12,20 +12,20 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-public class PetCommentsRepositoryIT {
+public class CommentsRepositoryIT {
 
 	@Autowired
 	PetCommentsRepository petCommentsRepository;
 
 	@Test
 	public void testReadPetCommentsAll() {
-		List<PetComments> petComments = this.petCommentsRepository.findPetCommentsAll();
-		assertEquals(11, petComments.size());
+		List<Comments> comments = this.petCommentsRepository.findPetCommentsAll();
+		assertEquals(11, comments.size());
 	}
 
 	@Test

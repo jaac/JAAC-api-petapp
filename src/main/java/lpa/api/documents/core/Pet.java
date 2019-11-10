@@ -4,65 +4,62 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 @Document
 public class Pet {
 
     @Id
     private String id;
 
-    @DBRef
-    private TypeBreed typeBreed;
-
-    private boolean active;
-
-    private String name;
-
-    private Gender gender;
+    private int active;
 
     private int age;
 
+    @DBRef
+    private Breed breed;
+
+    private Gender gender;
+
+    private String name;
+
+    @DBRef
+    private Type type;
+
+
     public Pet() {
+        //For Framework
     }
 
-    public Pet(boolean active, String name, Gender gender, int age, TypeBreed typeBreed) {
+    public Pet(int active, int age, Breed breed, Gender gender, String name, Type type) {
         this.active = active;
-        this.typeBreed = typeBreed;
-        this.name = name;
-        this.gender = gender;
         this.age = age;
+        this.breed = breed;
+        this.gender = gender;
+        this.name = name;
+        this.type = type;
     }
 
-    public Pet(boolean active, TypeBreed typeBreed) {
-        // Si la mascota introducida es desconocida
-        this(active, typeBreed.getType().getName() + " without name", Gender.UNKNOWN, 0, typeBreed);
+    public Pet(int active, Gender gender, String name, Type type) {
+        this(active, 0, null, gender, type.getName() + " without name", type);
     }
+
+    public Pet(int active, Type type) {
+        // Si la mascota introducida es desconocida
+        this(active, 0, null, null, type.getName() + " without name", type);
+    }
+
 
     public String getId() {
         return id;
     }
 
-    public TypeBreed getTypeBreed() {
-        return typeBreed;
+    public int getActive() {
+        return active;
     }
 
-    public void setTypeBreed(TypeBreed typeBreed) {
-        this.typeBreed = typeBreed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setActive(int active) {
+        this.active = active;
     }
 
     public int getAge() {
@@ -73,23 +70,67 @@ public class Pet {
         this.age = age;
     }
 
-    public boolean isActive() {
-        return active;
+    public Breed getBreed() {
+        return breed;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setBreed(Breed breed) {
+        this.breed = breed;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return (id.equals(((Pet) obj).id));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Pet{" +
                 "id='" + id + '\'' +
-                ", typeBreed=" + typeBreed +
                 ", active=" + active +
-                ", name='" + name + '\'' +
-                ", gender=" + gender +
                 ", age=" + age +
+                ", breed=" + breed +
+                ", gender=" + gender +
+                ", name='" + name + '\'' +
+                ", type=" + type +
                 '}';
     }
 }

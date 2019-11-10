@@ -30,14 +30,6 @@ public class AttributesCategory {
     }
 
     @Override
-    public String toString() {
-        return "AttributesCategory{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    @Override
     public int hashCode() {
         return this.id.hashCode();
     }
@@ -54,5 +46,13 @@ public class AttributesCategory {
             return false;
         }
         return (id.equals(((AttributesCategory) obj).id));
+    }
+
+    @Override
+    public String toString() {
+        return "AttributesCategory{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

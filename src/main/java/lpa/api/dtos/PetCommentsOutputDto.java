@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import lpa.api.documents.core.Image;
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 import lpa.api.documents.core.Location;
 
 public class PetCommentsOutputDto{
@@ -29,14 +29,14 @@ public class PetCommentsOutputDto{
 		// Empty for framework
 	}
 
-	public PetCommentsOutputDto(PetComments petComments) {
-		this.id = petComments.getId();
-		this.iSaw = petComments.isiSaw();
-		this.userId = petComments.getUser().getId();
-		this.comment = petComments.getComment();
-		this.date = petComments.getDate();
-		this.petImage = petComments.getPetImage();
-		this.location = petComments.getLocation();
+	public PetCommentsOutputDto(Comments comments) {
+		this.id = comments.getId();
+		this.iSaw = comments.isiSaw();
+		this.userId = comments.getUser().getId();
+		this.comment = comments.getComment();
+		this.date = comments.getDate();
+		this.petImage = comments.getPetImage();
+		this.location = comments.getLocation();
 		
 	}
 

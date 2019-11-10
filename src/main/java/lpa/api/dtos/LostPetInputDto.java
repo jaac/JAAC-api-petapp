@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 import lpa.api.documents.core.Location;
 import lpa.api.documents.core.LostPet;
 import lpa.api.documents.core.Report;
@@ -44,7 +44,7 @@ public class LostPetInputDto {
 	@NotNull
 	private PetInputDto pet;
 
-	private PetComments[] petComments;
+	private Comments[] comments;
 
 	public LostPetInputDto() {
 		this.active = true;
@@ -172,12 +172,12 @@ public class LostPetInputDto {
 		this.pet = petInputDto;
 	}
 
-	public PetComments[] getPetComments() {
-		return petComments;
+	public Comments[] getComments() {
+		return comments;
 	}
 
-	public void setPetComments(PetComments[] petComments) {
-		this.petComments = petComments;
+	public void setComments(Comments[] comments) {
+		this.comments = comments;
 	}
 
 	@Override

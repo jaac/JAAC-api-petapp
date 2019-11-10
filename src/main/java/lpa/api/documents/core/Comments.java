@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class PetComments {
+public class Comments {
 
 	@Id
 	private String id;
@@ -29,13 +29,13 @@ public class PetComments {
 
 	private Location location;
 
-	public PetComments() {
+	public Comments() {
 		this.active = true;
 		this.banned = false;
 		this.date = new Date();
 	}
 
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location, Image petImage) {
+	public Comments(User user, boolean iSaw, LostPet lostPet, String comment, Location location, Image petImage) {
 		this();
 		this.user = user;
 		this.iSaw = iSaw;
@@ -46,17 +46,17 @@ public class PetComments {
 	}
 
 	// Only Comment
-	public PetComments(String comment, LostPet lostPet, User user) {
+	public Comments(String comment, LostPet lostPet, User user) {
 		this(user, false, lostPet, comment, null, null);
 	}
 
 	// With no Image
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Location location) {
+	public Comments(User user, boolean iSaw, LostPet lostPet, String comment, Location location) {
 		this(user, iSaw, lostPet, comment, location, null);
 	}
 
 	// With no Location
-	public PetComments(User user, boolean iSaw, LostPet lostPet, String comment, Image image) {
+	public Comments(User user, boolean iSaw, LostPet lostPet, String comment, Image image) {
 		this(user, iSaw, lostPet, comment, null, image);
 	}
 
@@ -160,7 +160,7 @@ public class PetComments {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		return (id.equals(((PetComments) obj).id));
+		return (id.equals(((Comments) obj).id));
 	}
 
 	@Override

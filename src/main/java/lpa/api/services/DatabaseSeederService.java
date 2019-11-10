@@ -23,7 +23,6 @@ import lpa.api.repositories.core.LostWayRepository;
 import lpa.api.repositories.core.PetCommentsRepository;
 import lpa.api.repositories.core.PetTypeRepository;
 import lpa.api.repositories.core.UserRepository;
-import lpa.api.services.DatabaseGraph;
 
 @Service
 public class DatabaseSeederService {
@@ -89,7 +88,7 @@ public class DatabaseSeederService {
 		this.petTypeRepository.save(lpaGraph.getPetTypeList());
 		this.userRepository.save(lpaGraph.getUserList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
-		this.petCommentsRepository.save(lpaGraph.getPetCommentsList());
+		this.petCommentsRepository.save(lpaGraph.getCommentsList());
 		// -----------------------------------------------------------------------
 
 		Logger.getLogger(this.getClass()).warn("------------------------- Seed: " + ymlFileName + "-----------");

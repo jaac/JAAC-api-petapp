@@ -8,33 +8,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PetAttributes {
     @Id
     private String id;
-    @DBRef
-    private AttributesCategory attributesCategory;
+
     @DBRef
     private Attribute attribute;
-    private String petId;
+
+    @DBRef
+    private Pet pet;
 
     public PetAttributes() {
         //For Framework
     }
 
-    public PetAttributes(AttributesCategory attributesCategory, Attribute attribute, String petId) {
-        this.attributesCategory = attributesCategory;
+    public PetAttributes(Attribute attribute, Pet pet) {
         this.attribute = attribute;
-        this.petId = petId;
+        this.pet = pet;
     }
-
 
     public String getId() {
         return id;
-    }
-
-    public AttributesCategory getAttributesCategory() {
-        return attributesCategory;
-    }
-
-    public void setAttributesCategory(AttributesCategory attributesCategory) {
-        this.attributesCategory = attributesCategory;
     }
 
     public Attribute getAttribute() {
@@ -45,12 +36,12 @@ public class PetAttributes {
         this.attribute = attribute;
     }
 
-    public String getPetId() {
-        return petId;
+    public Pet getPet() {
+        return pet;
     }
 
-    public void setPetId(String petId) {
-        this.petId = petId;
+    public void setPet(Pet petId) {
+        this.pet = petId;
     }
 
     @Override
@@ -72,13 +63,13 @@ public class PetAttributes {
         return (id.equals(((PetAttributes) obj).id));
     }
 
+
     @Override
     public String toString() {
         return "PetAttributes{" +
                 "id='" + id + '\'' +
-                ", attributesCategory=" + attributesCategory +
                 ", attribute=" + attribute +
-                ", petId='" + petId + '\'' +
+                ", pet=" + pet.getId() +
                 '}';
     }
 }

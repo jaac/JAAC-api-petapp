@@ -8,16 +8,16 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 
-public interface PetCommentsRepository extends MongoRepository<PetComments, String> {
+public interface PetCommentsRepository extends MongoRepository<Comments, String> {
 
 	@Query(value = "{ 'active': true }", fields = " {'_id' : 0, 'comment' : 1, 'iSaw' : 1, 'date' : 1, 'user' : 1, 'petImage' : 1, 'petLocation' : 1 }")
-	public List<PetComments> findPetCommentsAll();
+	public List<Comments> findPetCommentsAll();
 
 	@Query(value = "{ 'active': true, 'banned': false }", fields = " {'_id' : 1, 'comment' : 1, 'iSaw' : 1,'user' : 1, 'date' : 1, 'petImage' : 1, 'location' : 1 }")
-	public Page<PetComments> findByLostPet(LostPet lostPet, Pageable pageable);
+	public Page<Comments> findByLostPet(LostPet lostPet, Pageable pageable);
 
-	public PetComments findByComment(String comment);
+	public Comments findByComment(String comment);
 
 }

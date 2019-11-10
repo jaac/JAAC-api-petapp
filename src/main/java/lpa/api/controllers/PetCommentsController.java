@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.PetComments;
+import lpa.api.documents.core.Comments;
 
 import lpa.api.dtos.PetCommentsInputDto;
 import lpa.api.dtos.PetCommentsOutputDto;
@@ -31,20 +31,20 @@ public class PetCommentsController {
 
 	public List<PetCommentsOutputDto> readPetCommentsAll() {
 		List<PetCommentsOutputDto> petCommentsOutputDtoList = new ArrayList<>();
-		List<PetComments> petCommentsList = this.petCommentsRepository.findPetCommentsAll();
-		for (PetComments petComments : petCommentsList) {
-			petCommentsOutputDtoList.add(new PetCommentsOutputDto(petComments));
+		List<Comments> commentsList = this.petCommentsRepository.findPetCommentsAll();
+		for (Comments comments : commentsList) {
+			petCommentsOutputDtoList.add(new PetCommentsOutputDto(comments));
 		}
 		return petCommentsOutputDtoList;
 	}
 
 	public Page<PetCommentsOutputDto> readLostPetCommentsAll(String plId, int page, int size) {
 		LostPet lostPet = this.lostPetRepository.findOne(plId);
-		List<PetComments> petCommentslist = this.petCommentsRepository
+		List<Comments> commentslist = this.petCommentsRepository
 				.findByLostPet(lostPet, new PageRequest(page, size, Sort.Direction.DESC, "date")).getContent();
 		List<PetCommentsOutputDto> petCommentsOutputDtoList = new ArrayList<>();
-		for (PetComments petComments : petCommentslist) {
-			PetCommentsOutputDto petCommentsOutputDto = new PetCommentsOutputDto(petComments);
+		for (Comments comments : commentslist) {
+			PetCommentsOutputDto petCommentsOutputDto = new PetCommentsOutputDto(comments);
 			petCommentsOutputDtoList.add(petCommentsOutputDto);
 		}
 		Page<PetCommentsOutputDto> petCommentsPage = new PageImpl<PetCommentsOutputDto>(petCommentsOutputDtoList,
@@ -53,7 +53,7 @@ public class PetCommentsController {
 	}
 
 	public boolean createPetComment(PetCommentsInputDto commentDto) {
-		PetComments comment = new PetComments();
+		Comments comment = new Comments();
 		comment.setComment(commentDto.getComment());
 		comment.setDate(commentDto.getDate());
 		comment.setiSaw(commentDto.isiSaw());

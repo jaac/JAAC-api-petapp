@@ -1,6 +1,7 @@
 package lpa.api.documents.core;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -8,12 +9,15 @@ public class Attribute {
     @Id
     private String id;
     private String name;
+    @DBRef
+    private AttributesCategory attributesCategory;
 
     public Attribute() {
     }
 
-    public Attribute(String name) {
+    public Attribute(String name, AttributesCategory attributesCategory) {
         this.name = name;
+        this.attributesCategory = attributesCategory;
     }
 
     public String getId() {
@@ -26,6 +30,14 @@ public class Attribute {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public AttributesCategory getAttributesCategory() {
+        return attributesCategory;
+    }
+
+    public void setAttributesCategory(AttributesCategory attributesCategory) {
+        this.attributesCategory = attributesCategory;
     }
 
     @Override
@@ -47,11 +59,15 @@ public class Attribute {
         return (id.equals(((Attribute) obj).id));
     }
 
+
     @Override
     public String toString() {
         return "Attribute{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", attributesCategory=" + attributesCategory.getName() +
                 '}';
     }
+
+
 }

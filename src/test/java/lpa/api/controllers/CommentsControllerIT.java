@@ -18,7 +18,7 @@ import lpa.api.repositories.core.LostPetRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-public class PetCommentsControllerIT {
+public class CommentsControllerIT {
 
 	@Autowired
 	private PetCommentsController petCommentsController;
