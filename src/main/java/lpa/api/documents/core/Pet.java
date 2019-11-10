@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Document
@@ -13,6 +14,9 @@ public class Pet {
     private String id;
 
     private int active;
+
+    @DBRef
+    private Attribute[] attributes;
 
     private int age;
 
@@ -31,8 +35,9 @@ public class Pet {
         //For Framework
     }
 
-    public Pet(int active, int age, Breed breed, Gender gender, String name, Type type) {
+    public Pet(int active, Attribute[] attributes, int age, Breed breed, Gender gender, String name, Type type) {
         this.active = active;
+        this.attributes = attributes;
         this.age = age;
         this.breed = breed;
         this.gender = gender;
@@ -40,13 +45,13 @@ public class Pet {
         this.type = type;
     }
 
-    public Pet(int active, Gender gender, String name, Type type) {
-        this(active, 0, null, gender, type.getName() + " without name", type);
+    public Pet(int active, Attribute[] attributes, Gender gender, String name, Type type) {
+        this(active, attributes, 0, null, gender, type.getName() + " without name", type);
     }
 
-    public Pet(int active, Type type) {
+    public Pet(int active, Attribute[] attributes, Type type) {
         // Si la mascota introducida es desconocida
-        this(active, 0, null, null, type.getName() + " without name", type);
+        this(active, attributes, 0, null, null, type.getName() + " without name", type);
     }
 
 
@@ -60,6 +65,14 @@ public class Pet {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public Attribute[] getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Attribute[] attributes) {
+        this.attributes = attributes;
     }
 
     public int getAge() {
@@ -126,6 +139,7 @@ public class Pet {
         return "Pet{" +
                 "id='" + id + '\'' +
                 ", active=" + active +
+                ", attributes=" + Arrays.toString(attributes) +
                 ", age=" + age +
                 ", breed=" + breed +
                 ", gender=" + gender +

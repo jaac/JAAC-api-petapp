@@ -5,30 +5,43 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Type {
+public class TypeBreed {
     @Id
     private String id;
 
-    private String name;
+    @DBRef
+    private Type type;
 
-    public Type() {
+    @DBRef
+    private Breed breed;
 
+    public TypeBreed() {
     }
 
-    public Type(String name) {
-        this.name = name;
+    public TypeBreed(Type type, Breed breed) {
+        this.type = type;
+        this.breed = breed;
     }
+
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public Type getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Breed getBreed() {
+        return breed;
+    }
+
+    public void setBreed(Breed breed) {
+        this.breed = breed;
     }
 
     @Override
@@ -48,14 +61,15 @@ public class Type {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return (id.equals(((Type) obj).id));
+        return (id.equals(((TypeBreed) obj).id));
     }
 
     @Override
     public String toString() {
-
-        return "Type{id= " + this.id + ", name= " + this.name + "}";
-
+        return "TypeBreed{" +
+                "id='" + id + '\'' +
+                ", type=" + type.getName() +
+                ", breed=" + breed.getName() +
+                '}';
     }
-
 }
