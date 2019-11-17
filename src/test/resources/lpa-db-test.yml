@@ -156,15 +156,18 @@ breedList:
     name: BullDog
 
 # PetTypeList
-petTypeList:
-  - &ptyp0
+typeList:
+  - &typ0
     name: Dog Test
-    breed:
-      - *br0
-      - *br1
+
+# TypeBreedList
+typeBreedList:
+  - &typB0
+    type: *typ0
+    breed: *br0
 
 # PetImageList
-petImageList:
+imageList:
   - &petImg0
     image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg1
@@ -180,10 +183,21 @@ colorList:
   - &col2
     name: White  
 
+# AttributesCategory
+attributesCategoryList:
+  - &attCat0
+    name:Color de ojos
+
+# AttributesList
+attributesList:
+  - &att0
+    name: Marron
+    attributesCategory: *attCat0
+
 # PetList
 petList:
   - &pet0
-    petType: *ptyp0
+    type: *typ0
     petImages:
       - *petImg0
       - *petImg1
@@ -192,8 +206,8 @@ petList:
     name: Naluda Hey
     age: 2
     breed: *br0
-    hairColor: *col0
-    eyesColor: *col1
+    attributes:
+      - *att0
 
 # LostWayList
 lostWayList:

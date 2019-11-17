@@ -43,9 +43,6 @@ public class DatabaseSeederService {
 	private HealthConditionRepository healthConditionRepository;
 
 	@Autowired
-	private ColorRepository colorRepository;
-
-	@Autowired
 	private LostWayRepository lostWayRepository;
 
 	@Autowired
@@ -84,8 +81,7 @@ public class DatabaseSeederService {
 
 		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
 		this.lostWayRepository.save(lpaGraph.getLostWayList());
-		this.colorRepository.save(lpaGraph.getColorList());
-		this.petTypeRepository.save(lpaGraph.getPetTypeList());
+		this.petTypeRepository.save(lpaGraph.getTypeList());
 		this.userRepository.save(lpaGraph.getUserList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
 		this.petCommentsRepository.save(lpaGraph.getCommentsList());
@@ -99,7 +95,6 @@ public class DatabaseSeederService {
 		// Delete Repositories -----------------------------------------------------
 		this.healthConditionRepository.deleteAll();
 		this.lostWayRepository.deleteAll();
-		this.colorRepository.deleteAll();
 		this.petTypeRepository.deleteAll();
 		this.lostPetRepository.deleteAll();
 		this.petCommentsRepository.deleteAll();

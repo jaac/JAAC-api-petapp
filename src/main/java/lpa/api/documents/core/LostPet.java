@@ -39,6 +39,7 @@ public class LostPet {
 	@DBRef
 	private User user;
 
+	@DBRef
 	private Pet pet;
 
 	public LostPet() {

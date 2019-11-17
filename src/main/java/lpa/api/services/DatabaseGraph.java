@@ -2,19 +2,7 @@ package lpa.api.services;
 
 import java.util.List;
 
-import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.Color;
-import lpa.api.documents.core.HealthCondition;
-import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.LostWay;
-import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.Comments;
-import lpa.api.documents.core.Location;
-import lpa.api.documents.core.Type;
-import lpa.api.documents.core.Report;
-import lpa.api.documents.core.Token;
-import lpa.api.documents.core.User;
-import lpa.api.documents.core.Image;
+import lpa.api.documents.core.*;
 
 public class DatabaseGraph {
 	private List<Image> userImageList;
@@ -24,19 +12,49 @@ public class DatabaseGraph {
 	//
 	private List<Location> locationList;
 	private List<HealthCondition> healthConditionList;
-	private List<Breed> breed;
-	private List<Type> petTypeList;
+	private List<Breed> breedList;
+	private List<Type> typeList;
 	private List<Pet> petList;
 	private List<LostWay> lostWayList;
-	private List<Image> petImageList;
+	private List<Image> imageList;
 	private List<Color> colorList;
 	private List<Comments> commentsList;
 	private List<Report> reportList;
+	private List<AttributesCategory> attributesCategoryList;
+	private List<TypeBreed> typeBreedList;
+
+
+	private List<Attribute> attributesList;
 	//
 	private List<Token> tokenList;
 
 	public DatabaseGraph() {
 		// Empty for framework
+	}
+
+	public List<TypeBreed> getTypeBreedList() {
+		return typeBreedList;
+	}
+
+
+	public List<Attribute> getAttributesList() {
+		return attributesList;
+	}
+
+	public void setAttributesList(List<Attribute> attributesList) {
+		this.attributesList = attributesList;
+	}
+
+	public void setTypeBreedList(List<TypeBreed> typeBreedList) {
+		this.typeBreedList = typeBreedList;
+	}
+
+	public List<AttributesCategory> getAttributesCategoryList() {
+		return attributesCategoryList;
+	}
+
+	public void setAttributesCategoryList(List<AttributesCategory> attributesCategoryList) {
+		this.attributesCategoryList = attributesCategoryList;
 	}
 
 	public List<User> getUserList() {
@@ -80,19 +98,19 @@ public class DatabaseGraph {
 	}
 
 	public List<Breed> getBreedList() {
-		return breed;
+		return breedList;
 	}
 
 	public void setBreedList(List<Breed> breed) {
-		this.breed = breed;
+		this.breedList = breed;
 	}
 
-	public List<Type> getPetTypeList() {
-		return petTypeList;
+	public List<Type> getTypeList() {
+		return typeList;
 	}
 
-	public void setPetTypeList(List<Type> petTypeList) {
-		this.petTypeList = petTypeList;
+	public void setTypeList(List<Type> typeList) {
+		this.typeList = typeList;
 	}
 
 	public List<Pet> getPetList() {
@@ -111,16 +129,12 @@ public class DatabaseGraph {
 		this.lostWayList = lostWayList;
 	}
 
-	public List<Image> getPetImageList() {
-		return petImageList;
+	public List<Image> getImageList() {
+		return imageList;
 	}
 
-	public void setPetImageList(List<Image> petImageList) {
-		this.petImageList = petImageList;
-	}
-
-	public List<Color> getColorList() {
-		return colorList;
+	public void setImageList(List<Image> imageList) {
+		this.imageList = imageList;
 	}
 
 	public List<Image> getUserImageList() {
@@ -130,11 +144,6 @@ public class DatabaseGraph {
 	public void setUserImageList(List<Image> userImageList) {
 		this.userImageList = userImageList;
 	}
-
-	public void setColorList(List<Color> colorList) {
-		this.colorList = colorList;
-	}
-
 
 	public List<Report> getReportList() {
 		return reportList;
@@ -151,7 +160,6 @@ public class DatabaseGraph {
 	public void setCommentsList(List<Comments> commentsList) {
 		this.commentsList = commentsList;
 	}
-
 
 
 }
