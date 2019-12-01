@@ -31,29 +31,23 @@ public class User {
 
 	private Token token;
 
-	private Image image;
-
 	public User() {
 		this.registrationDate = new Date();
 		this.active = true;
 	}
 
-	public User(String username, String name, String password, String email, Image image) {
+	public User(String username, String name, String password, String email) {
 		this();
 		this.username = username;
 		this.name = name;
 		this.email = email;
 		this.setPassword(password);
-		this.setUserImage(image);
 		this.roles = new Role[] { Role.REGISTERED };
 	}
 
-	public User(String username, String name, String password, String email) {
-		this(username, username, password, email, null);
-	}
 
 	public User(String username, String name, String password) {
-		this(username, username, password, null, null);
+		this(username, username, password, null);
 	}
 
 	public String getId() {
@@ -120,13 +114,6 @@ public class User {
 		this.token = token;
 	}
 
-	public Image getUserImage() {
-		return image;
-	}
-
-	public void setUserImage(Image image) {
-		this.image = image;
-	}
 
 	@Override
 	public int hashCode() {
@@ -154,7 +141,7 @@ public class User {
 			date = new SimpleDateFormat("dd-MMM-yyyy ").format(registrationDate.getTime());
 		}
 		return "User [username=" + username + ", name=" + name + ", password=" + password + ", active=" + active
-				+ ", email=" + email + ", image=" + image + ", registrationDate=" + date + ", roles="
+				+ ", email=" + email  + ", registrationDate=" + date + ", roles="
 				+ java.util.Arrays.toString(roles) + ", token=" + token + "]";
 	}
 
