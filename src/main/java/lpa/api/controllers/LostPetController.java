@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import lpa.api.documents.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,20 +16,11 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Controller;
 
-import lpa.api.documents.core.Color;
-import lpa.api.documents.core.HealthCondition;
-import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.Type;
-import lpa.api.documents.core.Role;
-import lpa.api.documents.core.User;
-
 import lpa.api.dtos.LostPetInputDto;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
 import lpa.api.dtos.PetInputDto;
-import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
 import lpa.api.repositories.core.PetTypeRepository;
@@ -53,19 +45,12 @@ public class LostPetController {
     @Autowired
     private PetTypeRepository petTypeRepository;
 
-    @Autowired
-    private ColorRepository colorRepository;
-
-    @Autowired
-    private LostWayRepository lostWayRepository;
-
     public void createLostPet(LostPetInputDto lostPetInputDto) {
         HealthCondition healthCondition = healthConditionRepository.findOne(lostPetInputDto.getHealthConditionId());
-        LostWay lostWay = lostWayRepository.findOne(lostPetInputDto.getLostWay());
+
         LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(),
                 lostPetInputDto.getDescription(), healthCondition, this.buildNewPet(lostPetInputDto.getPet()),
-                this.userRepository.findById(lostPetInputDto.getUserId()), lostWay, lostPetInputDto.isGratification());
-
+                this.userRepository.findById(lostPetInputDto.getUserId()), LostWay.valueOf(lostPetInputDto.getLostWay()), lostPetInputDto.isGratification());
         this.lostPetRepository.save(lostPet);
     }
 
@@ -118,12 +103,12 @@ public class LostPetController {
         assert user != null;
         assert lostPet != null;
         if (Arrays.asList(roles).containsAll(Arrays.asList(user.getRoles()))) {
-            this.setdata(lostPetUpdateInputDto, lostPet);
+            this.bindData(lostPetUpdateInputDto, lostPet);
             this.lostPetRepository.save(lostPet);
         } else if (Arrays.asList(new Role[]{Role.REGISTERED}).containsAll(
                 Arrays.asList(this.userRepository.findById(lostPetUpdateInputDto.getUserId()).getRoles()))) {
             if (this.userRepository.findById(lostPetUpdateInputDto.getUserId()).equals(user)) {
-                this.setdata(lostPetUpdateInputDto, lostPet);
+                this.bindData(lostPetUpdateInputDto, lostPet);
                 this.lostPetRepository.save(lostPet);
             } else {
                 return false;
@@ -135,20 +120,20 @@ public class LostPetController {
         return true;
     }
 
-    private void setdata(LostPetUpdateInputDto lostPetPutInputDto, LostPet lostPet) {
+    private void bindData(LostPetUpdateInputDto lostPetPutInputDto, LostPet lostPet) {
         lostPet.setDescription(lostPetPutInputDto.getDescription());
         lostPet.setFound(lostPetPutInputDto.isFound());
         lostPet.setGratification(lostPetPutInputDto.isGratification());
         lostPet.setHealthCondition(healthConditionRepository.findOne(lostPetPutInputDto.getHealthConditionId()));
         lostPet.setLocation(lostPetPutInputDto.getPetLocation());
-        lostPet.setLostWay(this.lostWayRepository.findOne(lostPetPutInputDto.getLostWay()));
+        lostPet.setLostWay(LostWay.valueOf(lostPetPutInputDto.getLostWay()));
         lostPet.setPet(this.buildNewPet(lostPetPutInputDto.getPet()));
     }
 
     private Pet buildNewPet(PetInputDto petInputDto) {
         Pet pet = new Pet();
-        Color eyesColor = this.colorRepository.findOne(petInputDto.getEyesColor());
-        Color hairColor = this.colorRepository.findOne(petInputDto.getHairColor());
+        // Color eyesColor = this.colorRepository.findOne(petInputDto.getEyesColor());
+        // Color hairColor = this.colorRepository.findOne(petInputDto.getHairColor());
         Type petType = this.petTypeRepository.findOne(petInputDto.getPetType());
         //Breed breed = petType.getBreed()[petInputDto.getBreed()];
 
@@ -159,7 +144,7 @@ public class LostPetController {
         //pet.setHairColor(hairColor);
         pet.setName(petInputDto.getName());
         //pet.setPetImages(petInputDto.getPetImages());
-       // pet.setPetType(petType);
+        // pet.setPetType(petType);
         return pet;
     }
 

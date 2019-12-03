@@ -17,7 +17,6 @@ public class DatabaseGraph {
 	private List<Pet> petList;
 	private List<LostWay> lostWayList;
 	private List<Image> imageList;
-	private List<Color> colorList;
 	private List<Comments> commentsList;
 	private List<Report> reportList;
 	private List<AttributesCategory> attributesCategoryList;

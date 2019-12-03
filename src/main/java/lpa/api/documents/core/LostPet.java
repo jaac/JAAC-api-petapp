@@ -12,183 +12,199 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Document
 public class LostPet {
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	private boolean active;
+    private boolean active;
 
-	@DateTimeFormat(iso = ISO.DATE)
-	private Date registrationDate;
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date registrationDate;
 
-	private boolean found;
+    private boolean found;
 
-	private Location location;
+    private Location location;
 
-	private LostWay lostWay;
+    private LostWay lostWay;
 
-	@DBRef
-	private HealthCondition healthCondition;
+    @DBRef
+    private HealthCondition healthCondition;
 
-	private boolean gratification;
+    private boolean gratification;
 
-	private String description;
+    private String description;
 
+    @DBRef
+    private User user;
 
+    @DBRef
+    private Pet pet;
 
-	@DBRef
-	private User user;
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date dateAdd;
 
-	@DBRef
-	private Pet pet;
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date dateUpd;
 
-	public LostPet() {
-		this.registrationDate = new Date();
-		this.setActive(true);
-	}
+    public LostPet() {
+        this.registrationDate = new Date();
+        this.setActive(true);
+    }
 
-	// Construct for pets lost by users
-	public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
-			User user, LostWay lost_way, boolean gratification) {
-		this();
-		this.found = found;
-		this.location = location;
-		this.description = description;
-		this.healthCondition = healthCondition;
-		this.gratification = gratification;
-		this.pet = pet;
-		this.lostWay = lost_way;
-		this.user = user;
-	}
+    // Construct for pets lost by users
+    public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
+                   User user, LostWay lost_way, boolean gratification) {
+        this();
+        this.found = found;
+        this.location = location;
+        this.description = description;
+        this.healthCondition = healthCondition;
+        this.gratification = gratification;
+        this.pet = pet;
+        this.lostWay = lost_way;
+        this.user = user;
+    }
 
-	public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
-			User user) {
-		this(found, location, description, healthCondition, pet, user, null, false);
+    public LostPet(boolean found, Location location, String description, HealthCondition healthCondition, Pet pet,
+                   User user) {
+        this(found, location, description, healthCondition, pet, user, null, false);
 
-	}
+    }
 
-	public String getId() {
-		return this.id;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-	public boolean isFound() {
-		return found;
-	}
+    public boolean isFound() {
+        return found;
+    }
 
-	public void setFound(boolean found) {
-		this.found = found;
-	}
+    public void setFound(boolean found) {
+        this.found = found;
+    }
 
-	public LostWay getLostWay() {
-		return lostWay;
-	}
+    public LostWay getLostWay() {
+        return lostWay;
+    }
 
-	public void setLostWay(LostWay lost_way) {
-		this.lostWay = lost_way;
-	}
+    public void setLostWay(LostWay lost_way) {
+        this.lostWay = lost_way;
+    }
 
-	public boolean isGratification() {
-		return gratification;
-	}
+    public boolean isGratification() {
+        return gratification;
+    }
 
-	public Pet getPet() {
-		return this.pet;
-	}
+    public Pet getPet() {
+        return this.pet;
+    }
 
-	public void setPet(Pet pet) {
-		this.pet = pet;
-	}
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 
-	public void setGratification(boolean gratification) {
-		this.gratification = gratification;
-	}
+    public void setGratification(boolean gratification) {
+        this.gratification = gratification;
+    }
 
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
+    public Date getDateAdd() {
+        return dateAdd;
+    }
 
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
+    public void setDateAdd(Date dateAdd) {
+        this.dateAdd = dateAdd;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public Date getDateUpd() {
+        return dateUpd;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setDateUpd(Date dateUpd) {
+        this.dateUpd = dateUpd;
+    }
 
-	public HealthCondition getHealthCondition() {
-		return healthCondition;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public void setHealthCondition(HealthCondition healthCondition) {
-		this.healthCondition = healthCondition;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public HealthCondition getHealthCondition() {
+        return healthCondition;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setHealthCondition(HealthCondition healthCondition) {
+        this.healthCondition = healthCondition;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Location getLocation() {
-		return location;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	@Override
-	public int hashCode() {
-		return this.id.hashCode();
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		return (id.equals(((LostPet) obj).id));
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	@Override
-	public String toString() {
-		String date = "null";
-		if (registrationDate != null) {
-			date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
-		}
-		return "LostPet{" +
-				"id='" + id + '\'' +
-				", active=" + active +
-				", dateAdd=" + date +
+    private String dateFormat(Date dateAdd) {
+        return dateAdd != null ? new SimpleDateFormat("dd-MMM-yyyy").format(this.dateAdd.getTime()) : "null";
+    }
 
-				", found=" + found +
-				", location=" + location +
-				", lostWay=" + lostWay +
-				", healthCondition=" + healthCondition +
-				", gratification=" + gratification +
-				", description='" + description + '\'' +
-				", user=" + user +
-				", pet=" + pet +
-				'}';
-	}
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return (id.equals(((LostPet) obj).id));
+    }
+
+    @Override
+    public String toString() {
+        String date = "null";
+        if (registrationDate != null) {
+            date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
+        }
+        return "LostPet{" +
+                "id='" + id + '\'' +
+                ", active=" + active +
+                ", dateAdd=" + this.dateFormat(dateAdd) +
+                ", dateUpd=" + this.dateFormat(dateAdd) +
+                ", found=" + found +
+                ", location=" + location +
+                ", lostWay=" + lostWay +
+                ", healthCondition=" + healthCondition +
+                ", gratification=" + gratification +
+                ", description='" + description + '\'' +
+                ", user=" + user.getUsername() +
+                ", pet=" + pet.getName() +
+                '}';
+    }
 
 }

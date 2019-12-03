@@ -50,7 +50,7 @@ public class UserController {
 			user.setName(userDto.getName());
 			user.setEmail(userDto.getEmail());
 			user.setActive(userDto.isActive());
-			user.setUserImage(userDto.getUserImage());
+			//user.setUserImage(userDto.getUserImage());
 			this.userRepository.save(user);
 		} else {
 			return false;

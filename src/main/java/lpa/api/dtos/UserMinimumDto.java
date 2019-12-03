@@ -19,7 +19,7 @@ public class UserMinimumDto {
 		this.setId(userBd.getId());
 		this.username = userBd.getUsername();
 		this.name = userBd.getName();
-		this.image = userBd.getUserImage();
+		//this.image = userBd.getUserImage();
 	}
 
 	public String getUsername() {

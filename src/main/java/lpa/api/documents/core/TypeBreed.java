@@ -6,8 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class TypeBreed {
-    @Id
-    private String id;
 
     @DBRef
     private Type type;
@@ -21,11 +19,6 @@ public class TypeBreed {
     public TypeBreed(Type type, Breed breed) {
         this.type = type;
         this.breed = breed;
-    }
-
-
-    public String getId() {
-        return id;
     }
 
     public Type getType() {
@@ -44,11 +37,6 @@ public class TypeBreed {
         this.breed = breed;
     }
 
-    @Override
-    public int hashCode() {
-        return this.id.hashCode();
-    }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -61,13 +49,12 @@ public class TypeBreed {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return (id.equals(((TypeBreed) obj).id));
+        return (type.equals(((TypeBreed) obj).type) && breed.equals(((TypeBreed) obj).breed));
     }
 
     @Override
     public String toString() {
         return "TypeBreed{" +
-                "id='" + id + '\'' +
                 ", type=" + type.getName() +
                 ", breed=" + breed.getName() +
                 '}';

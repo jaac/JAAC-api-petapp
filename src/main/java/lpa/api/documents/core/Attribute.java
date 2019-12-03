@@ -12,9 +12,6 @@ public class Attribute {
     private String name;
 
     @DBRef
-    private Pet pet;
-
-    @DBRef
     private AttributesCategory attributesCategory;
 
     public Attribute() {
@@ -73,6 +70,5 @@ public class Attribute {
                 ", attributesCategory=" + attributesCategory.getName() +
                 '}';
     }
-
 
 }

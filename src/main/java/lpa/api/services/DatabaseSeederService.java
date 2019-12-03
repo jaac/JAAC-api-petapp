@@ -41,9 +41,6 @@ public class DatabaseSeederService {
 	private HealthConditionRepository healthConditionRepository;
 
 	@Autowired
-	private LostWayRepository lostWayRepository;
-
-	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
@@ -78,7 +75,6 @@ public class DatabaseSeederService {
 		// Save Repositories -----------------------------------------------------
 
 		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
-		this.lostWayRepository.save(lpaGraph.getLostWayList());
 		this.petTypeRepository.save(lpaGraph.getTypeList());
 		this.userRepository.save(lpaGraph.getUserList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
@@ -92,7 +88,6 @@ public class DatabaseSeederService {
 		Logger.getLogger(this.getClass()).warn("------------------------- delete All And Create Admin-----------");
 		// Delete Repositories -----------------------------------------------------
 		this.healthConditionRepository.deleteAll();
-		this.lostWayRepository.deleteAll();
 		this.petTypeRepository.deleteAll();
 		this.lostPetRepository.deleteAll();
 		this.petCommentsRepository.deleteAll();

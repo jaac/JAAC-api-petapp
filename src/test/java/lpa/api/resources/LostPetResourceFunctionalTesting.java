@@ -24,7 +24,6 @@ import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
 import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.Color;
 import lpa.api.documents.core.HealthCondition;
 import lpa.api.documents.core.Image;
 import lpa.api.documents.core.Location;
@@ -34,7 +33,6 @@ import lpa.api.documents.core.Type;
 import lpa.api.documents.core.User;
 
 import lpa.api.dtos.LostPetInputDto;
-import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
 import lpa.api.repositories.core.PetTypeRepository;

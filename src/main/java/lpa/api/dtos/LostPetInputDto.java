@@ -78,10 +78,9 @@ public class LostPetInputDto {
 		this.healthConditionId = lostPet.getHealthCondition().getId();
 		this.pet = new PetInputDto(lostPet.getPet());
 		this.userId = lostPet.getUser().getId();
-		this.lostWay = lostPet.getLostWay().getId();
+		this.lostWay = lostPet.getLostWay().lostWayName();
 		this.gratification = lostPet.isGratification();
-		this.reportList = lostPet.getPetReportList();
-		this.registrationDate = lostPet.getRegistrationDate();
+		this.registrationDate = lostPet.getDateAdd();
 	}
 
 	public Date getRegistrationDate() {
