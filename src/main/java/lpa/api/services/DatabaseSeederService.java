@@ -16,10 +16,8 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import lpa.api.documents.core.Role;
 import lpa.api.documents.core.User;
-import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
-import lpa.api.repositories.core.LostWayRepository;
 import lpa.api.repositories.core.PetCommentsRepository;
 import lpa.api.repositories.core.PetTypeRepository;
 import lpa.api.repositories.core.UserRepository;

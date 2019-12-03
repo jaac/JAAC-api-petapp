@@ -3,8 +3,10 @@ package lpa.api.documents.core;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 @Document
@@ -15,13 +17,12 @@ public class Pet {
 
     private int active;
 
-    @DBRef
-    private Attribute[] attributes;
-
     private int age;
 
     @DBRef
     private Breed breed;
+
+    private String chipNumber;
 
     private Gender gender;
 
@@ -30,28 +31,34 @@ public class Pet {
     @DBRef
     private Type type;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date dateAdd;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date dateUpd;
 
     public Pet() {
         //For Framework
     }
 
-    public Pet(int active, Attribute[] attributes, int age, Breed breed, Gender gender, String name, Type type) {
+    public Pet(int active, int age, Breed breed, Gender gender, String name, Type type, String chipNumber) {
         this.active = active;
-        this.attributes = attributes;
         this.age = age;
         this.breed = breed;
+        this.chipNumber = chipNumber;
         this.gender = gender;
         this.name = name;
         this.type = type;
+        this.dateAdd = new Date();
     }
 
-    public Pet(int active, Attribute[] attributes, Gender gender, String name, Type type) {
-        this(active, attributes, 0, null, gender, type.getName() + " without name", type);
+    public Pet(int active, Gender gender, String name, Type type) {
+        this(active, 0, null, gender, type.getName() + " without name", type, null);
     }
 
-    public Pet(int active, Attribute[] attributes, Type type) {
+    public Pet(int active, Type type) {
         // Si la mascota introducida es desconocida
-        this(active, attributes, 0, null, null, type.getName() + " without name", type);
+        this(active, 0, null, null, type.getName() + " without name", type, null);
     }
 
 
@@ -65,14 +72,6 @@ public class Pet {
 
     public void setActive(int active) {
         this.active = active;
-    }
-
-    public Attribute[] getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Attribute[] attributes) {
-        this.attributes = attributes;
     }
 
     public int getAge() {
@@ -89,6 +88,30 @@ public class Pet {
 
     public void setBreed(Breed breed) {
         this.breed = breed;
+    }
+
+    public String getChipNumber() {
+        return chipNumber;
+    }
+
+    public void setChipNumber(String chipNumber) {
+        this.chipNumber = chipNumber;
+    }
+
+    public Date getDateAdd() {
+        return dateAdd;
+    }
+
+    public void setDateAdd(Date dateAdd) {
+        this.dateAdd = dateAdd;
+    }
+
+    public Date getDateUpd() {
+        return dateUpd;
+    }
+
+    public void setDateUpd(Date dateUpd) {
+        this.dateUpd = dateUpd;
     }
 
     public Gender getGender() {
@@ -115,6 +138,10 @@ public class Pet {
         this.type = type;
     }
 
+    private String dateFormat(Date dateAdd) {
+        return dateAdd != null ? new SimpleDateFormat("dd-MMM-yyyy").format(this.dateAdd.getTime()) : "null";
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -134,17 +161,23 @@ public class Pet {
         return Objects.hash(id);
     }
 
+
     @Override
     public String toString() {
+
         return "Pet{" +
                 "id='" + id + '\'' +
                 ", active=" + active +
-                ", attributes=" + Arrays.toString(attributes) +
                 ", age=" + age +
-                ", breed=" + breed +
+                ", breed=" + breed.getName() +
+                ", chipNumber='" + chipNumber + '\'' +
                 ", gender=" + gender +
                 ", name='" + name + '\'' +
-                ", type=" + type +
+                ", type=" + type.getName() +
+                ", dateAdd=" + this.dateFormat(dateAdd) +
+                ", dateUpd=" + this.dateFormat(dateUpd) +
                 '}';
     }
+
+
 }

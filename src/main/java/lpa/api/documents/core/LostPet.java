@@ -15,16 +15,15 @@ public class LostPet {
 	@Id
 	private String id;
 
+	private boolean active;
+
 	@DateTimeFormat(iso = ISO.DATE)
 	private Date registrationDate;
 
 	private boolean found;
 
-	private boolean active;
-
 	private Location location;
 
-	@DBRef
 	private LostWay lostWay;
 
 	@DBRef
@@ -34,7 +33,7 @@ public class LostPet {
 
 	private String description;
 
-	private Report[] report;
+
 
 	@DBRef
 	private User user;
@@ -135,14 +134,6 @@ public class LostPet {
 		this.description = description;
 	}
 
-	public Report[] getPetReportList() {
-		return report;
-	}
-
-	public void setPetReport(Report[] petReport) {
-		this.report = petReport;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -184,10 +175,20 @@ public class LostPet {
 		if (registrationDate != null) {
 			date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
 		}
-		return "LostPet[ " + this.id + " ,active=" + this.active + ", found=" + this.found + ", date=" + date
-				+ ", location=" + this.location + ", description=" + this.description + ", lostWay=" + this.lostWay
-				+ ", pet=" + this.pet + ", healthCondition=" + this.healthCondition + ", gratification="
-				+ this.gratification + ", report=" + this.report + "]";
+		return "LostPet{" +
+				"id='" + id + '\'' +
+				", active=" + active +
+				", dateAdd=" + date +
+
+				", found=" + found +
+				", location=" + location +
+				", lostWay=" + lostWay +
+				", healthCondition=" + healthCondition +
+				", gratification=" + gratification +
+				", description='" + description + '\'' +
+				", user=" + user +
+				", pet=" + pet +
+				'}';
 	}
 
 }

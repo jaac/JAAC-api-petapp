@@ -56,7 +56,7 @@ public class UserDto {
 		this.email = user.getEmail();
 		this.active = user.isActive();
 		this.image = user.getUserImage();
-		this.registrationDate = user.getRegistrationDate();
+		this.registrationDate = user.getDateAdd();
 	}
 
 	public String getUsername() {

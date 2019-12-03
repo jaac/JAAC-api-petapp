@@ -29,7 +29,6 @@ import lpa.api.documents.core.HealthCondition;
 import lpa.api.documents.core.Image;
 import lpa.api.documents.core.Location;
 import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.LostWay;
 import lpa.api.documents.core.Pet;
 import lpa.api.documents.core.Type;
 import lpa.api.documents.core.User;
@@ -38,7 +37,6 @@ import lpa.api.dtos.LostPetInputDto;
 import lpa.api.repositories.core.ColorRepository;
 import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
-import lpa.api.repositories.core.LostWayRepository;
 import lpa.api.repositories.core.PetTypeRepository;
 import lpa.api.repositories.core.UserRepository;
 
