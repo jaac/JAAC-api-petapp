@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import lpa.api.documents.core.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,14 +24,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
-import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.HealthCondition;
-import lpa.api.documents.core.Image;
-import lpa.api.documents.core.Location;
-import lpa.api.documents.core.LostPet;
-import lpa.api.documents.core.Pet;
-import lpa.api.documents.core.Type;
-import lpa.api.documents.core.User;
 
 import lpa.api.dtos.LostPetInputDto;
 import lpa.api.repositories.core.HealthConditionRepository;
@@ -81,20 +74,10 @@ public class LostPetResourceFunctionalTesting {
 
 	private Breed breed;
 
-	private Color color;
-
-	private Color color2;
-
 	private LostWay lostWay;
 
 	@Autowired
 	private PetTypeRepository pettypeRepository;
-
-	@Autowired
-	private ColorRepository colorRepository;
-
-	@Autowired
-	private LostWayRepository lostWayRepository;
 
 	@Autowired
 	private LostPetRepository lostPetRepository;
@@ -128,10 +111,6 @@ public class LostPetResourceFunctionalTesting {
 		//Breed[] blist = pettype.getBreed();
 		//this.breed = blist[0];
 
-		// Set Colors
-		this.color = this.colorRepository.findAll().get(0);
-		this.color2 = this.colorRepository.findAll().get(0);
-
 		// Set Images
 		Image image1 = new Image("samall.jpg");
 
@@ -142,7 +121,7 @@ public class LostPetResourceFunctionalTesting {
 		//this.pet = new Pet(pettype, images, "female", "TeslaNala", 3, breed, color, color2);
 
 		// Set Lost Way
-		this.lostWay = this.lostWayRepository.findAll().get(0);
+		this.lostWay = LostWay.LOST_FROM_HOME;
 
 		// Set DTO
 		// this.lostPetInputDto = new LostPetInputDto(false, this.location, "desc",

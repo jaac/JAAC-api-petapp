@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import lpa.api.repositories.core.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,11 +17,6 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import lpa.api.documents.core.Role;
 import lpa.api.documents.core.User;
-import lpa.api.repositories.core.HealthConditionRepository;
-import lpa.api.repositories.core.LostPetRepository;
-import lpa.api.repositories.core.PetCommentsRepository;
-import lpa.api.repositories.core.PetTypeRepository;
-import lpa.api.repositories.core.UserRepository;
 
 @Service
 public class DatabaseSeederService {
@@ -52,6 +48,12 @@ public class DatabaseSeederService {
 	@Autowired
 	private PetCommentsRepository petCommentsRepository;
 
+	@Autowired
+	private PetRepository petRepository;
+
+	@Autowired
+	private BreedRepository breedRepository;
+
 	@PostConstruct
 	public void seedDatabase() {
 		if (ymlFileName.isPresent()) {
@@ -75,8 +77,10 @@ public class DatabaseSeederService {
 		// Save Repositories -----------------------------------------------------
 
 		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
+		this.breedRepository.save(lpaGraph.getBreedList());
 		this.petTypeRepository.save(lpaGraph.getTypeList());
 		this.userRepository.save(lpaGraph.getUserList());
+		this.petRepository.save(lpaGraph.getPetList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
 		this.petCommentsRepository.save(lpaGraph.getCommentsList());
 		// -----------------------------------------------------------------------

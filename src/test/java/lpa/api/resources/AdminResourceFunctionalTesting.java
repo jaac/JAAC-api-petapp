@@ -39,7 +39,7 @@ public class AdminResourceFunctionalTesting {
     public void testDeleteAndSeedDb() {
         restService.loginAdmin().restBuilder().path(AdminResource.ADMINS).path(AdminResource.DB).delete().build();
         try {
-            restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USER_ID).expand(666666002).get().build();
+            restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand(666666002).get().build();
             fail();
         } catch (HttpClientErrorException httpError) {
             assertEquals(HttpStatus.NOT_FOUND, httpError.getStatusCode());

@@ -52,7 +52,6 @@ public class Location {
 		this.type = type;
 	}
 
-
 	public double[] getcoordinates() {
 		return coordinates;
 	}

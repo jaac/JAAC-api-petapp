@@ -202,8 +202,8 @@ public class LostPet {
                 ", healthCondition=" + healthCondition +
                 ", gratification=" + gratification +
                 ", description='" + description + '\'' +
-                ", user=" + user.getUsername() +
-                ", pet=" + pet.getName() +
+                ", user=" + user +
+                ", pet=" + pet +
                 '}';
     }
 

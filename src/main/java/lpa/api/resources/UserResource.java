@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import lpa.api.resources.exceptions.UserFieldErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,13 +31,13 @@ public class UserResource {
 
 	public static final String USERS = "/users";
 
-	public static final String USERUSERNAME = "/username";
+	//public static final String USERUSERNAME = "/username";
 
-	public static final String USERNAME_ID = "/{username}";
+	public static final String USER = "/{user}";
 
-	public static final String USERID = "/id";
+	//public static final String USERID = "/id";
 
-	public static final String USER_ID = "/{id}";
+	//public static final String USER_ID = "/{id}";
 
 	public static final String USER_GET = "/get";
 
@@ -46,9 +47,13 @@ public class UserResource {
 	private UserController userController;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void createRegistered(@Valid @RequestBody UserDto userDto) throws UserFieldAlreadyExistException {
+	public void createRegistered(@Valid @RequestBody UserDto userDto) throws UserFieldAlreadyExistException, UserFieldErrorException {
+
 		if (userDto.getPassword() == null) {
 			userDto.setPassword(UUID.randomUUID().toString());
+		}
+		if(userDto.getUsername() == null){
+			throw new UserFieldErrorException("Name can´t be null");
 		}
 		if (this.userController.existsUsername(userDto.getUsername())) {
 			throw new UserFieldAlreadyExistException("Existing username");
@@ -56,6 +61,7 @@ public class UserResource {
 		if (this.userController.emailRepeated(userDto)) {
 			throw new UserFieldAlreadyExistException("Existing email");
 		}
+		System.out.println(userDto + "sssssssssssss");
 		this.userController.createUser(userDto, new Role[] { Role.REGISTERED });
 	}
 
@@ -70,7 +76,6 @@ public class UserResource {
 		if (this.userController.emailRepeated(userDto)) {
 			throw new UserFieldAlreadyExistException("Existing email");
 		}
-
 		if (!this.userController.putUser(userDto)) {
 
 			throw new ForbiddenException();
@@ -78,9 +83,9 @@ public class UserResource {
 	}
 
 	@PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('OPERATOR') or hasRole('REGISTERED')")
-	@RequestMapping(value = USERNAME_ID, method = RequestMethod.DELETE)
-	public void deleteRegistered(@PathVariable String username) throws ForbiddenException {
-		if (!this.userController.deleteUser(username, new Role[] { Role.REGISTERED })) {
+	@RequestMapping(value = USER, method = RequestMethod.DELETE)
+	public void deleteRegistered(@PathVariable String user) throws ForbiddenException {
+		if (!this.userController.deleteUser(user, new Role[] { Role.REGISTERED })) {
 			throw new ForbiddenException();
 		}
 	}
@@ -91,18 +96,18 @@ public class UserResource {
 				.orElseThrow(() -> new UserIdNotFoundException());
 	}
 
-	@RequestMapping(value = USERUSERNAME + USERNAME_ID, method = RequestMethod.GET)
-	public UserDto readRegistered(@PathVariable String username) throws UserIdNotFoundException {
-		return this.userController.readUser(username, new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
-				.orElseThrow(() -> new UserIdNotFoundException(username));
+	@RequestMapping(value = USER, method = RequestMethod.GET)
+	public UserDto readRegistered(@PathVariable String user) throws UserIdNotFoundException {
+		return this.userController.readUser(user, new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
+				.orElseThrow(() -> new UserIdNotFoundException(user));
 	}
 
 	// ?
-	@RequestMapping(value = USERID + USER_ID, method = RequestMethod.GET)
+/*	@RequestMapping(value = USERID + USER_ID, method = RequestMethod.GET)
 	public UserMinimumDto readUserRegistered(@PathVariable String id) throws UserIdNotFoundException {
 		return this.userController.readUserbyId(id, new Role[] { Role.REGISTERED, Role.OPERATOR, Role.ADMIN })
 				.orElseThrow(() -> new UserIdNotFoundException(id));
-	}
+	}*/
 
 	@RequestMapping(value = USER_GET, params = { "role", "page", "size" }, method = RequestMethod.GET)
 	public Page<UserMinimumDto> readUsersByRolAll(@RequestParam("role") String role, @RequestParam("page") int page,
@@ -112,7 +117,6 @@ public class UserResource {
 
 	@RequestMapping(value = USER_GET, params = { "page", "size" }, method = RequestMethod.GET)
 	public Page<User> readUsersAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-
 		return this.userController.readUsersAll(page, size);
 	}
 

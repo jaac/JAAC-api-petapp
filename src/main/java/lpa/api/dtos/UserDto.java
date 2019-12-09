@@ -16,9 +16,6 @@ public class UserDto {
     @Pattern(regexp = USERNAME_PATTERN)
     private String username;
 
-    @NotNull
-    private String name;
-
     private String password;
 
     private String email;
@@ -27,7 +24,9 @@ public class UserDto {
 
     private Boolean active;
 
-    private Date registrationDate;
+    private Date dateAdd;
+
+    private Date dateUpd;
 
     private Image image;
 
@@ -38,7 +37,6 @@ public class UserDto {
     public UserDto(String username, String name, String password, String email, String address, Boolean active,
                    Image image) {
         this.username = username;
-        this.name = name;
         this.password = password;
         this.email = email;
         this.address = address;
@@ -52,11 +50,11 @@ public class UserDto {
 
     public UserDto(User user) {
         this.username = String.valueOf(user.getUsername());
-        this.name = user.getName();
         this.email = user.getEmail();
         this.active = user.isActive();
         //	this.image = user.getUserImage();
-        this.registrationDate = user.getDateAdd();
+        this.dateAdd = user.getDateAdd();
+        this.dateUpd = user.getDateUpd();
     }
 
     public String getUsername() {
@@ -65,14 +63,6 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String username) {
-        this.name = username;
     }
 
     public String getPassword() {
@@ -111,12 +101,16 @@ public class UserDto {
         this.active = active;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Date getDateAdd() {
+        return dateAdd;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setDateAdd(Date dateAdd) {
+        this.dateAdd = dateAdd;
+    }
+
+    public Date getDateUpd() {
+        return dateUpd;
     }
 
     public Image getUserImage() {
@@ -129,8 +123,8 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto [username=" + username + ", name=" + name + ", password=" + password + ", email=" + email
-                + ", address=" + address + ", active=" + active + ", registrationDate=" + registrationDate + "]";
+        return "UserDto [username=" + username + ", password=" + password + ", email=" + email
+                + ", address=" + address + ", active=" + active + ", dateAdd=" + dateAdd + "]";
     }
 
 }

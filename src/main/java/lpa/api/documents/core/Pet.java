@@ -169,7 +169,7 @@ public class Pet {
                 "id='" + id + '\'' +
                 ", active=" + active +
                 ", age=" + age +
-                ", breed=" + breed.getName() +
+                ", breed=" + breed +
                 ", chipNumber='" + chipNumber + '\'' +
                 ", gender=" + gender +
                 ", name='" + name + '\'' +

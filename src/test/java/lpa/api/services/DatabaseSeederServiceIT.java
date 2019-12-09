@@ -28,7 +28,7 @@ public class DatabaseSeederServiceIT {
         // this.databaseSeederService.seedDatabase("tpv-db-test.yml");
         User user = userRepository.findByusername("666666001");
         assertNotNull(user);
-        assertEquals("u001", user.getName());
+        assertEquals("666666001", user.getUsername());
         assertEquals("u001@gmail.com", user.getEmail());
         //assertEquals("66666600L", user.getDni());
         assertTrue(user.getRoles().length >= 2);

@@ -18,8 +18,6 @@ public class User {
     @Indexed(unique = true)
     private String username;
 
-    private String name;
-
     private String password;
 
     private boolean active;
@@ -41,18 +39,17 @@ public class User {
         this.active = true;
     }
 
-    public User(String username, String name, String password, String email) {
+    public User(String username, String password, String email) {
         this();
         this.username = username;
-        this.name = name;
         this.email = email;
         this.setPassword(password);
         this.roles = new Role[]{Role.REGISTERED};
     }
 
 
-    public User(String username, String name, String password) {
-        this(username, username, password, null);
+    public User(String username, String password) {
+        this(username, password, null);
     }
 
     public String getId() {
@@ -65,14 +62,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
@@ -153,7 +142,7 @@ public class User {
     @Override
     public String toString() {
 
-        return "User [username=" + username + ", name=" + name + ", password=" + password + ", active=" + active
+        return "User [username=" + username + ", password=" + password + ", active=" + active
                 + ", email=" + email + ", dateAdd=" + this.dateFormat(dateAdd) + ", dateUpd=" + this.dateFormat(dateUpd) + ", roles="
                 + java.util.Arrays.toString(roles) + ", token=" + token + "]";
     }

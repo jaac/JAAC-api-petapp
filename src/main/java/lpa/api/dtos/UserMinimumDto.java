@@ -7,8 +7,6 @@ public class UserMinimumDto {
 	
 	private String username;
 
-	private String name;
-
 	private Image image;
 
 	private String id;
@@ -18,7 +16,6 @@ public class UserMinimumDto {
 	public UserMinimumDto(User userBd) {
 		this.setId(userBd.getId());
 		this.username = userBd.getUsername();
-		this.name = userBd.getName();
 		//this.image = userBd.getUserImage();
 	}
 
@@ -28,14 +25,6 @@ public class UserMinimumDto {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Image getUserImage() {
@@ -56,6 +45,6 @@ public class UserMinimumDto {
 
 	@Override
 	public String toString() {
-		return "UserMinimumDto [username=" + username + ", name=" + name + ", image=" + image + "]";
+		return "UserMinimumDto [username=" + username + ", image=" + image + "]";
 	}
 }
