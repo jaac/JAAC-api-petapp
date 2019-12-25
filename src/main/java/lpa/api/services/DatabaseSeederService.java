@@ -54,6 +54,12 @@ public class DatabaseSeederService {
 	@Autowired
 	private BreedRepository breedRepository;
 
+	@Autowired
+	private UserProfileRepository userProfileRepository;
+
+	@Autowired
+	private ImageRepository imageRepository;
+
 	@PostConstruct
 	public void seedDatabase() {
 		if (ymlFileName.isPresent()) {
@@ -79,10 +85,13 @@ public class DatabaseSeederService {
 		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
 		this.breedRepository.save(lpaGraph.getBreedList());
 		this.petTypeRepository.save(lpaGraph.getTypeList());
+		this.imageRepository.save(lpaGraph.getImageList());
 		this.userRepository.save(lpaGraph.getUserList());
 		this.petRepository.save(lpaGraph.getPetList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
 		this.petCommentsRepository.save(lpaGraph.getCommentsList());
+		this.userProfileRepository.save(lpaGraph.getUserProfileList());
+
 		// -----------------------------------------------------------------------
 
 		Logger.getLogger(this.getClass()).warn("------------------------- Seed: " + ymlFileName + "-----------");
@@ -96,7 +105,7 @@ public class DatabaseSeederService {
 		this.lostPetRepository.deleteAll();
 		this.petCommentsRepository.deleteAll();
 		this.userRepository.deleteAll();
-
+		this.userProfileRepository.deleteAll();
 		this.createAdminIfNotExist();
 		// -----------------------------------------------------------------------
 	}

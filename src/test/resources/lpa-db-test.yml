@@ -12,12 +12,6 @@ tokenList:
   - &to4
     value: otRnEQ7DSaBGnS7C5T8zgs4d06g
 
-  # UserImage
-userImageList:
-  - &uimg0
-    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-  - &uimg1
-    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/164684470-redhead-wallpapers.jpg?alt=media&token=1ed98c7c-9728-482e-9e07-7ec18b6516ab
 
 # Users
 # usernames: 666666000 a 666666666 RESERVADOS AQUI
@@ -151,14 +145,14 @@ typeBreedList:
     type: *typ0
     breed: *br0
 
-# PetImageList
+# imageList
 imageList:
-  - &petImg0
-    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
-  - &petImg1
-    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  - &img0
+    imageUrl: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+  - &img1
+    imageUrl: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
   - &petImg2
-    image: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
+    imageUrl: https://firebasestorage.googleapis.com/v0/b/lostpet-28e26.appspot.com/o/0dejzdn5p546?alt=media&token=6490c07c-68ea-482e-9deb-a642b17f718e
 
 # AttributesCategory
 attributesCategoryList:
@@ -294,7 +288,32 @@ lostPetList:
     pet: *pet0
     lostWay: LOST_FROM_HOME
     user: *us02
-
+# UserProfileList
+userProfileList:
+  - &uprof0
+    user: *us4
+    name: Alberto 004
+    lastName: Chicote 004
+    mobile: 6554223
+    address1: addres test1
+    address2: addres test2
+    city: Los Angeles
+    zipCode: 54200
+    country: United States
+    description: Desc from yml
+    image: *img1
+  - &uprof1
+    user: *us02
+    name: Fran 002
+    lastName: Chicote 002
+    mobile: 6554223
+    address1: addres test1
+    address2: addres test2
+    city: Los Angeles
+    zipCode: 54200
+    country: United States
+    description: Desc from yml
+    image: *img1
 # PetCommentsList
 commentsList:
   - &lpc0

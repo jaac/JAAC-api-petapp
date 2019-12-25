@@ -113,7 +113,7 @@ public class UserController {
         return users;
     }
 
-    public Optional<UserMinimumDto> readCurrentUser(Role[] roles) {
+    public Optional<UserMinimumDto> readCurrentUser() {
         if (this.authenticationFacade.getCurrentUser() != null) {
             return Optional.of(new UserMinimumDto(this.authenticationFacade.getCurrentUser()));
         } else {

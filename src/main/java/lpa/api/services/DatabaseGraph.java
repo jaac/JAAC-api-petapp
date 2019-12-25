@@ -5,7 +5,7 @@ import java.util.List;
 import lpa.api.documents.core.*;
 
 public class DatabaseGraph {
-	private List<Image> userImageList;
+	private List<Image> imageList;
 	private List<User> userList;
 
 	private List<LostPet> lostPetList;
@@ -16,15 +16,12 @@ public class DatabaseGraph {
 	private List<Type> typeList;
 	private List<Pet> petList;
 	private List<LostWay> lostWayList;
-	private List<Image> imageList;
 	private List<Comments> commentsList;
 	private List<Report> reportList;
 	private List<AttributesCategory> attributesCategoryList;
 	private List<TypeBreed> typeBreedList;
-
-
+	private List<UserProfile> userProfileList;
 	private List<Attribute> attributesList;
-	//
 	private List<Token> tokenList;
 
 	public DatabaseGraph() {
@@ -136,14 +133,6 @@ public class DatabaseGraph {
 		this.imageList = imageList;
 	}
 
-	public List<Image> getUserImageList() {
-		return userImageList;
-	}
-
-	public void setUserImageList(List<Image> userImageList) {
-		this.userImageList = userImageList;
-	}
-
 	public List<Report> getReportList() {
 		return reportList;
 	}
@@ -161,4 +150,11 @@ public class DatabaseGraph {
 	}
 
 
+	public List<UserProfile> getUserProfileList() {
+		return userProfileList;
+	}
+
+	public void setUserProfileList(List<UserProfile> userProfileList) {
+		this.userProfileList = userProfileList;
+	}
 }

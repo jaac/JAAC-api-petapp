@@ -2,6 +2,7 @@ package lpa.api.resources;
 
 import static org.junit.Assert.assertEquals;
 
+import lpa.api.dtos.UserProfileDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,6 +26,7 @@ import lpa.api.repositories.core.UserRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
+
 public class UserResourceFunctionalTesting {
 
     @Rule
@@ -34,13 +36,24 @@ public class UserResourceFunctionalTesting {
     private RestService restService;
 
     private UserDto userDto;
-
+    private UserProfileDto userProfileDto;
     @Autowired
     private UserRepository userRepository;
 
     @Before
     public void before() {
         this.userDto = new UserDto("666000000");
+        this.userProfileDto = new UserProfileDto();
+        userProfileDto.setName("Test u007");
+        userProfileDto.setDescription("Description User u007");
+        userProfileDto.setImage("IMG_URL");
+        userProfileDto.setAddress1("address 1");
+        userProfileDto.setAddress2("address 2");
+        userProfileDto.setCity("New York");
+        userProfileDto.setCountry("United States");
+        userProfileDto.setMobile("666555888");
+        userProfileDto.setZipCode("65200");
+        userProfileDto.setLastName("Last from test");
     }
 
     @Test
@@ -56,8 +69,8 @@ public class UserResourceFunctionalTesting {
 
     @Test
     public void testCreateRegisteredUsernameNullException() {
-    	// MultipleFailureException Se disparan 2 errores: el campo username no puede ser null y tiene que
-		// cumplir el patron USERNAME_PATTERN
+        // MultipleFailureException Se disparan 2 errores: el campo username no puede ser null y tiene que
+        // cumplir el patron USERNAME_PATTERN
         thrown.expect(MultipleFailureException.class);
         this.userDto.setUsername(null);
         restService.loginAdmin().restBuilder().path(UserResource.USERS).body(this.userDto).post().build();
@@ -133,7 +146,7 @@ public class UserResourceFunctionalTesting {
                 .path(UserResource.USER).expand(666666001).get().build();
     }
 
-/*	@Test
+    /*@Test
 	public void testReadUserUnauthorized() {
 		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
 		restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USERUSERNAME)
@@ -145,6 +158,79 @@ public class UserResourceFunctionalTesting {
         UserMinimumDto userMinimumDto = restService.loginRegistered().restBuilder(new RestBuilder<UserMinimumDto>())
                 .clazz(UserMinimumDto.class).path(UserResource.USERS).path(UserResource.CURRENT).get().build();
         assertEquals("666666002", userMinimumDto.getUsername());
+    }
+
+    /*User Profile Test*/
+    @Test
+    public void testCreateUserProfile() {
+        UserProfileDto userProfileDto1 = this.restService.loginAdmin().restBuilder(new RestBuilder<UserProfileDto>())
+                .path(UserResource.USERS).clazz(UserProfileDto.class).path(UserResource.USER).expand("666666007")
+                .path(UserResource.PROFILE).body(userProfileDto).post().build();
+        assertEquals("UserProfileDto{name='Test u007', lastName='Last from test', mobile='666555888', address1='address 1', address2='address 2', city='New York', zipCode='65200', country='United States', image='IMG_URL', description='Description User u007'}",
+                userProfileDto1.toString());
+    }
+
+    @Test
+    public void testReadUserProfile() {
+        UserProfileDto userProfileDto1 =  restService.loginRegistered().restBuilder(new RestBuilder<UserProfileDto>()).path(UserResource.USERS)
+                .clazz(UserProfileDto.class).path(UserResource.USER).expand("666666002")
+                .path(UserResource.PROFILE).get().build();
+        assertEquals("Chicote 002",userProfileDto1.getLastName());
+    }
+
+    @Test
+    public void testUpdateUserProfile() {
+        userProfileDto.setName("Update u002");
+        UserProfileDto userProfileDto1 = this.restService.loginRegistered().restBuilder(new RestBuilder<UserProfileDto>())
+                .path(UserResource.USERS).clazz(UserProfileDto.class).path(UserResource.USER).expand("666666002")
+                .path(UserResource.PROFILE).body(userProfileDto).put().build();
+        assertEquals("Update u002", userProfileDto1.getName());
+    }
+
+    @Test
+    public void testCreateUserProfileAlreadyExistException() {
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        UserProfileDto userProfileDto = new UserProfileDto();
+        this.restService.loginRegistered().restBuilder(new RestBuilder<UserProfileDto>())
+                .path(UserResource.USERS).clazz(UserProfileDto.class).path(UserResource.USER).expand("666666004")
+                .path(UserResource.PROFILE).body(userProfileDto).post().build();
+    }
+
+    @Test
+    public void testUpdateUserProfileForbiddenException() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        UserProfileDto userProfileDto = new UserProfileDto();
+        this.restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand("666666002")
+                .path(UserResource.PROFILE).body(userProfileDto).put().build();
+    }
+
+    @Test
+    public void testUpdateUserProfileRegisteredNotOwnerForbiddenException() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        UserProfileDto userProfileDto = new UserProfileDto();
+        this.restService.loginRegistered().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand("666666003")
+                .path(UserResource.PROFILE).body(userProfileDto).put().build();
+    }
+
+    @Test
+    public void testUpdateUserProfileNotRegisteredForbiddenException() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        UserProfileDto userProfileDto = new UserProfileDto();
+        this.restService.logout().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand("666666003")
+                .path(UserResource.PROFILE).body(userProfileDto).put().build();
+    }
+
+    @Test
+    public void testDeleteUserProfile() {
+        this.restService.loginAdmin().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand("666666002")
+                .path(UserResource.PROFILE).delete().build();
+    }
+
+    @Test
+    public void testDeleteUserProfileNoAdminForbiddenException() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        this.restService.loginRegistered().restBuilder().path(UserResource.USERS).path(UserResource.USER).expand("666666002")
+                .path(UserResource.PROFILE).delete().build();
     }
 
     @After

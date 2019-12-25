@@ -1,27 +1,34 @@
 package lpa.api.documents.core;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Image {
 
-	private String image;
+	@Id
+	private String id;
+
+	private String imageUrl;
 
 	public Image() {
 
 	}
 
-	public Image(String image) {
-		this.image = image;
+	public Image(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
-	public String getImage() {
-		return image;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
 	public String toString() {
-		return "Image [image=" + image + "]";
+		return "Image [imageUrl=" + imageUrl + "]";
 	}
 }

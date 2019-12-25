@@ -28,31 +28,26 @@ public class UserDto {
 
     private Date dateUpd;
 
-    private Image image;
-
     public UserDto() {
         // Empty for framework
     }
 
-    public UserDto(String username, String name, String password, String email, String address, Boolean active,
-                   Image image) {
+    public UserDto(String username, String name, String password, String email, String address, Boolean active) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.address = address;
         this.active = active;
-        this.image = image;
     }
 
     public UserDto(String username) {
-        this(username, "name" + username, "pass" + username, null, null, null, null);
+        this(username, "name" + username, "pass" + username, null, null, null);
     }
 
     public UserDto(User user) {
         this.username = String.valueOf(user.getUsername());
         this.email = user.getEmail();
         this.active = user.isActive();
-        //	this.image = user.getUserImage();
         this.dateAdd = user.getDateAdd();
         this.dateUpd = user.getDateUpd();
     }
@@ -113,13 +108,6 @@ public class UserDto {
         return dateUpd;
     }
 
-    public Image getUserImage() {
-        return image;
-    }
-
-    public void setUserImage(Image image) {
-        this.image = image;
-    }
 
     @Override
     public String toString() {

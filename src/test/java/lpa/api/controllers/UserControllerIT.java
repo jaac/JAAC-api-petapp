@@ -24,13 +24,13 @@ public class UserControllerIT {
 
 	@Test
 	public void testEmailRepeatedFalse() {
-		UserDto userDto = new UserDto("666666001", null, null, "u001@gmail.com", null, null, null);
+		UserDto userDto = new UserDto("666666001", null, null, "u001@gmail.com", null, null);
 		assertFalse(userController.emailRepeated(userDto));
 	}
 
 	@Test
 	public void testEmailRepeatedTrue() {
-		UserDto userDto = new UserDto("666666001", null, null, "u004@gmail.com", null, null, null);
+		UserDto userDto = new UserDto("666666001", null, null, "u004@gmail.com", null, null);
 		assertTrue(userController.emailRepeated(userDto));
 	}
 

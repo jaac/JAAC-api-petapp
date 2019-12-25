@@ -12,18 +12,18 @@ import lpa.api.dtos.UserMinimumDto;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
-    public User findByEmail(String email);
+    User findByEmail(String email);
 
-    public User findById(String id);
+    User findById(String id);
 
     @Query("{ 'token.value' : ?0 }")
-    public User findByTokenValue(String tokenValue);
+    User findByTokenValue(String tokenValue);
 
 /*    @Query(value = "{'roles' : ['REGISTERED']}", fields = "{ '_id' : 0, 'username' : 1, 'name' : 1}")
     public Page<UserMinimumDto> findRegisteredAll(Pageable pageable);*/
 
     @Query(value = "{'roles' : { $all : ?0 } }", fields = "{ '_id' : 0, 'username' : 1, 'name' : 1}")
-    public Page<User> findByRoles(Role[] role, Pageable pageable);
+    Page<User> findByRoles(Role[] role, Pageable pageable);
 
-    public User findByusername(String name);
+    User findByusername(String name);
 }
