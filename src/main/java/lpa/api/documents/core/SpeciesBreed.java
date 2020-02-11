@@ -1,32 +1,31 @@
 package lpa.api.documents.core;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class TypeBreed {
+public class SpeciesBreed {
 
     @DBRef
-    private Type type;
+    private Species species;
 
     @DBRef
     private Breed breed;
 
-    public TypeBreed() {
+    public SpeciesBreed() {
     }
 
-    public TypeBreed(Type type, Breed breed) {
-        this.type = type;
+    public SpeciesBreed(Species species, Breed breed) {
+        this.species = species;
         this.breed = breed;
     }
 
-    public Type getType() {
-        return type;
+    public Species getSpecies() {
+        return species;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setSpecies(Species species) {
+        this.species = species;
     }
 
     public Breed getBreed() {
@@ -49,13 +48,13 @@ public class TypeBreed {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return (type.equals(((TypeBreed) obj).type) && breed.equals(((TypeBreed) obj).breed));
+        return (species.equals(((SpeciesBreed) obj).species) && breed.equals(((SpeciesBreed) obj).breed));
     }
 
     @Override
     public String toString() {
         return "TypeBreed{" +
-                ", type=" + type.getName() +
+                ", type=" + species.getName() +
                 ", breed=" + breed.getName() +
                 '}';
     }

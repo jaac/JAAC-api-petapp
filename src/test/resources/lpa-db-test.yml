@@ -122,10 +122,6 @@ locationList:
     street_number: 1
     formatted_address: C/sanJuan - Molina de segura - Molina de segura - Murcia - Spain
     postalCode: 30500
-# HealthCondition
-healthConditionList:
-  - &hcond0
-    name: Healthy
 
 # BeedList
 breedList:
@@ -134,15 +130,15 @@ breedList:
   - &br1
     name: BullDog
 
-# PetTypeList
-typeList:
-  - &typ0
+# PetSpeciesList
+speciesList:
+  - &spc0
     name: Dog Test
 
-# TypeBreedList
-typeBreedList:
+# SpeciesBreedList
+speciesBreedList:
   - &typB0
-    type: *typ0
+    species: *spc0
     breed: *br0
 
 # imageList
@@ -168,9 +164,10 @@ attributesList:
 # PetList
 petList:
   - &pet0
-    type: *typ0
+    species: *spc0
     gender: FEMALE
     name: Naluda Hey
+    chipNumber: pet000
     age: 2
     breed: *br0
 
@@ -184,10 +181,12 @@ reportList:
 lostPetList:
   - &lostp0
     dateAdd: 2018-06-14
+    dateUpd:
+    dateLost: 2018-06-19
     found: true
     location: *ploc0
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -195,10 +194,12 @@ lostPetList:
 
   - &lostp1
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -206,10 +207,12 @@ lostPetList:
 
   - &lostp2
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -217,10 +220,12 @@ lostPetList:
 
   - &lostp3
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -228,10 +233,12 @@ lostPetList:
 
   - &lostp4
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -239,10 +246,12 @@ lostPetList:
 
   - &lostp5
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
@@ -250,40 +259,48 @@ lostPetList:
 
   - &lostp6
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
     user: *us02
   - &lostp7
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
     user: *us02
   - &lostp8
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME
     user: *us02
   - &lostp9
     dateAdd: 2012-06-12
+    dateUpd:
+    dateLost: 2018-06-19
     found: false
     location: *ploc1
     description: Desc from yml seeder
-    healthCondition: *hcond0
+    healthCondition: HEALTHY
     gratification: true
     pet: *pet0
     lostWay: LOST_FROM_HOME

@@ -7,71 +7,71 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import lpa.api.documents.core.Type;
+import lpa.api.documents.core.Species;
 import lpa.api.dtos.PetTypeDto;
-import lpa.api.repositories.core.PetTypeRepository;
+import lpa.api.repositories.core.SpeciesRepository;
 
 @Controller
 public class PetTypeController {
     @Autowired
-    private PetTypeRepository petTypeRepository;
+    private SpeciesRepository petTypeRepository;
 
     public List<PetTypeDto> readAll() {
-        List<Type> pettypelist = this.petTypeRepository.findAll();
+        List<Species> pettypelist = this.petTypeRepository.findAll();
         List<PetTypeDto> pettypeDtolist = new ArrayList<>();
-        for (Type petType : pettypelist) {
-            pettypeDtolist.add(new PetTypeDto(petType));
+        for (Species petSpecies : pettypelist) {
+            pettypeDtolist.add(new PetTypeDto(petSpecies));
         }
         return pettypeDtolist;
     }
 
     public void createPetType(PetTypeDto petTypeDto) {
-        Type newPetType = new Type(petTypeDto.getName());
-        this.petTypeRepository.save(newPetType);
+        Species newPetSpecies = new Species(petTypeDto.getName());
+        this.petTypeRepository.save(newPetSpecies);
     }
 
     public boolean alreadyExistPetType(String name) {
-        Type petType = this.petTypeRepository.findByName(name);
-        if (petType != null) {
+        Species petSpecies = this.petTypeRepository.findByName(name);
+        if (petSpecies != null) {
             return true;
         }
         return false;
     }
 
     public boolean deletePetType(String name) {
-        Type petType = this.petTypeRepository.findByName(name);
-        if (petType == null) {
+        Species petSpecies = this.petTypeRepository.findByName(name);
+        if (petSpecies == null) {
             return true;
         } else {
-            this.petTypeRepository.delete(petType);
+            this.petTypeRepository.delete(petSpecies);
             return true;
         }
     }
 
-    public Type getType(String petType_id) {
+    public Species getType(String petType_id) {
         return this.petTypeRepository.findOne(petType_id);
     }
 
-    private void savePetType(Type petType) {
-        this.petTypeRepository.save(petType);
+    private void savePetType(Species petSpecies) {
+        this.petTypeRepository.save(petSpecies);
     }
 
     public boolean updatePetType(String petType_id, PetTypeDto petTypeDto) {
-        Type petType = this.petTypeRepository.findOne(petType_id);
-        if (petType != null) {
-            petType.setName(petTypeDto.getName());
-            this.savePetType(petType);
+        Species petSpecies = this.petTypeRepository.findOne(petType_id);
+        if (petSpecies != null) {
+            petSpecies.setName(petTypeDto.getName());
+            this.savePetType(petSpecies);
             return true;
         }
         return false;
     }
 
     public Optional<PetTypeDto> readPetType(String petType_id) {
-        Type petType = this.petTypeRepository.findOne(petType_id);
-        if (petType == null) {
+        Species petSpecies = this.petTypeRepository.findOne(petType_id);
+        if (petSpecies == null) {
             return Optional.empty();
         } else {
-            return Optional.of(new PetTypeDto(petType));
+            return Optional.of(new PetTypeDto(petSpecies));
         }
     }
 

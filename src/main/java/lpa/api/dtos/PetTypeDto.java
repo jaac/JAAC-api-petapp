@@ -3,7 +3,7 @@ package lpa.api.dtos;
 import java.util.Arrays;
 
 import lpa.api.documents.core.Breed;
-import lpa.api.documents.core.Type;
+import lpa.api.documents.core.Species;
 
 public class PetTypeDto {
 
@@ -17,9 +17,9 @@ public class PetTypeDto {
 		// For Frame Work
 	}
 
-	public PetTypeDto(Type petType) {
-		this.id = petType.getId();
-		this.name = petType.getName();
+	public PetTypeDto(Species petSpecies) {
+		this.id = petSpecies.getId();
+		this.name = petSpecies.getName();
 		//this.breed = petType.getBreed();
 	}
 

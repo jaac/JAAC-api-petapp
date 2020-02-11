@@ -13,25 +13,25 @@ public class DatabaseGraph {
 	private List<Location> locationList;
 	private List<HealthCondition> healthConditionList;
 	private List<Breed> breedList;
-	private List<Type> typeList;
+	private List<Species> speciesList;
 	private List<Pet> petList;
 	private List<LostWay> lostWayList;
 	private List<Comments> commentsList;
 	private List<Report> reportList;
 	private List<AttributesCategory> attributesCategoryList;
-	private List<TypeBreed> typeBreedList;
+	private List<SpeciesBreed> speciesBreedList;
 	private List<UserProfile> userProfileList;
 	private List<Attribute> attributesList;
 	private List<Token> tokenList;
+
 
 	public DatabaseGraph() {
 		// Empty for framework
 	}
 
-	public List<TypeBreed> getTypeBreedList() {
-		return typeBreedList;
+	public List<SpeciesBreed> getSpeciesBreedList() {
+		return speciesBreedList;
 	}
-
 
 	public List<Attribute> getAttributesList() {
 		return attributesList;
@@ -41,8 +41,8 @@ public class DatabaseGraph {
 		this.attributesList = attributesList;
 	}
 
-	public void setTypeBreedList(List<TypeBreed> typeBreedList) {
-		this.typeBreedList = typeBreedList;
+	public void setSpeciesBreedList(List<SpeciesBreed> speciesBreedList) {
+		this.speciesBreedList = speciesBreedList;
 	}
 
 	public List<AttributesCategory> getAttributesCategoryList() {
@@ -85,14 +85,6 @@ public class DatabaseGraph {
 		this.locationList = locationList;
 	}
 
-	public List<HealthCondition> getHealthConditionList() {
-		return healthConditionList;
-	}
-
-	public void setHealthConditionList(List<HealthCondition> healthConditionList) {
-		this.healthConditionList = healthConditionList;
-	}
-
 	public List<Breed> getBreedList() {
 		return breedList;
 	}
@@ -101,12 +93,12 @@ public class DatabaseGraph {
 		this.breedList = breed;
 	}
 
-	public List<Type> getTypeList() {
-		return typeList;
+	public List<Species> getSpeciesList() {
+		return speciesList;
 	}
 
-	public void setTypeList(List<Type> typeList) {
-		this.typeList = typeList;
+	public void setSpeciesList(List<Species> speciesList) {
+		this.speciesList = speciesList;
 	}
 
 	public List<Pet> getPetList() {

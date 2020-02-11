@@ -17,16 +17,12 @@ public class LostPet {
 
     private boolean active;
 
-    @DateTimeFormat(iso = ISO.DATE)
-    private Date registrationDate;
-
     private boolean found;
 
     private Location location;
 
     private LostWay lostWay;
 
-    @DBRef
     private HealthCondition healthCondition;
 
     private boolean gratification;
@@ -40,13 +36,15 @@ public class LostPet {
     private Pet pet;
 
     @DateTimeFormat(iso = ISO.DATE)
+    private Date dateLost;
+
+    @DateTimeFormat(iso = ISO.DATE)
     private Date dateAdd;
 
     @DateTimeFormat(iso = ISO.DATE)
     private Date dateUpd;
 
     public LostPet() {
-        this.registrationDate = new Date();
         this.setActive(true);
     }
 
@@ -166,6 +164,10 @@ public class LostPet {
         return dateAdd != null ? new SimpleDateFormat("dd-MMM-yyyy").format(this.dateAdd.getTime()) : "null";
     }
 
+    public Date getDateLost() { return dateLost; }
+
+    public void setDateLost(Date dateLost) { this.dateLost = dateLost; }
+
     @Override
     public int hashCode() {
         return this.id.hashCode();
@@ -187,15 +189,12 @@ public class LostPet {
 
     @Override
     public String toString() {
-        String date = "null";
-        if (registrationDate != null) {
-            date = new SimpleDateFormat("dd-MMM-yyyy").format(registrationDate.getTime());
-        }
         return "LostPet{" +
                 "id='" + id + '\'' +
                 ", active=" + active +
                 ", dateAdd=" + this.dateFormat(dateAdd) +
                 ", dateUpd=" + this.dateFormat(dateAdd) +
+                ", dateLost=" + this.dateFormat(dateLost) +
                 ", found=" + found +
                 ", location=" + location +
                 ", lostWay=" + lostWay +
