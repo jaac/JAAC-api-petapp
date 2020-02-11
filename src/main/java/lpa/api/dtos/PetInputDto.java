@@ -17,7 +17,7 @@ public class PetInputDto {
 
 	private int age;
 
-	private int breed;
+	private String breed;
 
 	private String hairColor;
 
@@ -71,11 +71,11 @@ public class PetInputDto {
 		this.age = age;
 	}
 
-	public int getBreed() {
+	public String getBreed() {
 		return breed;
 	}
 
-	public void setBreed(int breed) {
+	public void setBreed(String breed) {
 		this.breed = breed;
 	}
 

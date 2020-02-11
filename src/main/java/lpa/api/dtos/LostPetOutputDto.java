@@ -30,6 +30,8 @@ public class LostPetOutputDto {
 
 	private Date dateUpd;
 
+	private Date dateLost;
+
 	public LostPetOutputDto() {
 
 	}
@@ -40,7 +42,7 @@ public class LostPetOutputDto {
 		this.found = lostPet.isFound();
 		this.location = lostPet.getLocation();
 		this.description = lostPet.getDescription();
-		this.healthCondition = lostPet.getHealthCondition().getName();
+		this.healthCondition = lostPet.getHealthCondition().healthConditionName();
 		this.pet = new PetOutPutDto(lostPet.getPet());
 		this.userId = lostPet.getUser().getId();
 		this.lostWay = lostPet.getLostWay().lostWayName();
@@ -151,7 +153,9 @@ public class LostPetOutputDto {
 				", userId='" + userId + '\'' +
 				", lostWay='" + lostWay + '\'' +
 				", gratification=" + gratification +
-				", registrationDate=" + dateAdd +
+				", dateAdd=" + dateAdd +
+				", dateUpd=" + dateUpd +
+				", dateLost=" + dateLost +
 				'}';
 	}
 }

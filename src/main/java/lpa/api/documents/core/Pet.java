@@ -29,7 +29,7 @@ public class Pet {
     private String name;
 
     @DBRef
-    private Type type;
+    private Species species;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateAdd;
@@ -41,24 +41,24 @@ public class Pet {
         //For Framework
     }
 
-    public Pet(int active, int age, Breed breed, Gender gender, String name, Type type, String chipNumber) {
+    public Pet(int active, int age, Breed breed, Gender gender, String name, Species species, String chipNumber) {
         this.active = active;
         this.age = age;
         this.breed = breed;
         this.chipNumber = chipNumber;
         this.gender = gender;
         this.name = name;
-        this.type = type;
+        this.species = species;
         this.dateAdd = new Date();
     }
 
-    public Pet(int active, Gender gender, String name, Type type) {
-        this(active, 0, null, gender, type.getName() + " without name", type, null);
+    public Pet(int active, Gender gender, String name, Species species) {
+        this(active, 0, null, gender, species.getName() + " without name", species, null);
     }
 
-    public Pet(int active, Type type) {
+    public Pet(int active, Species species) {
         // Si la mascota introducida es desconocida
-        this(active, 0, null, null, type.getName() + " without name", type, null);
+        this(active, 0, null, null, species.getName() + " without name", species, null);
     }
 
 
@@ -130,12 +130,12 @@ public class Pet {
         this.name = name;
     }
 
-    public Type getType() {
-        return type;
+    public Species getSpecies() {
+        return species;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setSpecies(Species species) {
+        this.species = species;
     }
 
     private String dateFormat(Date dateAdd) {
@@ -173,7 +173,7 @@ public class Pet {
                 ", chipNumber='" + chipNumber + '\'' +
                 ", gender=" + gender +
                 ", name='" + name + '\'' +
-                ", type=" + type.getName() +
+                ", type=" + species +
                 ", dateAdd=" + this.dateFormat(dateAdd) +
                 ", dateUpd=" + this.dateFormat(dateUpd) +
                 '}';

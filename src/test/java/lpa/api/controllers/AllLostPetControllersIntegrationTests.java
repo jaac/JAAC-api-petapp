@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LostPetControllerIT.class, PetTypeControllerIT.class, UserControllerIT.class })
+@SuiteClasses({ LostPetControllerIT.class, PetSpeciesControllerIT.class, UserControllerIT.class })
 public class AllLostPetControllersIntegrationTests {
 
 }

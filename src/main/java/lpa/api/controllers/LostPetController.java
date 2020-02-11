@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lpa.api.documents.core.*;
+import lpa.api.repositories.core.BreedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,9 +22,8 @@ import lpa.api.dtos.LostPetMinimumDto;
 import lpa.api.dtos.LostPetOutputDto;
 import lpa.api.dtos.LostPetUpdateInputDto;
 import lpa.api.dtos.PetInputDto;
-import lpa.api.repositories.core.HealthConditionRepository;
 import lpa.api.repositories.core.LostPetRepository;
-import lpa.api.repositories.core.PetTypeRepository;
+import lpa.api.repositories.core.SpeciesRepository;
 import lpa.api.repositories.core.UserRepository;
 import lpa.api.services.AuthenticationFacade;
 
@@ -37,21 +37,19 @@ public class LostPetController {
     private UserRepository userRepository;
 
     @Autowired
-    private HealthConditionRepository healthConditionRepository;
-
-    @Autowired
     private AuthenticationFacade authenticationFacade;
 
     @Autowired
-    private PetTypeRepository petTypeRepository;
+    private BreedRepository breedRepository;
 
-    public void createLostPet(LostPetInputDto lostPetInputDto) {
-        HealthCondition healthCondition = healthConditionRepository.findOne(lostPetInputDto.getHealthConditionId());
+    @Autowired
+    private SpeciesRepository petTypeRepository;
 
+    public LostPetOutputDto createLostPet(LostPetInputDto lostPetInputDto) {
         LostPet lostPet = new LostPet(lostPetInputDto.isFound(), lostPetInputDto.getPetLocation(),
-                lostPetInputDto.getDescription(), healthCondition, this.buildNewPet(lostPetInputDto.getPet()),
-                this.userRepository.findById(lostPetInputDto.getUserId()), LostWay.valueOf(lostPetInputDto.getLostWay()), lostPetInputDto.isGratification());
-        this.lostPetRepository.save(lostPet);
+                lostPetInputDto.getDescription(), lostPetInputDto.getHealthCondition(), this.buildNewPet(lostPetInputDto.getPet()),
+                this.userRepository.findById(lostPetInputDto.getUserId()), lostPetInputDto.getLostWay(), lostPetInputDto.isGratification());
+        return  new LostPetOutputDto(this.lostPetRepository.save(lostPet));
     }
 
     public List<LostPetMinimumDto> readLostPetAll(Pageable pageable) {
@@ -124,27 +122,20 @@ public class LostPetController {
         lostPet.setDescription(lostPetPutInputDto.getDescription());
         lostPet.setFound(lostPetPutInputDto.isFound());
         lostPet.setGratification(lostPetPutInputDto.isGratification());
-        lostPet.setHealthCondition(healthConditionRepository.findOne(lostPetPutInputDto.getHealthConditionId()));
+        lostPet.setHealthCondition(lostPetPutInputDto.getHealthCondition());
         lostPet.setLocation(lostPetPutInputDto.getPetLocation());
-        lostPet.setLostWay(LostWay.valueOf(lostPetPutInputDto.getLostWay()));
+        lostPet.setLostWay(lostPetPutInputDto.getLostWay());
         lostPet.setPet(this.buildNewPet(lostPetPutInputDto.getPet()));
     }
 
     private Pet buildNewPet(PetInputDto petInputDto) {
         Pet pet = new Pet();
-        // Color eyesColor = this.colorRepository.findOne(petInputDto.getEyesColor());
-        // Color hairColor = this.colorRepository.findOne(petInputDto.getHairColor());
-        Type petType = this.petTypeRepository.findOne(petInputDto.getPetType());
-        //Breed breed = petType.getBreed()[petInputDto.getBreed()];
-
+        Species petSpecies = this.petTypeRepository.findOne(petInputDto.getPetType());
         pet.setAge(petInputDto.getAge());
-        //pet.setBreed(breed);
-        //pet.setEyesColor(eyesColor);
-        //pet.setGender(petInputDto.getGender());
-        //pet.setHairColor(hairColor);
+        pet.setBreed(this.breedRepository.findByName(petInputDto.getBreed()));
+        pet.setGender(Gender.valueOf(petInputDto.getGender()));
         pet.setName(petInputDto.getName());
-        //pet.setPetImages(petInputDto.getPetImages());
-        // pet.setPetType(petType);
+        pet.setSpecies(petSpecies);
         return pet;
     }
 

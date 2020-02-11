@@ -34,16 +34,13 @@ public class DatabaseSeederService {
 	private Optional<String> ymlFileName;
 
 	@Autowired
-	private HealthConditionRepository healthConditionRepository;
-
-	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
 	private LostPetRepository lostPetRepository;
 
 	@Autowired
-	private PetTypeRepository petTypeRepository;
+	private SpeciesRepository speciesRepository;
 
 	@Autowired
 	private PetCommentsRepository petCommentsRepository;
@@ -55,10 +52,16 @@ public class DatabaseSeederService {
 	private BreedRepository breedRepository;
 
 	@Autowired
+	private SpeciesBreedRepository specieBreedBreedRepository;
+
+	@Autowired
 	private UserProfileRepository userProfileRepository;
 
 	@Autowired
 	private ImageRepository imageRepository;
+
+	@Autowired
+	private LocationRepository locationRepository;
 
 	@PostConstruct
 	public void seedDatabase() {
@@ -82,16 +85,16 @@ public class DatabaseSeederService {
 
 		// Save Repositories -----------------------------------------------------
 
-		this.healthConditionRepository.save(lpaGraph.getHealthConditionList());
 		this.breedRepository.save(lpaGraph.getBreedList());
-		this.petTypeRepository.save(lpaGraph.getTypeList());
+		this.speciesRepository.save(lpaGraph.getSpeciesList());
 		this.imageRepository.save(lpaGraph.getImageList());
+		this.locationRepository.save(lpaGraph.getLocationList());
 		this.userRepository.save(lpaGraph.getUserList());
 		this.petRepository.save(lpaGraph.getPetList());
 		this.lostPetRepository.save(lpaGraph.getLostPetList());
 		this.petCommentsRepository.save(lpaGraph.getCommentsList());
 		this.userProfileRepository.save(lpaGraph.getUserProfileList());
-
+		this.specieBreedBreedRepository.save(lpaGraph.getSpeciesBreedList());
 		// -----------------------------------------------------------------------
 
 		Logger.getLogger(this.getClass()).warn("------------------------- Seed: " + ymlFileName + "-----------");
@@ -100,8 +103,8 @@ public class DatabaseSeederService {
 	public void deleteAllAndCreateAdmin() {
 		Logger.getLogger(this.getClass()).warn("------------------------- delete All And Create Admin-----------");
 		// Delete Repositories -----------------------------------------------------
-		this.healthConditionRepository.deleteAll();
-		this.petTypeRepository.deleteAll();
+		this.speciesRepository.deleteAll();
+		this.locationRepository.deleteAll();
 		this.lostPetRepository.deleteAll();
 		this.petCommentsRepository.deleteAll();
 		this.userRepository.deleteAll();

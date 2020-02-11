@@ -20,7 +20,7 @@ public class LostPetMinimumDto {
 	public LostPetMinimumDto(LostPet lostPet) {
 		this.id = lostPet.getId();
 		this.name = lostPet.getPet().getName();
-		this.type = lostPet.getPet().getType().getName();
+		this.type = lostPet.getPet().getSpecies().getName();
 		this.found = lostPet.isFound();
 		this.date = lostPet.getDateAdd();
 		//this.image = lostPet.getPet().getPetImages()[0].getImage();

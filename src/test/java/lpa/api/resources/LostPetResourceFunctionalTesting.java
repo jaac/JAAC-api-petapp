@@ -5,9 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import lpa.api.documents.core.*;
+import lpa.api.dtos.*;
+import lpa.api.repositories.core.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,332 +24,298 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.dtos.LostPetMinimumDto;
-import lpa.api.dtos.LostPetOutputDto;
-import lpa.api.dtos.LostPetUpdateInputDto;
-
-import lpa.api.dtos.LostPetInputDto;
-import lpa.api.repositories.core.HealthConditionRepository;
-import lpa.api.repositories.core.LostPetRepository;
-import lpa.api.repositories.core.PetTypeRepository;
-import lpa.api.repositories.core.UserRepository;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
 
 public class LostPetResourceFunctionalTesting {
 
-	@Autowired
-	private RestService restService;
+    @Autowired
+    private RestService restService;
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	private String idDelete;
+    private String idDelete;
 
-	private LostPet newLostPet;
+    private LostPet newLostPet;
 
-	private boolean plCreated;
+    private boolean plCreated;
 
-	private String lostPetId;
+    private String lostPetId;
 
-	private List<LostPet> lostPetList;
+    private List<LostPet> lostPetList;
 
-	private LostPetInputDto lostPetInputDto;
+    private LostPetInputDto lostPetInputDto;
 
-	private User user1;
+    private User user1;
 
-	@Autowired
-	private UserRepository UserRepository;
+    @Autowired
+    private UserRepository UserRepository;
 
-	private Location location;
-	@Autowired
-	private HealthConditionRepository healthConditionRepository;
+    @Autowired
+    private PetRepository petRepository;
 
-	private HealthCondition healthCondition;
+    @Autowired
+    private LocationRepository locationRepository;
 
-	private Pet pet;
+    private Location location;
 
-	private Type pettype;
+    private HealthCondition healthCondition;
 
-	private Image[] images;
+    private Pet pet;
 
-	private Breed breed;
+    private LostWay lostWay;
 
-	private LostWay lostWay;
+    @Autowired
+    private SpeciesRepository pettypeRepository;
 
-	@Autowired
-	private PetTypeRepository pettypeRepository;
+    @Autowired
+    private LostPetRepository lostPetRepository;
 
-	@Autowired
-	private LostPetRepository lostPetRepository;
+    @Before
+    public void createLostPetata() {
+        this.lostPetList = this.lostPetRepository.findByDescription("Desc from yml seeder");
+        this.lostPetId = this.lostPetList.get(1).getId();
 
-	@Before
-	public void createLostPetata() {
-		this.lostPetList = this.lostPetRepository.findByDescription("Desc from yml seeder");
-		this.lostPetId = this.lostPetList.get(1).getId();
+        // User
+        List<User> UList = this.UserRepository.findAll();
+        this.user1 = UList.get(0);
 
-		// User
-		List<User> UList = this.UserRepository.findAll();
-		this.user1 = UList.get(0);
+        // Set Location
+        this.location = this.locationRepository.findBycountry("Germany");
 
-		// Set Location
-		double[] coordinates;
-		coordinates = new double[2];
-		// 47.404395, 8.525727 - Zúrich, Suiza
-		coordinates[0] = 8.525727; // long
-		coordinates[1] = 47.404395; // lat
-		this.location = new Location(coordinates, "Suiza", "Zúrich", "Wipkingen", "Wipkingen", "oneStreet", 1,
-				"1 Wipkingen - Zúrich - Suiza", 554);
+        // Set Pet
+        this.pet = this.petRepository.findBychipNumber("pet000");
 
-		// Set Health condition
-		List<HealthCondition> healthConditionList = this.healthConditionRepository.findAll();
-		this.healthCondition = healthConditionList.get(0);
+        // Set Lost Way
+        this.lostWay = LostWay.LOST_FROM_HOME;
 
-		// Set Pet Type
-		List<Type> pettypeList = this.pettypeRepository.findAll();
-		this.pettype = pettypeList.get(0);
+        // Set Health Condition
+        this.healthCondition = HealthCondition.HEALTHY;
+        System.out.println(this.pet);
+        // Set DTO
+        this.lostPetInputDto = new LostPetInputDto(false, this.location, "desc",
+                this.healthCondition, new PetInputDto(this.pet),
+                this.user1.getId(), this.lostWay, true, new Date());
+    }
 
-		//Breed[] blist = pettype.getBreed();
-		//this.breed = blist[0];
+    @Test
+    public void testCreateLostPetAsAdmin() {
+        LostPetOutputDto lostPetOutputDto = restService.loginAdmin().restBuilder(new RestBuilder<LostPetOutputDto>())
+                .clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET)
+                .body(this.lostPetInputDto).post().build();
+        System.out.println(lostPetOutputDto);
+    }
 
-		// Set Images
-		Image image1 = new Image("samall.jpg");
+    @Test
+    public void testCreateLostPetAsRegistered() {
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post()
+                .build();
+        // Assign the new Lost Pet created
+        this.plCreated = true;
+        this.newLostPet = this.lostPetRepository.findByPet(this.pet);
+    }
 
-		images = new Image[4];
-		images[0] = image1;
-
-		// Set Pet
-		//this.pet = new Pet(pettype, images, "female", "TeslaNala", 3, breed, color, color2);
-
-		// Set Lost Way
-		this.lostWay = LostWay.LOST_FROM_HOME;
-
-		// Set DTO
-		// this.lostPetInputDto = new LostPetInputDto(false, this.location, "desc",
-		// this.healthCondition, this.pet,
-		// this.user1.getId(), this.lostWay, false, null);
-	}
-
-	@Test
-	public void testCreateLostPetAsAdmin() {
-		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
-		this.plCreated = true;
-		// Assign the new Lost Pet created
-		if (this.plCreated) {
-			this.newLostPet = this.lostPetRepository.findByPet(this.pet);
-		}
-	}
-
-	@Test
-	public void testCreateLostPetAsRegistered() {
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post()
-				.build();
-		// Assign the new Lost Pet created
-		this.plCreated = true;
-		this.newLostPet = this.lostPetRepository.findByPet(this.pet);
-	}
-
-	@Test
-	public void testCreateLostPetAsOperator() {
-		restService.loginOperator().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post()
-				.build();
-		// Assign the new Lost Pet created
-		this.plCreated = true;
-		this.newLostPet = this.lostPetRepository.findByPet(this.pet);
-	}
-
-	@Test
-	public void testCreateLostPetAsAnon() {
-		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-		restService.logout().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
-		// Assign the new Lost Pet created
-		this.plCreated = true;
-		this.newLostPet = this.lostPetRepository.findByPet(this.pet);
-	}
-
-	@Test
-	public void testUpdateLostPetAsAdmin() {
-		LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
-
-		lostPetEdit.setDescription("Put from test1");
-
-		LostPetUpdateInputDto lostPetPutInputDto;
-		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, this.user1.getId(), this.lostPetId);
-		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put().build();
-		LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
-
-		assertEquals("Put from test1", lostPetEditTest.getDescription());
-	}
-
-	@Test
-	public void testUpdateLostPetAsRegisteredOwner() {
-		LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
-
-		lostPetEdit.setDescription("Put from test1");
-		User userReg = this.UserRepository.findByEmail("u005@gmail.com");
-
-		LostPetUpdateInputDto lostPetPutInputDto;
-		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userReg.getId(), this.lostPetId);
-
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
-				.build();
-		LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
-
-		assertEquals("Put from test1", lostPetEditTest.getDescription());
-	}
-
-	@Test
-	public void testUpdateLostPetAsOperator() {
-		LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
-
-		lostPetEdit.setFound(true);
-		User userReg = this.UserRepository.findByEmail("u005@gmail.com");
-
-		LostPetUpdateInputDto lostPetPutInputDto;
-		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userReg.getId(), this.lostPetId);
-
-		restService.loginOperator().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put().build();
-		LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
-
-		assertEquals(true, lostPetEditTest.isFound());
-	}
-
-	@Test
-	public void testUpdateLostPetAsRegisteredNoOwnerException() {
-		LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
-
-		lostPetEdit.setDescription("Put from test1");
-		User userRegNoOwner = this.UserRepository.findByEmail("u006@gmail.com");
-		// System.out.println(userRegNoOwner);
-		LostPetUpdateInputDto lostPetPutInputDto;
-		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userRegNoOwner.getId(), this.lostPetId);
-
-		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
-				.build();
-	}
-
-	@Test
-	public void testUpdateLostPetAsRegisteredNullLostpetExeception() {
-		LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
-
-		lostPetEdit.setDescription("Put from test1");
-		User userRegNoOwner = this.UserRepository.findByEmail("u006@gmail.com");
-		LostPetUpdateInputDto lostPetPutInputDto;
-		lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userRegNoOwner.getId(), this.lostPetId);
-		lostPetPutInputDto.setLostPet(null);
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
-				.build();
-	}
-
-	@Test
-	public void testDeleteLostPetAsRegistered() {
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
-				.expand(this.lostPetId).patch().build();
-		assertFalse(this.lostPetRepository.findOne(lostPetId).isActive());
-	}
-
-	@Test
-	public void testCreateLostPetUserNullException() {
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		this.lostPetInputDto.setUserId(null);
-		this.lostPetInputDto.setDescription("Fortnite");
-		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
-	}
-
-	@Test
-	public void testCreateLostPetPetNullException() {
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		this.lostPetInputDto.setPet(null);
-		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
-	}
-
-	@Test
-	public void testCreateLostPetLocationNullException() {
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		this.lostPetInputDto.setPetLocation(null);
-		restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
-	}
-
-	@Test
-	public void testReadAsAdminPetLostAll() {
-		LostPetMinimumDto[] lostPetMinimumListDto = restService.loginAdmin()
-				.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
-				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).param("page", "0").param("size", "3")
-				.get().build();
-
-		assertEquals(3, Arrays.asList(lostPetMinimumListDto).size());
-	}
-
-	@Test
-	public void testReadLostPetAsAdmin() {
-		LostPetOutputDto lostPetOutputDto = restService.loginAdmin().restBuilder(new RestBuilder<LostPetOutputDto>())
-				.clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
-				.expand(this.lostPetId).get().build();
-		assertTrue(lostPetOutputDto.isActive());
-	}
-
-	@Test
-	public void testReadLostPetMinimumFromCurrentPosition() {
-		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
-				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
-				.param("distance", "5").param("page", "0").param("size", "5").get().build();
-		System.out.println(lostPetMinimumListDto);
-		assertEquals(2, lostPetMinimumListDto.length);
-	}
-
-	@Test
-	public void testReadLostPetMinimumFromCurrentPositionSizeExededException() {
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
-				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
-				.param("distance", "5").param("page", "0").param("size", "101").get().build();
-		assertEquals(2, lostPetMinimumListDto.length);
-	}
-
-	@Test
-	public void testReadLostPetMinimumFromCurrentPositionEmpty() {
-		// La Miraña Oriental - Lugo 43.297184, -7.098994 - Current Position Molina de
-		// segura - Murcia
-		LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
-				.clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
-				.path(LostPetResource.LOSTPET_NEAR).param("longi", "-7.098994").param("lat", "43.297184")
-				.param("distance", "5").param("page", "0").param("size", "5").get().build();
-		assertEquals(0, lostPetMinimumListDto.length);
-	}
-
-	@Test
-	public void testDistanceMaxime20KMExededException() {
-		// Distance allowed 5 - 10 - 15 - 20
-		thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
-		restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
-				.path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).path(LostPetResource.LOSTPET_NEAR)
-				.param("longi", "-7.098994").param("lat", "43.297184").param("distance", "21").param("page", "0")
-				.param("size", "5").get().build();
-
-	}
-
-	@Test
-	public void testDeleteAsRegisteredException() {
-		thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
-
-		restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
-				.expand("6566546s").patch().build();
-	}
-
-	@After
-	public void delete() {
-		// Delete new PetLost
-		if (this.plCreated) {
-			this.idDelete = this.newLostPet.getId();
-			restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
-					.expand(this.idDelete).delete().build();
-		}
-	}
+    @Test
+    public void testCreateLostPetAsOperator() {
+        restService.loginOperator().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post()
+                .build();
+        // Assign the new Lost Pet created
+        this.plCreated = true;
+        this.newLostPet = this.lostPetRepository.findByPet(this.pet);
+    }
+
+    @Test
+    public void testCreateLostPetAsAnon() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        restService.logout().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
+        // Assign the new Lost Pet created
+        this.plCreated = true;
+        this.newLostPet = this.lostPetRepository.findByPet(this.pet);
+    }
+
+    @Test
+    public void testUpdateLostPetAsAdmin() {
+        LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
+
+        lostPetEdit.setDescription("Put from test1");
+
+        LostPetUpdateInputDto lostPetPutInputDto;
+        lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, this.user1.getId(), this.lostPetId);
+        restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put().build();
+        LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
+
+        assertEquals("Put from test1", lostPetEditTest.getDescription());
+    }
+
+    @Test
+    public void testUpdateLostPetAsRegisteredOwner() {
+        LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
+
+        lostPetEdit.setDescription("Put from test1");
+        User userReg = this.UserRepository.findByEmail("u005@gmail.com");
+
+        LostPetUpdateInputDto lostPetPutInputDto;
+        lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userReg.getId(), this.lostPetId);
+
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
+                .build();
+        LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
+
+        assertEquals("Put from test1", lostPetEditTest.getDescription());
+    }
+
+    @Test
+    public void testUpdateLostPetAsOperator() {
+        LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
+
+        lostPetEdit.setFound(true);
+        User userReg = this.UserRepository.findByEmail("u005@gmail.com");
+
+        LostPetUpdateInputDto lostPetPutInputDto;
+        lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userReg.getId(), this.lostPetId);
+
+        restService.loginOperator().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put().build();
+        LostPet lostPetEditTest = this.lostPetRepository.findOne(this.lostPetId);
+
+        assertEquals(true, lostPetEditTest.isFound());
+    }
+
+    @Test
+    public void testUpdateLostPetAsRegisteredNoOwnerException() {
+        LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
+
+        lostPetEdit.setDescription("Put from test1");
+        User userRegNoOwner = this.UserRepository.findByEmail("u006@gmail.com");
+        // System.out.println(userRegNoOwner);
+        LostPetUpdateInputDto lostPetPutInputDto;
+        lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userRegNoOwner.getId(), this.lostPetId);
+
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
+                .build();
+    }
+
+    @Test
+    public void testUpdateLostPetAsRegisteredNullLostpetExeception() {
+        LostPet lostPetEdit = this.lostPetRepository.findOne(this.lostPetId);
+
+        lostPetEdit.setDescription("Put from test1");
+        User userRegNoOwner = this.UserRepository.findByEmail("u006@gmail.com");
+        LostPetUpdateInputDto lostPetPutInputDto;
+        lostPetPutInputDto = new LostPetUpdateInputDto(lostPetEdit, userRegNoOwner.getId(), this.lostPetId);
+        lostPetPutInputDto.setLostPet(null);
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).body(lostPetPutInputDto).put()
+                .build();
+    }
+
+    @Test
+    public void testDeleteLostPetAsRegistered() {
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
+                .expand(this.lostPetId).patch().build();
+        assertFalse(this.lostPetRepository.findOne(lostPetId).isActive());
+    }
+
+    @Test
+    public void testCreateLostPetUserNullException() {
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        this.lostPetInputDto.setUserId(null);
+        this.lostPetInputDto.setDescription("Fortnite");
+        restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
+    }
+
+    @Test
+    public void testCreateLostPetPetNullException() {
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        this.lostPetInputDto.setPet(null);
+        restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
+    }
+
+    @Test
+    public void testCreateLostPetLocationNullException() {
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        this.lostPetInputDto.setPetLocation(null);
+        restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).body(this.lostPetInputDto).post().build();
+    }
+
+    @Test
+    public void testReadAsAdminPetLostAll() {
+        LostPetMinimumDto[] lostPetMinimumListDto = restService.loginAdmin()
+                .restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
+                .path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).param("page", "0").param("size", "3")
+                .get().build();
+
+        assertEquals(3, Arrays.asList(lostPetMinimumListDto).size());
+    }
+
+    @Test
+    public void testReadLostPetAsAdmin() {
+        LostPetOutputDto lostPetOutputDto = restService.loginAdmin().restBuilder(new RestBuilder<LostPetOutputDto>())
+                .clazz(LostPetOutputDto.class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
+                .expand(this.lostPetId).get().build();
+        assertTrue(lostPetOutputDto.isActive());
+    }
+
+    @Test
+    public void testReadLostPetMinimumFromCurrentPosition() {
+        LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+                .clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+                .path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
+                .param("distance", "5").param("page", "0").param("size", "5").get().build();
+        System.out.println(lostPetMinimumListDto);
+        assertEquals(2, lostPetMinimumListDto.length);
+    }
+
+    @Test
+    public void testReadLostPetMinimumFromCurrentPositionSizeExededException() {
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+                .clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+                .path(LostPetResource.LOSTPET_NEAR).param("longi", "-1.195401").param("lat", "38.049283")
+                .param("distance", "5").param("page", "0").param("size", "101").get().build();
+        assertEquals(2, lostPetMinimumListDto.length);
+    }
+
+    @Test
+    public void testReadLostPetMinimumFromCurrentPositionEmpty() {
+        // La Miraña Oriental - Lugo 43.297184, -7.098994 - Current Position Molina de
+        // segura - Murcia
+        LostPetMinimumDto[] lostPetMinimumListDto = restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>())
+                .clazz(LostPetMinimumDto[].class).path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET)
+                .path(LostPetResource.LOSTPET_NEAR).param("longi", "-7.098994").param("lat", "43.297184")
+                .param("distance", "5").param("page", "0").param("size", "5").get().build();
+        assertEquals(0, lostPetMinimumListDto.length);
+    }
+
+    @Test
+    public void testDistanceMaxime20KMExededException() {
+        // Distance allowed 5 - 10 - 15 - 20
+        thrown.expect(new HttpMatcher(HttpStatus.BAD_REQUEST));
+        restService.restBuilder(new RestBuilder<LostPetMinimumDto[]>()).clazz(LostPetMinimumDto[].class)
+                .path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_GET).path(LostPetResource.LOSTPET_NEAR)
+                .param("longi", "-7.098994").param("lat", "43.297184").param("distance", "21").param("page", "0")
+                .param("size", "5").get().build();
+
+    }
+
+    @Test
+    public void testDeleteAsRegisteredException() {
+        thrown.expect(new HttpMatcher(HttpStatus.FORBIDDEN));
+
+        restService.loginRegistered().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_DEACTIVE)
+                .expand("6566546s").patch().build();
+    }
+
+    @After
+    public void delete() {
+        // Delete new PetLost
+        if (this.plCreated) {
+            this.idDelete = this.newLostPet.getId();
+            restService.loginAdmin().restBuilder().path(LostPetResource.LOSTPET).path(LostPetResource.LOSTPET_ID)
+                    .expand(this.idDelete).delete().build();
+        }
+    }
 
 }

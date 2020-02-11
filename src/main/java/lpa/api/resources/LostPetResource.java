@@ -32,82 +32,82 @@ import lpa.api.resources.exceptions.LostPetException;
 @RequestMapping(LostPetResource.LOSTPET)
 public class LostPetResource {
 
-	public static final String LOSTPET = "/lostPet";
+    public static final String LOSTPET = "/lostPet";
 
-	public static final String LOSTPET_ID = "/{id}";
+    public static final String LOSTPET_ID = "/{id}";
 
-	public static final String LOSTPET_NEAR = "/near";
+    public static final String LOSTPET_NEAR = "/near";
 
-	public static final String LOSTPET_DEACTIVE = "/deactive/{id}";
+    public static final String LOSTPET_DEACTIVE = "/deactive/{id}";
 
-	public static final String LOSTPET_GET = "/get";
+    public static final String LOSTPET_GET = "/get";
 
-	@Autowired
-	private LostPetController lostPetController;
+    @Autowired
+    private LostPetController lostPetController;
 
-	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
-	@RequestMapping(method = RequestMethod.POST)
-	public void createLostPet(@Valid @RequestBody LostPetInputDto lostPetInputDto) throws LostPetBadRequest {
-		System.out.println(lostPetInputDto);
-		this.lostPetController.createLostPet(lostPetInputDto);
-	}
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
+    @RequestMapping(method = RequestMethod.POST)
+    public LostPetOutputDto createLostPet(@Valid @RequestBody LostPetInputDto lostPetInputDto) throws LostPetBadRequest {
+        System.out.println(lostPetInputDto);
+        return this.lostPetController.createLostPet(lostPetInputDto);
+    }
 
-	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
-	@RequestMapping(method = RequestMethod.PUT)
-	public void putLostPet(@Valid @RequestBody LostPetUpdateInputDto lostPetPutInputDto)
-			throws LostPetBadRequest, ForbiddenException {
-		if (!this.lostPetController.putLostPet(lostPetPutInputDto, new Role[] { Role.ADMIN, Role.OPERATOR })) {
-			if (lostPetPutInputDto.getLostPet() == null) {
-				throw new LostPetBadRequest("Not lost pet data");
-			}
-			if (this.lostPetController.notOwner(lostPetPutInputDto)) {
-				throw new ForbiddenException("Not user Owner");
-			}
-		}
-	}
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
+    @RequestMapping(method = RequestMethod.PUT)
+    public void putLostPet(@Valid @RequestBody LostPetUpdateInputDto lostPetPutInputDto)
+            throws LostPetBadRequest, ForbiddenException {
+        if (!this.lostPetController.putLostPet(lostPetPutInputDto, new Role[]{Role.ADMIN, Role.OPERATOR})) {
+            if (lostPetPutInputDto.getLostPet() == null) {
+                throw new LostPetBadRequest("Not lost pet data");
+            }
+            if (this.lostPetController.notOwner(lostPetPutInputDto)) {
+                throw new ForbiddenException("Not user Owner");
+            }
+        }
+    }
 
-	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
-	@RequestMapping(value = LOSTPET_ID, method = RequestMethod.DELETE)
-	public void deleteLostPet(@PathVariable String id) {
-		this.lostPetController.deleteLostPet(id);
-	}
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
+    @RequestMapping(value = LOSTPET_ID, method = RequestMethod.DELETE)
+    public void deleteLostPet(@PathVariable String id) {
+        this.lostPetController.deleteLostPet(id);
+    }
 
-	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
-	@RequestMapping(value = LOSTPET_DEACTIVE, method = RequestMethod.PATCH)
-	public void deactiveLostPet(@PathVariable String id) throws ForbiddenException {
-		if (!this.lostPetController.deactiveLostPet(id)) {
-			throw new ForbiddenException();
-		}
-	}
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or hasRole('REGISTERED')")
+    @RequestMapping(value = LOSTPET_DEACTIVE, method = RequestMethod.PATCH)
+    public void deactiveLostPet(@PathVariable String id) throws ForbiddenException {
+        if (!this.lostPetController.deactiveLostPet(id)) {
+            throw new ForbiddenException();
+        }
+    }
 
-	@RequestMapping(value = LOSTPET_ID, method = RequestMethod.GET)
-	public LostPetOutputDto readLostPet(@PathVariable String id) throws LostPetIdNotFoundException {
-		return this.lostPetController.readLostPetOutputDto(id).orElseThrow(() -> new LostPetIdNotFoundException(id));
-	}
+    @RequestMapping(value = LOSTPET_ID, method = RequestMethod.GET)
+    public LostPetOutputDto readLostPet(@PathVariable String id) throws LostPetIdNotFoundException {
+        return this.lostPetController.readLostPetOutputDto(id).orElseThrow(() -> new LostPetIdNotFoundException(id));
+    }
 
-	@PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
-	@RequestMapping(value = LOSTPET_GET, params = { "page", "size" }, method = RequestMethod.GET)
-	public List<LostPetMinimumDto> readLostPetAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-		Pageable pageable = new PageRequest(page, size);
-		return this.lostPetController.readLostPetAll(pageable);
-	}
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
+    @RequestMapping(value = LOSTPET_GET, params = {"page", "size"}, method = RequestMethod.GET)
+    public List<LostPetMinimumDto> readLostPetAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        Pageable pageable = new PageRequest(page, size);
+        return this.lostPetController.readLostPetAll(pageable);
+    }
 
-	// @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or
-	// hasRole('REGISTERED')")
-	@RequestMapping(value = LOSTPET_GET + LOSTPET_NEAR, params = { "longi", "lat", "distance", "page",
-			"size" }, method = RequestMethod.GET)
-	public Page<LostPetMinimumDto> readLostPetNear(@RequestParam("distance") double distance,
-			@RequestParam("longi") double longi, @RequestParam("lat") double lat, @RequestParam("page") int page,
-			@RequestParam("size") int size) throws LostPetDistanceNotAllowedException, LostPetException {
-		if (size > 100) {
-			throw new LostPetException("Size exeded");
-		}
-		if (distance >= 21) {
-			throw new LostPetDistanceNotAllowedException();
-		} else {
-			
-			return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat, page, size);
-		}
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR') or
+    // hasRole('REGISTERED')")
+    @RequestMapping(value = LOSTPET_GET + LOSTPET_NEAR, params = {"longi", "lat", "distance", "page",
+            "size"}, method = RequestMethod.GET)
+    public Page<LostPetMinimumDto> readLostPetNear(@RequestParam("distance") double distance,
+                                                   @RequestParam("longi") double longi, @RequestParam("lat") double lat, @RequestParam("page") int page,
+                                                   @RequestParam("size") int size) throws LostPetDistanceNotAllowedException, LostPetException {
+        if (size > 100) {
+            throw new LostPetException("Size exeded");
+        }
+        if (distance >= 21) {
+            throw new LostPetDistanceNotAllowedException();
+        } else {
 
-	}
+            return this.lostPetController.readLostPetNearMinimumDto(distance, longi, lat, page, size);
+        }
+
+    }
 }

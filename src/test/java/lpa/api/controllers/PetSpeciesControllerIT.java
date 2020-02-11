@@ -11,20 +11,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lpa.api.documents.core.Type;
+import lpa.api.documents.core.Species;
 import lpa.api.dtos.BreedDto;
 import lpa.api.dtos.PetTypeDto;
-import lpa.api.repositories.core.PetTypeRepository;
+import lpa.api.repositories.core.SpeciesRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
-public class PetTypeControllerIT {
+public class PetSpeciesControllerIT {
 	@Autowired
 	PetTypeController petTypeController;
 	private PetTypeDto petTypeDto;
 	@Autowired
-	private PetTypeRepository petTypeRepository;
+	private SpeciesRepository petTypeRepository;
 
 	@Before
 	public void create() {
@@ -39,7 +39,7 @@ public class PetTypeControllerIT {
 	@Test
 	public void testAddBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		Type pettype = this.petTypeRepository.findByName("Cat test");
+		Species pettype = this.petTypeRepository.findByName("Cat test");
 		BreedDto breedDto = new BreedDto("Aad breed");
 		BreedDto breedDto2 = new BreedDto("lana");
 		//petTypeController.addBreed(pettype.getId(), breedDto);
@@ -49,7 +49,7 @@ public class PetTypeControllerIT {
 	@Test
 	public void testUpdateBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		Type pettype = this.petTypeRepository.findByName("Cat test");
+		Species pettype = this.petTypeRepository.findByName("Cat test");
 		this.createBreed(pettype, "Angora");
 		BreedDto breedDto = new BreedDto("Update breed");
 		//petTypeController.updateBreed(pettype.getId(), breedDto, "Angora");
@@ -58,12 +58,12 @@ public class PetTypeControllerIT {
 	@Test
 	public void testDeleteBreed() {
 		this.petTypeController.createPetType(petTypeDto);
-		Type pettype = this.petTypeRepository.findByName("Cat test");
+		Species pettype = this.petTypeRepository.findByName("Cat test");
 		this.createBreed(pettype, "Angora");
 		//assertTrue(this.petTypeController.deleteBreed(pettype.getId(), "Angora"));
 	}
 
-	private void createBreed(Type pettype, String name) {
+	private void createBreed(Species pettype, String name) {
 		BreedDto breed = new BreedDto(name);
 		//petTypeController.addBreed(pettype.getId(), breed);
 	}
